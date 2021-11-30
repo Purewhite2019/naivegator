@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <Double name="canteen1_Lat">31.0218991039    </Double>
+    <Double name="canteen1_Lon">121.431589723   </Double>
+
+    <Double name="canteen2_Lat">31.024483   </Double>
+    <Double name="canteen2_Lon">121.437034   </Double>
+
+    <Double name="canteen3_Lat">31.026848    </Double>
+    <Double name="canteen3_Lon">121.433247   </Double>
+
+    <Double name="canteen4_Lat">31.0252526639    </Double>
+    <Double name="canteen4_Lon">121.427293407   </Double>
+
+
+    <Double name="canteen5_Lat">31.0235811301    </Double>
+    <Double name="canteen5_Lon">121.441310464   </Double>
+
+    <Double name="canteen6_Lat">31.0292790454   </Double>
+    <Double name="canteen6_Lon">121.444620503   </Double>
+
+    <Double name="canteen7_Lat">31.0293375655    </Double>
+    <Double name="canteen7_Lon">121.441385204   </Double>
+
+    <Double name="canteenHaLe_Lat">31.0209011803    </Double>
+    <Double name="canteenHaLe_Lon">121.432329581   </Double>
+
+    <Double name="canteenYuLan_Lat">31.0234444189    </Double>
+    <Double name="canteenYuLan_Lon">121.431225994   </Double>
+</resources>
