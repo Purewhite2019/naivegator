@@ -6,5 +6,5 @@
 
 Course project of CS175, Practice on Android Application Development, Autumn 2021.
 
-[QMUI]https://qmuiteam.com/android from **Tencent**
+[QMUI](https://qmuiteam.com/android), a UI library from **Tencent**
 
