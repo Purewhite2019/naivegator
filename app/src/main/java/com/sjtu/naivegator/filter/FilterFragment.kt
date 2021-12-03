@@ -1,10 +1,10 @@
 package com.sjtu.naivegator.filter
 
 import android.Manifest
-import android.annotation.SuppressLint
+
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Criteria
+
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -17,10 +17,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+
 import com.sjtu.naivegator.R
-import androidx.core.content.ContextCompat.getSystemService
-import kotlinx.android.synthetic.main.fragment_filter.*
+
 
 
 
@@ -43,11 +42,13 @@ class FilterFragment : Fragment() {
     ): View? {
        Log.e("[Filter]","enter fragment")
         var rootView = inflater.inflate(R.layout.fragment_filter, container, false)
+        rootView.alpha=0.75f
+
+
+
+
 
         locationManager = requireActivity().applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager?;
-
-
-
        val filterPermissionsArrays = arrayOf(
            Manifest.permission.ACCESS_FINE_LOCATION,
            Manifest.permission.ACCESS_COARSE_LOCATION)

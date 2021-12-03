@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2740740740740741" />
+        <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2740740740740741" />
         <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/layout/activity_main.xml" value="0.11413043478260869" />
         <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/layout/dialog_filter.xml" value="0.2368659420289855" />
+        <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/layout/fiilter_item.xml" value="0.1" />
         <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/layout/fragment_filter.xml" value="0.2368659420289855" />
+        <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/layout/rounded_1corner.xml" value="0.23324275362318841" />
+        <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/layout/rounded_4corner.xml" value="0.23324275362318841" />
       </map>
     </option>
   </component>

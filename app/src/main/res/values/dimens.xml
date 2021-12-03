@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="filter_item_height">95dp</dimen>
+    <dimen name="filter_item_interval">25dp</dimen>
+
+</resources>

@@ -1,25 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerVertical="true"
-    android:layout_centerHorizontal="true">
-    <ImageView
-        android:id="@+id/filter_image"
+    android:layout_centerHorizontal="true"
+    android:background="@drawable/rounded_4corner"
+    android:padding="25dp">
+
+    <FrameLayout
+        android:id="@+id/filter_item1"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:scaleType="center"
-        android:background="#FFFFBB33"
-        android:contentDescription="@string/app_name" />
-    <TextView
-        android:id="@+id/yfqing_test_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="@dimen/filter_item_height"
+        android:background="@drawable/item_choice1"
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/filter_list"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"/>-->
+        />
 
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/filter_item2"
+        android:layout_below="@id/filter_item1"
+        android:layout_marginTop="@dimen/filter_item_interval"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_item_height"
+        android:background="@drawable/item_choice2"/>
+
+    <FrameLayout
+        android:id="@+id/filter_item3"
+        android:layout_below="@id/filter_item2"
+        android:layout_marginTop="@dimen/filter_item_interval"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_item_height"
+        android:background="@drawable/item_choice3"/>
+
+    <FrameLayout
+        android:id="@+id/filter_item4"
+        android:layout_below="@id/filter_item3"
+        android:layout_marginTop="@dimen/filter_item_interval"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_item_height"
+        android:background="@drawable/item_choice4"/>
+
+    <FrameLayout
+        android:id="@+id/filter_item5"
+        android:layout_below="@id/filter_item4"
+        android:layout_marginTop="@dimen/filter_item_interval"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_item_height"
+        android:background="@drawable/item_choice5"/>
+
+
+
+
+
+</RelativeLayout>

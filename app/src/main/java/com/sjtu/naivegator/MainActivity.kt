@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.sjtu.naivegator.filter.FilterFragment
 import android.location.LocationManager
+import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 
@@ -15,7 +17,6 @@ import android.location.LocationManager
 class MainActivity : AppCompatActivity() {
 
     var fragmentManager: FragmentManager? = null
-    var fragmentTransaction: FragmentTransaction? = null
 
     var filterFragment : FilterFragment ?=null
 
@@ -23,16 +24,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         fragmentManager= supportFragmentManager;
-        fragmentTransaction = fragmentManager!!.beginTransaction()
         filterFragment = FilterFragment()
-        invoke_filter()
+        test_filter_button.setOnClickListener{
+            if (filterFragment!=null&&filterFragment!!.isVisible){
+                supportFragmentManager.beginTransaction().remove(filterFragment!!).commit();
+            }else{
+                supportFragmentManager.beginTransaction().add(R.id.content, filterFragment!!).commit()
+            }
 
-    }
+
+        }
 
 
-    private fun invoke_filter(){
-        fragmentTransaction!!.add(R.id.content, filterFragment!!)
-        fragmentTransaction!!.commit()
     }
 
 }
