@@ -14,7 +14,6 @@
         android:contentDescription="@string/app_name" />
     <TextView
         android:id="@+id/yfqing_test_text"
-        android:text="This is a test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

@@ -1,10 +1,15 @@
 package com.sjtu.naivegator
 
+import android.location.Location
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.sjtu.naivegator.filter.FilterFragment
+import android.location.LocationManager
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
