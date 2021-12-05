@@ -4,6 +4,7 @@ import android.Manifest
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Resources
 
 import android.location.Location
 import android.location.LocationListener
@@ -15,15 +16,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 
 import com.sjtu.naivegator.R
-
-
-
-
-
+import kotlinx.android.synthetic.main.fragment_filter.*
 
 
 class FilterFragment : Fragment() {
@@ -40,37 +38,38 @@ class FilterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       Log.e("[Filter]","enter fragment")
+        filter_log("enter filter fragment")
         var rootView = inflater.inflate(R.layout.fragment_filter, container, false)
         rootView.alpha=0.75f
+//        locationManager = requireActivity().applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager?;
+//       val filterPermissionsArrays = arrayOf(
+//           Manifest.permission.ACCESS_FINE_LOCATION,
+//           Manifest.permission.ACCESS_COARSE_LOCATION)
+//
+//        if (ActivityCompat.checkSelfPermission(
+//                rootView.context,
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                rootView.context,
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            filter_log("request permission")
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                requestPermissions(filterPermissionsArrays, REQUEST_PERMISSION)
+//            }else{
+//                Toast.makeText(context, "Request Location Permission!", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
+//        }
+//        filter_log("check finished")
+//        locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener);
+
+       filter_log("comping set item")
+       set_item(rootView,1,"三餐湖畔餐厅二楼",1024, 9.4F)
 
 
 
-
-
-        locationManager = requireActivity().applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager?;
-       val filterPermissionsArrays = arrayOf(
-           Manifest.permission.ACCESS_FINE_LOCATION,
-           Manifest.permission.ACCESS_COARSE_LOCATION)
-
-        if (ActivityCompat.checkSelfPermission(
-                rootView.context,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                rootView.context,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            filter_log("request permission")
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(filterPermissionsArrays, REQUEST_PERMISSION)
-            }else{
-                Toast.makeText(context, "Request Location Permission!", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-        filter_log("check finished")
-        locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener);
 
         return rootView
     }
@@ -79,6 +78,24 @@ class FilterFragment : Fragment() {
         //use distances and personal infos to filter
     }
 
+    fun set_item(v:View,idx:Int,name:String,distance:Int,score:Float){
+        val item_str = "choice$idx"+"_"
+        val _dis = distance.toString()+"m"
+        val _sco = "%.1f".format(score)
+        var _title_size = 6*24/name.length
+        val res: Resources = resources
+        v.findViewById<com.hanks.htextview.rainbow.RainbowTextView>(
+            res.getIdentifier(item_str+"title", "id", context?.packageName)).text=name
+
+        v.findViewById<com.hanks.htextview.rainbow.RainbowTextView>(
+            res.getIdentifier(item_str+"title", "id", context?.packageName)).textSize= _title_size.toFloat()
+
+        filter_log(item_str+"distance")
+        v.findViewById<TextView>(
+            res.getIdentifier(item_str+"distance", "id", context?.packageName)).text=_dis
+        v.findViewById<TextView>(
+            res.getIdentifier(item_str+"score", "id", context?.packageName)).text=_sco
+    }
 
 
 

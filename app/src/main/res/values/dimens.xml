@@ -2,6 +2,6 @@
 <resources>
     <dimen name="filter_item_height">90dp</dimen>
     <dimen name="filter_item_interval">25dp</dimen>
-    <dimen name="filter_title_size">30dp</dimen>
+    <dimen name="filter_title_size">25dp</dimen>
 
 </resources>
