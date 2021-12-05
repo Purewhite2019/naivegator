@@ -12,9 +12,6 @@
         android:layout_height="wrap_content"/>
 
 
-
-
-
     <Button
         android:id="@+id/btn2"
         android:layout_marginLeft="0dp"
