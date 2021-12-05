@@ -46,8 +46,17 @@ class MainActivity : AppCompatActivity() {
         test_filter_button.setOnClickListener{
             if (filterFragment!=null&&filterFragment!!.isVisible){
                 supportFragmentManager.beginTransaction().remove(filterFragment!!).commit();
+                items.visibility=RecyclerView.VISIBLE
+                btn2.visibility = Button.VISIBLE
+                btn3.visibility = Button.VISIBLE
+                btn4.visibility = Button.VISIBLE
             }else{
                 supportFragmentManager.beginTransaction().add(R.id.content, filterFragment!!).commit()
+
+                items.visibility=RecyclerView.GONE
+                btn2.visibility = Button.GONE
+                btn3.visibility = Button.GONE
+                btn4.visibility = Button.GONE
             }
 
         }

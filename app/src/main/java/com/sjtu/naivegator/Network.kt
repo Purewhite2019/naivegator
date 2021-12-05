@@ -6,9 +6,9 @@ import com.sjtu.naivegator.api.canteen.CanteenBean
 import com.sjtu.naivegator.interceptor.TimeConsumeInterceptor
 import okhttp3.*
 import java.io.IOException
-import com.sjtu.naivegator.CanteenInfo
+import com.sjtu.naivegator.CanteenInfo.Companion.canteenMap
 
-class Network {
+object Network {
 
     val okhttpListener = object : EventListener() {
         override fun dnsStart(call: Call, domainName: String) {
@@ -37,13 +37,13 @@ class Network {
         client.newCall(request).enqueue(callback)
     }
 
-    fun getData(id : Int){
+    fun getData(id: Int) {
         // Input：id, the id of the selected canteen (0 for overall situation)
         var url = ""
-        if (id == 0){
-            url = "https://canteen.sjtu.edu.cn/CARD/Ajax/Place"
-        }else{
-            url = "https://canteen.sjtu.edu.cn/CARD/Ajax/PlaceDetails/${id}"
+        url = if (id == 0) {
+            "https://canteen.sjtu.edu.cn/CARD/Ajax/Place"
+        } else {
+            "https://canteen.sjtu.edu.cn/CARD/Ajax/PlaceDetails/${id}"
         }
 
         request(url, object : Callback {
@@ -53,8 +53,22 @@ class Network {
 
             override fun onResponse(call: Call, response: Response) {
                 val bodyString = response.body?.string()
-                val canteenBean = gson.fromJson(bodyString, CanteenBean::class.java)
-
+                val canteenList: List<CanteenBean> =
+                    gson.fromJson(bodyString, Array<CanteenBean>::class.java).toList()
+                if (id == 0) {
+                    for (canteen in canteenList) {
+                        canteenMap[canteen.id] =
+                            Triple(Pair(canteen.name, ""), canteen.seat_s, canteen.seat_u)
+                    }
+                } else {
+                    for (canteen in canteenList) {
+                        canteenMap[canteen.id] = Triple(
+                            Pair(canteenMap[id]!!.first.first, canteen.name),
+                            canteen.seat_s,
+                            canteen.seat_u
+                        )
+                    }
+                }
             }
         })
     }
