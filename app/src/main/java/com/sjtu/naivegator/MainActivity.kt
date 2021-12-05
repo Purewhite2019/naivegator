@@ -32,10 +32,7 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().add(R.id.content, filterFragment!!).commit()
             }
 
-
         }
-
-
     }
 
 }
