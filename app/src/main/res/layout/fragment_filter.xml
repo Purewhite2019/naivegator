@@ -10,19 +10,83 @@
     android:padding="@dimen/filter_title_size">
 
 
-
     <FrameLayout
-        android:layout_height="@dimen/filter_item_height"
-        android:layout_width="match_parent"
         android:id="@+id/filter_item1"
-        android:paddingLeft="10dp"
-        android:paddingRight="1dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_item_height"
         android:background="@drawable/item_choice1"
-        >
+        android:paddingLeft="10dp"
+        android:paddingTop="8dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="8dp">
+
         <com.hanks.htextview.rainbow.RainbowTextView
             android:id="@+id/choice1_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="colorful"
+            android:textSize="@dimen/filter_title_size"
+            android:textStyle="bold" />
+        <!--distance,score-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:padding="2dp"
+            android:text="距离:"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/choice1_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="190dp"
+            android:padding="2dp"
+            android:text="100m"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="35dp"
+            android:padding="2dp"
+            android:text="人数:"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/choice1_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="35dp"
+            android:padding="2dp"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/filter_item2"
+        android:layout_below="@id/filter_item1"
+        android:layout_marginTop="@dimen/filter_item_interval"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_item_height"
+        android:background="@drawable/item_choice2"
+        android:paddingLeft="10dp"
+        android:paddingTop="8dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="8dp">
+        <com.hanks.htextview.rainbow.RainbowTextView
+            android:id="@+id/choice2_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -38,17 +102,17 @@
             android:layout_height="wrap_content"
             android:text="距离:"
             android:textColor="@color/white"
-            android:textSize="17dp"
+            android:textSize="16dp"
             android:padding="2dp"
             />
         <TextView
-            android:id="@+id/choice1_distance"
+            android:id="@+id/choice2_distance"
             android:layout_marginLeft="190dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100m"
             android:textColor="@color/white"
-            android:textSize="17dp"
+            android:textSize="16dp"
             android:padding="2dp"
             />
 
@@ -58,37 +122,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:text="评分:"
+            android:text="人数:"
             android:textColor="@color/white"
-            android:textSize="17dp"
+            android:textSize="16dp"
             android:padding="2dp"
             />
         <TextView
-            android:id="@+id/choice1_score"
+            android:id="@+id/choice2_score"
             android:layout_marginLeft="190dp"
             android:layout_marginTop="35dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="9.7"
+            android:text="10"
             android:textColor="@color/white"
-            android:textSize="17dp"
+            android:textSize="16dp"
             android:padding="2dp"
             />
-
-
-
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/filter_item2"
-        android:layout_below="@id/filter_item1"
-        android:layout_marginTop="@dimen/filter_item_interval"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/filter_item_height"
-        android:padding="10dp"
-        android:background="@drawable/item_choice2">
-
 
 
     </FrameLayout>
@@ -101,8 +150,63 @@
         android:layout_below="@id/filter_item2"
         android:layout_marginTop="@dimen/filter_item_interval"
         android:background="@drawable/item_choice3"
-        android:padding="10dp">
+        android:paddingLeft="10dp"
+        android:paddingTop="8dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="8dp">
+        <com.hanks.htextview.rainbow.RainbowTextView
+            android:id="@+id/choice3_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="colorful"
+            android:textSize="@dimen/filter_title_size"
+            android:textStyle="bold"
+            />
+        <!--distance,score-->
 
+        <TextView
+            android:layout_marginLeft="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="距离:"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
+        <TextView
+            android:id="@+id/choice3_distance"
+            android:layout_marginLeft="190dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100m"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
+
+
+        <TextView
+            android:layout_marginLeft="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="人数:"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
+        <TextView
+            android:id="@+id/choice3_score"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
     </FrameLayout>
 
     <FrameLayout
@@ -111,8 +215,64 @@
         android:layout_marginTop="@dimen/filter_item_interval"
         android:layout_width="match_parent"
         android:layout_height="@dimen/filter_item_height"
-        android:background="@drawable/item_choice4">
+        android:background="@drawable/item_choice4"
+        android:paddingLeft="10dp"
+        android:paddingTop="8dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="8dp">
+        <com.hanks.htextview.rainbow.RainbowTextView
+            android:id="@+id/choice4_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="colorful"
+            android:textSize="@dimen/filter_title_size"
+            android:textStyle="bold"
+            />
+        <!--distance,score-->
 
+        <TextView
+            android:layout_marginLeft="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="距离:"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
+        <TextView
+            android:id="@+id/choice4_distance"
+            android:layout_marginLeft="190dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100m"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
+
+
+        <TextView
+            android:layout_marginLeft="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="人数:"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
+        <TextView
+            android:id="@+id/choice4_score"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
     </FrameLayout>
 
     <FrameLayout
@@ -122,8 +282,64 @@
         android:layout_width="match_parent"
         android:padding="10dp"
         android:layout_height="@dimen/filter_item_height"
-        android:background="@drawable/item_choice5">
+        android:background="@drawable/item_choice5"
+        android:paddingLeft="10dp"
+        android:paddingTop="8dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="8dp">
+        <com.hanks.htextview.rainbow.RainbowTextView
+            android:id="@+id/choice5_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="colorful"
+            android:textSize="@dimen/filter_title_size"
+            android:textStyle="bold"
+            />
+        <!--distance,score-->
 
+        <TextView
+            android:layout_marginLeft="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="距离:"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
+        <TextView
+            android:id="@+id/choice5_distance"
+            android:layout_marginLeft="190dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100m"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
+
+
+        <TextView
+            android:layout_marginLeft="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="人数:"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
+        <TextView
+            android:id="@+id/choice5_score"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:padding="2dp"
+            />
     </FrameLayout>
 
 

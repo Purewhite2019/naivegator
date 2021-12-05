@@ -66,6 +66,7 @@ class FilterFragment : Fragment() {
         }
         filter_log("check finished")
         locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener);
+
 //=======check permission for location finished===============
 
 
@@ -82,13 +83,17 @@ class FilterFragment : Fragment() {
 //========initial filter items finished===========
 
        //test
-       set_item(rootView,1,"三餐湖畔餐厅二楼",1024, 9.4F)
 
+       currLocation = locationManager!!.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
+       set_item(rootView,1,"一餐教工食堂", get_distance_from_canteen(currLocation!!,1).toInt(), 100)
+       set_item(rootView,2,"哈乐", get_distance_from_canteen(currLocation!!,8).toInt(), 400)
         return rootView
     }
 
 
-    fun update_items(v:View,names: Array<String>,scores:Array<Float>){
+    fun update_items(v:View,names: Array<String>,scores:Array<Int>){
+
 
         set_item(v,1,names[0], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[0])
         set_item(v,2,names[1], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[1])
@@ -102,23 +107,28 @@ class FilterFragment : Fragment() {
     }
 
 
-    fun set_item(v:View,idx:Int,name:String,distance:Int,score:Float){
+    fun set_item(v:View,idx:Int,name:String,distance:Int,people:Int){
         val item_str = "choice$idx"+"_"
         val _dis = distance.toString()+"m"
-        val _sco = "%.1f".format(score)
-        var _title_size = 6*24/name.length
+
+        var _title_size : Float = 6F*24/name.length
+        if(_title_size>30F){
+            _title_size=30F
+        }
+
         val res: Resources = resources
+        filter_log(item_str+"title")
         v.findViewById<com.hanks.htextview.rainbow.RainbowTextView>(
             res.getIdentifier(item_str+"title", "id", context?.packageName)).text=name
 
         v.findViewById<com.hanks.htextview.rainbow.RainbowTextView>(
-            res.getIdentifier(item_str+"title", "id", context?.packageName)).textSize= _title_size.toFloat()
+            res.getIdentifier(item_str+"title", "id", context?.packageName)).textSize= _title_size
 
         filter_log(item_str+"distance")
         v.findViewById<TextView>(
             res.getIdentifier(item_str+"distance", "id", context?.packageName)).text=_dis
         v.findViewById<TextView>(
-            res.getIdentifier(item_str+"score", "id", context?.packageName)).text=_sco
+            res.getIdentifier(item_str+"score", "id", context?.packageName)).text=people.toString()
     }
 
 
@@ -128,7 +138,7 @@ class FilterFragment : Fragment() {
 
     companion object {
 
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance() =
             FilterFragment().apply {
@@ -142,6 +152,7 @@ class FilterFragment : Fragment() {
         override fun onLocationChanged(location: Location) {
 //            yfqing_test_text.text = "" + location.longitude + ":" + location.latitude
             currLocation = location
+
         }
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
