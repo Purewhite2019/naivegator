@@ -42,5 +42,10 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
+//  text style lib
+    implementation "com.hanks:htextview-base:0.1.6"
+    implementation "com.hanks:htextview-rainbow:0.1.6"
+    implementation "com.hanks:htextview-fade:0.1.6"
+    implementation "com.hanks:htextview-line:0.1.6"
+    implementation "com.hanks:htextview-typer:0.1.6"
 }

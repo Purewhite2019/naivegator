@@ -1,20 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerVertical="true"
     android:layout_centerHorizontal="true"
     android:background="@drawable/rounded_4corner"
-    android:padding="25dp">
+    android:padding="@dimen/filter_title_size">
+
+
 
     <FrameLayout
-        android:id="@+id/filter_item1"
-        android:layout_width="match_parent"
         android:layout_height="@dimen/filter_item_height"
+        android:layout_width="match_parent"
+        android:id="@+id/filter_item1"
+        android:paddingLeft="10dp"
+        android:paddingRight="2dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:background="@drawable/item_choice1"
+        >
+        <com.hanks.htextview.rainbow.RainbowTextView
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/filter_title_size"
+            android:text="二餐西餐厅"
+            android:textStyle="bold"
+            />
+        <!--distance,score-->
 
-        />
+        <com.hanks.htextview.line.LineTextView
+            android:layout_marginLeft="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="距离: 150m"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:padding="4dp"
+            />
+
+
+        <com.hanks.htextview.line.LineTextView
+            android:layout_marginLeft="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="评分: 9.7"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:padding="4dp"
+            />
+
+
+
+
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/filter_item2"
@@ -22,15 +65,24 @@
         android:layout_marginTop="@dimen/filter_item_interval"
         android:layout_width="match_parent"
         android:layout_height="@dimen/filter_item_height"
-        android:background="@drawable/item_choice2"/>
+        android:padding="10dp"
+        android:background="@drawable/item_choice2">
+
+
+
+    </FrameLayout>
+
 
     <FrameLayout
         android:id="@+id/filter_item3"
         android:layout_below="@id/filter_item2"
         android:layout_marginTop="@dimen/filter_item_interval"
         android:layout_width="match_parent"
+        android:padding="10dp"
         android:layout_height="@dimen/filter_item_height"
-        android:background="@drawable/item_choice3"/>
+        android:background="@drawable/item_choice3">
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/filter_item4"
@@ -38,15 +90,20 @@
         android:layout_marginTop="@dimen/filter_item_interval"
         android:layout_width="match_parent"
         android:layout_height="@dimen/filter_item_height"
-        android:background="@drawable/item_choice4"/>
+        android:background="@drawable/item_choice4">
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/filter_item5"
         android:layout_below="@id/filter_item4"
         android:layout_marginTop="@dimen/filter_item_interval"
         android:layout_width="match_parent"
+        android:padding="10dp"
         android:layout_height="@dimen/filter_item_height"
-        android:background="@drawable/item_choice5"/>
+        android:background="@drawable/item_choice5">
+
+    </FrameLayout>
 
 
 

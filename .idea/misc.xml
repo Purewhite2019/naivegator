@@ -5,6 +5,12 @@
       <map>
         <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2740740740740741" />
         <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2740740740740741" />
+        <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/drawable/item_choice1.xml" value="0.3020833333333333" />
+        <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/drawable/item_choice2.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/drawable/item_choice3.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/drawable/item_choice4.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/drawable/item_choice5.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/drawable/rounded_4corner.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/layout/activity_main.xml" value="0.11413043478260869" />
         <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/layout/dialog_filter.xml" value="0.2368659420289855" />
         <entry key="..\:/Projects/AndroidDevelop/naivegator/app/src/main/res/layout/fiilter_item.xml" value="0.1" />
