@@ -9,8 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="filter_back">#FF8000</color>
     <color name="choice1">#000000</color>
-    <color name="choice2">#0F0F0F</color>
-    <color name="choice3">#1E1E1E</color>
-    <color name="choice4">#2D2D2D</color>
-    <color name="choice5">#3C3C3C</color>
+    <color name="choice2">#0A0A0A</color>
+    <color name="choice3">#141414</color>
+    <color name="choice4">#1E1E1E</color>
+    <color name="choice5">#282828</color>
+    <color name="filter_colorPrimary">#573AAD</color>
+    <color name="filter_colorAccent">#C859C2</color>
 </resources>

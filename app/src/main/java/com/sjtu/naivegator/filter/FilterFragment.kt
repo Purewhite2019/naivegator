@@ -40,32 +40,37 @@ class FilterFragment : Fragment() {
     ): View? {
         filter_log("enter filter fragment")
         var rootView = inflater.inflate(R.layout.fragment_filter, container, false)
-        rootView.alpha=0.75f
-//        locationManager = requireActivity().applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager?;
-//       val filterPermissionsArrays = arrayOf(
-//           Manifest.permission.ACCESS_FINE_LOCATION,
-//           Manifest.permission.ACCESS_COARSE_LOCATION)
-//
-//        if (ActivityCompat.checkSelfPermission(
-//                rootView.context,
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-//                rootView.context,
-//                Manifest.permission.ACCESS_COARSE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            filter_log("request permission")
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                requestPermissions(filterPermissionsArrays, REQUEST_PERMISSION)
-//            }else{
-//                Toast.makeText(context, "Request Location Permission!", Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-//        }
-//        filter_log("check finished")
-//        locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener);
+
+//================check permission for location=====================
+        locationManager = requireActivity().applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager?;
+       val filterPermissionsArrays = arrayOf(
+           Manifest.permission.ACCESS_FINE_LOCATION,
+           Manifest.permission.ACCESS_COARSE_LOCATION)
+
+        if (ActivityCompat.checkSelfPermission(
+                rootView.context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                rootView.context,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            filter_log("request permission")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(filterPermissionsArrays, REQUEST_PERMISSION)
+            }else{
+                Toast.makeText(context, "Request Location Permission!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+        filter_log("check finished")
+        locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener);
+//=======check permission for location finished===============
 
        filter_log("comping set item")
+       rootView.alpha=0.75f //set alpha for fragment view
+
+       //test set a item
        set_item(rootView,1,"三餐湖畔餐厅二楼",1024, 9.4F)
 
 
