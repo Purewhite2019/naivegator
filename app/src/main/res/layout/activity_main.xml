@@ -37,16 +37,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <FrameLayout
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        />
+
+
+
 
     <Button
         android:id="@+id/btn2"
@@ -80,5 +73,16 @@
         android:id="@+id/items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        />
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         />
 </RelativeLayout>
