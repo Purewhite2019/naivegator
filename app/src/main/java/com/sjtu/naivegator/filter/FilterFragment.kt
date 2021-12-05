@@ -38,8 +38,9 @@ class FilterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        filter_log("enter filter fragment")
         var rootView = inflater.inflate(R.layout.fragment_filter, container, false)
+        rootView.alpha=0.65f //set alpha for fragment view
+
 
 //================check permission for location=====================
         locationManager = requireActivity().applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager?;
@@ -67,21 +68,39 @@ class FilterFragment : Fragment() {
         locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener);
 //=======check permission for location finished===============
 
-       filter_log("comping set item")
-       rootView.alpha=0.75f //set alpha for fragment view
 
-       //test set a item
+
+
+//========initial filter items===============
+       // get calculates from weights
+
+
+       // show items
+
+//       update_items(rootVIew)
+
+//========initial filter items finished===========
+
+       //test
        set_item(rootView,1,"三餐湖畔餐厅二楼",1024, 9.4F)
 
-
-
-
         return rootView
+    }
+
+
+    fun update_items(v:View,names: Array<String>,scores:Array<Float>){
+
+        set_item(v,1,names[0], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[0])
+        set_item(v,2,names[1], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[1])
+        set_item(v,3,names[2], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[2])
+        set_item(v,4,names[3], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[3])
+        set_item(v,5,names[4], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[4])
     }
 
     fun update_wights(){
         //use distances and personal infos to filter
     }
+
 
     fun set_item(v:View,idx:Int,name:String,distance:Int,score:Float){
         val item_str = "choice$idx"+"_"
