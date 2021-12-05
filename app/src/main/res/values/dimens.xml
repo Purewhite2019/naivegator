@@ -3,5 +3,6 @@
     <dimen name="filter_item_height">90dp</dimen>
     <dimen name="filter_item_interval">25dp</dimen>
     <dimen name="filter_title_size">25dp</dimen>
-
+    <dimen name="Hale">8</dimen>
+    <dimen name="Yulan">9</dimen>
 </resources>
