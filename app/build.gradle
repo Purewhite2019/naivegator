@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -44,4 +45,10 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.google.code.gson:gson:2.8.9'
 
+//  text style lib
+    implementation "com.hanks:htextview-base:0.1.6"
+    implementation "com.hanks:htextview-rainbow:0.1.6"
+    implementation "com.hanks:htextview-fade:0.1.6"
+    implementation "com.hanks:htextview-line:0.1.6"
+    implementation "com.hanks:htextview-typer:0.1.6"
 }
