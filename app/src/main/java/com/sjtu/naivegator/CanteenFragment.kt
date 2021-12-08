@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_canteen.*
-
+import com.sjtu.naivegator.CanteenInfo.Companion.canteenMap
 class CanteenFragment : Fragment() {
     private val imgFiles: Array<String> = arrayOf(
         "ic_canteen",
@@ -32,15 +32,16 @@ class CanteenFragment : Fragment() {
         "七餐",
         "玉兰苑"
     )
+
     private val canteenIntros: Array<String> = arrayOf(
-        "一餐还不错",
-        "二餐绿源yyds，新疆餐厅好吃不贵",
-        "交大最拉跨食堂没有之一",
-        "交大第一食堂不解释",
-        "东湖的面不错，无田有果+吉姆丽德",
-        "没吃过",
-        "寿喜锅还可以就是有点贵",
-        "麻辣香锅nb"
+        "上座率:"+canteenMap[100]?.second.toString(),
+        "上座率:"+canteenMap[200]?.second.toString(),
+        "上座率:"+canteenMap[300]?.second.toString(),
+        "上座率:"+canteenMap[400]?.second.toString(),
+        "上座率:"+canteenMap[500]?.second.toString(),
+        "上座率:"+canteenMap[600]?.second.toString(),
+        "上座率:"+canteenMap[700]?.second.toString(),
+        "上座率:"+canteenMap[800]?.second.toString()
     )
 
     override fun onCreateView(

@@ -15,13 +15,25 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         >
+
+
         <ImageView
             android:id="@+id/picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="180dp"
-
             />
+
+        <ProgressBar
+            android:id="@+id/tabular"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="40dp"
+            android:max="100"
+            android:progress="18" />
+
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
