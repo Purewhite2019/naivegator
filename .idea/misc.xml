@@ -3,17 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android_WS/naivegator/app/src/main/res/drawable-v24/filter_background.xml" value="0.14583333333333334" />
-        <entry key="..\:/Android_WS/naivegator/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14583333333333334" />
-        <entry key="..\:/Android_WS/naivegator/app/src/main/res/drawable-v24/round_rec.xml" value="0.14583333333333334" />
-        <entry key="..\:/Android_WS/naivegator/app/src/main/res/drawable/btn_bg.xml" value="0.14583333333333334" />
-        <entry key="..\:/Android_WS/naivegator/app/src/main/res/drawable/btn_color.xml" value="0.14583333333333334" />
-        <entry key="..\:/Android_WS/naivegator/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14583333333333334" />
-        <entry key="..\:/Android_WS/naivegator/app/src/main/res/drawable/shape_button.xml" value="0.14583333333333334" />
-        <entry key="..\:/Android_WS/naivegator/app/src/main/res/layout/activity_detail.xml" value="0.13949275362318841" />
-        <entry key="..\:/Android_WS/naivegator/app/src/main/res/layout/dynamic_lists.xml" value="0.1296875" />
-        <entry key="..\:/Android_WS/naivegator/app/src/main/res/layout/fragment_filter.xml" value="0.12635869565217392" />
-        <entry key="..\:/Android_WS/naivegator/app/src/main/res/layout/shape_button.xml" value="0.1296875" />
+        <entry key="..\:/Android_WS/naivegator/app/src/main/res/layout/activity_navigation.xml" value="0.1296875" />
+        <entry key="..\:/Android_WS/naivegator/app/src/main/res/layout/fragment_canteen.xml" value="0.1296875" />
+        <entry key="..\:/Android_WS/naivegator/app/src/main/res/layout/fragment_dashboard.xml" value="0.1296875" />
+        <entry key="..\:/Android_WS/naivegator/app/src/main/res/layout/fragment_filter.xml" value="0.1296875" />
+        <entry key="..\:/Android_WS/naivegator/app/src/main/res/layout/fragment_notifications.xml" value="0.1296875" />
+        <entry key="..\:/Android_WS/naivegator/app/src/main/res/layout/item_preference.xml" value="0.1296875" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/drawable/bg_edit.xml" value="0.16944444444444445" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/drawable/ic_add_white_24dp.xml" value="0.16944444444444445" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/drawable/ic_close_gray_24dp.xml" value="0.16944444444444445" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/activity_add_preference.xml" value="0.1" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/activity_main.xml" value="0.24745762711864408" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/activity_navigation.xml" value="0.25" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/activity_settings.xml" value="0.33" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_add_preference.xml" value="0.16717325227963525" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_canteen.xml" value="0.1875" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_detail.xml" value="0.14673913043478262" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_settings.xml" value="0.16717325227963525" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/item_preference.xml" value="0.1" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1875" />
       </map>
     </option>
   </component>

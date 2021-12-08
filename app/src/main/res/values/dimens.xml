@@ -5,4 +5,8 @@
     <dimen name="filter_title_size">25dp</dimen>
     <dimen name="Hale">8</dimen>
     <dimen name="Yulan">9</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
 </resources>
