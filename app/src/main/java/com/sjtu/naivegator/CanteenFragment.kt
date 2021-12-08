@@ -34,14 +34,14 @@ class CanteenFragment : Fragment() {
     )
 
     private val canteenIntros: Array<String> = arrayOf(
-        "上座率:"+canteenMap[100]?.second.toString(),
-        "上座率:"+canteenMap[200]?.second.toString(),
-        "上座率:"+canteenMap[300]?.second.toString(),
-        "上座率:"+canteenMap[400]?.second.toString(),
-        "上座率:"+canteenMap[500]?.second.toString(),
-        "上座率:"+canteenMap[600]?.second.toString(),
-        "上座率:"+canteenMap[700]?.second.toString(),
-        "上座率:"+canteenMap[800]?.second.toString()
+        "上座率:"+canteenMap[100]?.second.toString()+"/"+canteenMap[100]?.third.toString(),
+        "上座率:"+canteenMap[200]?.second.toString()+"/"+canteenMap[200]?.third.toString(),
+        "上座率:"+canteenMap[300]?.second.toString()+"/"+canteenMap[300]?.third.toString(),
+        "上座率:"+canteenMap[400]?.second.toString()+"/"+canteenMap[400]?.third.toString(),
+        "上座率:"+canteenMap[500]?.second.toString()+"/"+canteenMap[500]?.third.toString(),
+        "上座率:"+canteenMap[600]?.second.toString()+"/"+canteenMap[600]?.third.toString(),
+        "上座率:"+canteenMap[700]?.second.toString()+"/"+canteenMap[700]?.third.toString(),
+        "上座率:"+canteenMap[800]?.second.toString()+"/"+canteenMap[800]?.third.toString()
     )
 
     override fun onCreateView(
