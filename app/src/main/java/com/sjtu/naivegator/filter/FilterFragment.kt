@@ -1,17 +1,14 @@
 package com.sjtu.naivegator.filter
 
 import android.Manifest
-
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Resources
-
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +16,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-
+import com.sjtu.naivegator.CanteenInfo.Companion.canteenMap
 import com.sjtu.naivegator.R
 import kotlinx.android.synthetic.main.dynamic_lists.*
 import kotlinx.android.synthetic.main.fragment_filter.*
@@ -28,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_filter.*
 class FilterFragment : Fragment() {
     private var locationManager: LocationManager? = null
     private var currLocation:Location ?=null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,16 +80,12 @@ class FilterFragment : Fragment() {
 //       update_items(rootVIew)
 
 //========initial filter items finished===========
-
-       //test
-
        currLocation = locationManager!!.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
 
-       set_item(rootView,1,"一餐教工食堂", get_distance_from_canteen(currLocation!!,1).toInt(), 100)
-       set_item(rootView,2,"哈乐", get_distance_from_canteen(currLocation!!,8).toInt(), 400)
-       set_item(rootView,3,"四餐", get_distance_from_canteen(currLocation!!,4).toInt(), 400)
-       set_item(rootView,4,"二餐", get_distance_from_canteen(currLocation!!,2).toInt(), 400)
-       set_item(rootView,5,"玉兰苑", get_distance_from_canteen(currLocation!!,9).toInt(), 400)
+
+
+       update_canteen_wights(rootView,test_pos_weight, test_like_weights)
+
         return rootView
     }
 
@@ -99,19 +93,60 @@ class FilterFragment : Fragment() {
     fun update_items(v:View,names: Array<Pair<String,Int>>,people_nums:Array<Int>,
                      ){
         for (i in names.indices){
-            set_item(v,i+1,names[i].first, get_distance_from_canteen(currLocation!!, names[i].second).toInt(),people_nums[i])
         }
     }
 
-    fun update_wights(pos_weight:Float,like_weights:Array<Float>){
-        //use distances and personal infos to filter
-        var map: Map<Float, String>? = null
 
+    fun update_canteen_wights(v:View ,pos_weight:Float,like_weights:Array<Float>){
+        //use distances and personal infos to filter
+        var comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
+        var weight_map= sortedMapOf<Float, String>(comparator)
+        var info_map = mutableMapOf<String,Pair<Float,Int>>()
+        var i=0
+        for ((key, value) in canteenMap) {
+
+            if(key>=100){
+                continue
+            }
+
+            // second: current third: total
+            //value: Triple(Pair("闵行第一餐厅", "1F 餐厅") ,0, 0),
+            var name = Pair2name(value.first)
+//            filter_log(name)
+            var current = value.second
+            var total = value.third
+
+            if(total==0){
+                total=1
+            }
+
+//            filter_log("$current $total")
+            var crowded_weight = (1-pos_weight)*(current.toFloat()/total)
+//            filter_log("$name,人数加权: $crowded_weight")
+            var distance = get_distance_from_canteen(currLocation!!, name2canteen(name))
+            var pos_weight = pos_weight*(1000F/distance)
+//            filter_log("$name,位置加权: $pos_weight")
+            var weight=like_weights[i]*(pos_weight+crowded_weight)
+//            filter_log("$name,总权重: $weight")
+            weight_map.put(weight,name)
+            info_map.put(name, Pair(distance,current))
+            i+=1
+        }
+
+        i=0
+       for((key,value) in weight_map!!){
+           if (i==5){
+               break
+           }
+           var item = info_map.getValue(value)
+           set_item(v,i+1,value, item.first.toInt(), item.second )
+           i+=1
+       }
 
     }
 
 
-    fun set_item(v:View,idx:Int,name:String,distance:Int,people:Int){
+    fun set_item(v:View, idx:Int, name:String, distance:Int, people: Int?){
         val item_str = "choice$idx"+"_"
         val _dis = distance.toString()+"m"
 
@@ -181,6 +216,6 @@ class FilterFragment : Fragment() {
 
 
 
-
-
 }
+
+
