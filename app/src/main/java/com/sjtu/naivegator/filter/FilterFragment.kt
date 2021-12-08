@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 
 import com.sjtu.naivegator.R
+import kotlinx.android.synthetic.main.dynamic_lists.*
 import kotlinx.android.synthetic.main.fragment_filter.*
 
 
@@ -88,22 +89,25 @@ class FilterFragment : Fragment() {
 
        set_item(rootView,1,"一餐教工食堂", get_distance_from_canteen(currLocation!!,1).toInt(), 100)
        set_item(rootView,2,"哈乐", get_distance_from_canteen(currLocation!!,8).toInt(), 400)
+       set_item(rootView,3,"四餐", get_distance_from_canteen(currLocation!!,4).toInt(), 400)
+       set_item(rootView,4,"二餐", get_distance_from_canteen(currLocation!!,2).toInt(), 400)
+       set_item(rootView,5,"玉兰苑", get_distance_from_canteen(currLocation!!,9).toInt(), 400)
         return rootView
     }
 
 
-    fun update_items(v:View,names: Array<String>,scores:Array<Int>){
-
-
-        set_item(v,1,names[0], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[0])
-        set_item(v,2,names[1], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[1])
-        set_item(v,3,names[2], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[2])
-        set_item(v,4,names[3], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[3])
-        set_item(v,5,names[4], get_distance_from_canteen(currLocation!!, get_can()).toInt(),scores[4])
+    fun update_items(v:View,names: Array<Pair<String,Int>>,people_nums:Array<Int>,
+                     ){
+        for (i in names.indices){
+            set_item(v,i+1,names[i].first, get_distance_from_canteen(currLocation!!, names[i].second).toInt(),people_nums[i])
+        }
     }
 
-    fun update_wights(){
+    fun update_wights(pos_weight:Float,like_weights:Array<Float>){
         //use distances and personal infos to filter
+        var map: Map<Float, String>? = null
+
+
     }
 
 
@@ -152,7 +156,6 @@ class FilterFragment : Fragment() {
         override fun onLocationChanged(location: Location) {
 //            yfqing_test_text.text = "" + location.longitude + ":" + location.latitude
             currLocation = location
-
         }
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}

@@ -13,7 +13,7 @@ import com.sjtu.naivegator.R
 fun filter_log(info: String){
     Log.e("[Filter]",info)
 }
-fun get_can():Int{
+fun name2canteen(name:String):Int{
     //TODO get canteen from string name
 
     return 1
