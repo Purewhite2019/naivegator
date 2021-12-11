@@ -24,12 +24,12 @@ import com.sjtu.naivegator.filter.filter_log
 class StudyroomFragment : Fragment() {
     private val filterFragment = FilterFragment()
     private val imgFiles: Array<String> = arrayOf(
-        "ic_canteen",
-        "ic_canteen2",
-        "ic_canteen3",
-        "ic_canteen4",
-        "ic_canteen5",
-        "ic_canteen6",
+        "ic_up",
+        "ic_mid",
+        "ic_down",
+        "ic_eastup",
+        "ic_eastmid",
+        "ic_eastdown",
 
     )
     private val canteenNames: Array<String> = arrayOf(
