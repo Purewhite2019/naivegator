@@ -38,8 +38,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val networkThread = NetworkThread()
-        networkThread.start()
+        val canteenThread = CanteenThread()
+        val studyroomThread = StudyroomThread()
+        canteenThread.start()
+        studyroomThread.start()
+
         historyDB = Room
             .databaseBuilder(applicationContext, HistoryDatabase::class.java, "database-history")
             .build()
@@ -93,22 +96,44 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    inner class NetworkThread : Thread() {
+    inner class CanteenThread : Thread() {
         override fun run() {
             super.run()
-            transition()
+            updateMap()
         }
 
-        private fun transition() {
+        private fun updateMap() {
             while(true){
                 Network.getCanteenData(0)
                 for (i in 100..900 step 100) {
                     Network.getCanteenData(i)
                 }
                 sleep(10000)
-                for(canteen in canteenMap){
-                    println(canteen)
+//                for(canteen in canteenMap){
+//                    println(canteen)
+//                }
+            }
+        }
+    }
+
+    inner class StudyroomThread : Thread() {
+        override fun run() {
+            super.run()
+            updateMap()
+        }
+
+        private fun updateMap() {
+            val studyroomBuildId = listOf<String>(
+                "126", "128", "127", "122", "564", "124"
+            )
+            while(true){
+                for (id in studyroomBuildId){
+                    Network.getStudyroomData(id)
                 }
+//                for(studyroom in studyroomMap){
+//                    println(studyroom)
+//                }
+                sleep(60000)
             }
         }
     }
