@@ -107,7 +107,7 @@ class FilterFragment : Fragment() {
                 preferenceMap[main] = it.getInt(main, 50)
                 for (sub in sublist) {
                     preferenceMap["$main $sub"] = it.getInt("$main $sub", preferenceMap[main]!!)
-                    Log.d("sharedPref Load", "$main $sub: ${preferenceMap["$main $sub"]}")
+//                    Log.d("sharedPref Load", "$main $sub: ${preferenceMap["$main $sub"]}")
                 }
             }
         }
@@ -118,7 +118,7 @@ class FilterFragment : Fragment() {
                 preferenceMap[main] = it.getInt(main, 50)
                 for (sub in sublist) {
                     preferenceMap["$main $sub"] = it.getInt("$main $sub", 50)
-                    Log.d("sharedPref Load", "$main $sub: ${preferenceMap["$main $sub"]}")
+                    Log.e("sharedPref Load", "$main $sub: ${preferenceMap["$main $sub"]}")
                 }
             }
         }
@@ -169,7 +169,7 @@ class FilterFragment : Fragment() {
                break
            }
            var item = info_map.getValue(value)
-           set_item(v,i+1,value, item.first.toInt(), item.second.toString(),false,"")
+           set_item(v,i+1,value, item.first.toInt(), item.second.toString()+"人",false,"")
            i+=1
        }
 
@@ -182,6 +182,8 @@ class FilterFragment : Fragment() {
         sharedPref = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
         load_distance_weight()
         load_studyroom_preference()
+        filter_log("中院 115"+preferenceMap["中院 115"].toString())
+
         //use distances and personal infos to filter
 //        Toast.makeText(v.context,"In studyroom now ",Toast.LENGTH_SHORT).show()
         val comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
@@ -192,20 +194,9 @@ class FilterFragment : Fragment() {
         //get current time
         val current_time = filter_by_time()
 
-        var current_map = studyroomMap
-        if (current_time.is_midnight()){
-            //24:00 --- 7:30
-            //可用: 中院114、115和东中院3-105、3-106
-//            hide_last_item(v,1)
-            //only calculate the above 4 studyrooms
 
-            current_map.clear()
-            for(item  in Late_night_study_room){
-                current_map.put(item, studyroomMap.get(item)!!)
-            }
-        }
 
-        for ((key, value) in current_map) {
+        for ((key, value) in studyroomMap) {
 
             //key : Pair<String, String>  (教学楼名，教室名)
             //value : Triple<String, int, Pair<String,Boolean>> （总座位，实际人数，(温度,是否有课))）、
@@ -229,10 +220,14 @@ class FilterFragment : Fragment() {
             var name = studuroom_Pair2name(key)
             val distance = get_distance_from_studyroom(currLocation!!, key.first)
             var weight = weightDistance*(1000F/distance)+ (100-weightDistance)*attendance_ratio
-            filter_log("$name preference ${(preferenceMap["${value.first} ${value.second}"] ?: 50)}")
-            weight *= (preferenceMap["${value.first} ${value.second}"] ?: 50)
+
+            filter_log("$name preference[\"${key.first} ${key.second}\"] : ${(preferenceMap["${key.first} ${key.second}"] )}")
+            weight *= (preferenceMap["${key.first} ${key.second}"] ?: 50)
             filter_log("after $weight")
 
+            if(weight_map.containsKey(weight)){
+                weight= (weight-0.01F)
+            }
             weight_map[weight] = name
             info_map[name] = Triple(distance,Pair(current_people,total_people),value.third.first)
         }
@@ -247,7 +242,11 @@ class FilterFragment : Fragment() {
                 break
             }
             var item = info_map.getValue(value)
-            set_item(v,i+1,value, item.first.toInt(), "${item.second.first}/${item.second.second}",true, item.third)
+            var _people = "${item.second.first}/${item.second.second}人"
+            if(current_time.is_midnight()&&item.second.first==0){
+                _people = "无数据"
+            }
+            set_item(v,i+1,value, item.first.toInt(), _people,true, item.third)
             i+=1
         }
     }
@@ -285,7 +284,7 @@ class FilterFragment : Fragment() {
         if(_title_size>30F){
             _title_size=30F
         }
-        var _people = "当前:${people}人"
+        var _people = "当前:${people}"
         val res: Resources = resources
 //        filter_log(item_str+"title")
         v.findViewById<com.hanks.htextview.rainbow.RainbowTextView>(
