@@ -1,22 +1,11 @@
 package com.sjtu.naivegator
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.os.*
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.fragment_canteen.*
-import com.sjtu.naivegator.filter.FilterFragment
-import com.sjtu.naivegator.filter.filter_log
 
 class BathroomFragment : Fragment() {
     private val imgFiles: Array<String> = arrayOf(

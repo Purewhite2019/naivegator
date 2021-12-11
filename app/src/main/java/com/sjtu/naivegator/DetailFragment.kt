@@ -39,14 +39,11 @@ class DetailFragment : Fragment() {
                     "canteen_name: $canteenName\n\n"+
                     "Here are some details about the canteen.\n\n"
         view.findViewById<Button>(R.id.btn_exit).setOnClickListener {
-//            val cur = requireActivity().supportFragmentManager.fragments.last()
-//            requireActivity().supportFragmentManager.beginTransaction()
-//                .remove(cur)
-//                .commit()
-
-            requireActivity().supportFragmentManager.popBackStack()
-            val frags = requireActivity().supportFragmentManager.fragments
-
+            val fragMgr = requireActivity().supportFragmentManager
+            val cur = fragMgr.fragments.last()
+            fragMgr.beginTransaction()
+                .remove(cur)
+                .commit()
         }
         return view
     }

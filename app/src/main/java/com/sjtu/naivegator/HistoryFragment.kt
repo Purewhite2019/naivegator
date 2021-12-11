@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sjtu.naivegator.db.History
 import com.sjtu.naivegator.db.HistoryDao
 import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.concurrent.thread
 
 class HistoryViewHolder(itemView : View, private val historyDao : HistoryDao)
