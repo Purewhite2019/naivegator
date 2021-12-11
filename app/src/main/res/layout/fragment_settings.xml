@@ -116,6 +116,44 @@
                         android:id="@+id/canteen_9"
                         android:text="闵行玉兰苑"
                         />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="@color/cardview_dark_background"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/studyroom_1"
+                        android:text="上院"/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/studyroom_2"
+                        android:text="中院"/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/studyroom_3"
+                        android:text="下院"/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/studyroom_4"
+                        android:text="东上院"/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/studyroom_5"
+                        android:text="东中院"/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/studyroom_6"
+                        android:text="东下院"/>
+                        />
                 </RadioGroup>
             </ScrollView>
 
@@ -137,48 +175,49 @@
                     app:layout_constraintTop_toBottomOf="@id/weight_text_pos"
                     app:layout_constraintBottom_toTopOf="@id/remark_text"
                     app:layout_constraintLeft_toRightOf="@id/canteen_group"
+                    android:layout_gravity="left"
                     android:orientation="vertical"
                     >
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/subcanteen_1"
-                        android:text="子餐厅 1"
-                        android:visibility="gone"
-                        android:focusable="false"
-                        />
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/subcanteen_2"
-                        android:text="子餐厅 2"
-                        android:visibility="gone"
-                        android:focusable="false"
-                        />
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/subcanteen_3"
-                        android:text="子餐厅 3"
-                        android:visibility="gone"
-                        android:focusable="false"
-                        />
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/subcanteen_4"
-                        android:text="子餐厅 4"
-                        android:visibility="gone"
-                        android:focusable="false"
-                        />
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/subcanteen_5"
-                        android:text="子餐厅 5"
-                        android:visibility="gone"
-                        android:focusable="false"
-                        />
+<!--                    <RadioButton-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/subitem_1"-->
+<!--                        android:text="子餐厅 1"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:focusable="false"-->
+<!--                        />-->
+<!--                    <RadioButton-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/subitem_2"-->
+<!--                        android:text="子餐厅 2"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:focusable="false"-->
+<!--                        />-->
+<!--                    <RadioButton-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/subitem_3"-->
+<!--                        android:text="子餐厅 3"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:focusable="false"-->
+<!--                        />-->
+<!--                    <RadioButton-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/subitem_4"-->
+<!--                        android:text="子餐厅 4"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:focusable="false"-->
+<!--                        />-->
+<!--                    <RadioButton-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/subitem_5"-->
+<!--                        android:text="子餐厅 5"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:focusable="false"-->
+<!--                        />-->
                 </RadioGroup>
             </ScrollView>
             <View

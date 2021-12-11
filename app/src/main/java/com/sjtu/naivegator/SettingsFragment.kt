@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,14 +15,14 @@ import android.view.View.*
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sjtu.naivegator.db.History
+import java.security.InvalidParameterException
 import kotlin.concurrent.thread
 
 class SettingsFragment : Fragment() {
     private var weightDistance: Int = 50
-    private val canteenPreference : MutableMap<String, Int> = mutableMapOf()
+    private val preferenceInfo : MutableMap<String, Int> = mutableMapOf()
 
     private var sharedPref: SharedPreferences? = null
 
@@ -36,9 +37,17 @@ class SettingsFragment : Fragment() {
         }
         sharedPref?.let {
             for ((main, sublist) in canteenNameMap) {
-                canteenPreference[main] = it.getInt(main, 50)
+                preferenceInfo[main] = it.getInt(main, 50)
                 for (sub in sublist) {
-                    canteenPreference["$main $sub"] = it.getInt("$main $sub", 50)
+                    preferenceInfo["$main $sub"] = it.getInt("$main $sub", 50)
+                    Log.d("onCreate", "$main $sub\", ${preferenceInfo["$main $sub"]}")
+                }
+            }
+            for ((main, sublist) in studyroomNameMap) {
+                preferenceInfo[main] = it.getInt(main, 50)
+                for (sub in sublist) {
+                    preferenceInfo["$main $sub"] = it.getInt("$main $sub", 50)
+                    Log.d("onCreate", "$main $sub\", ${preferenceInfo["$main $sub"]}")
                 }
             }
         }
@@ -47,8 +56,9 @@ class SettingsFragment : Fragment() {
     override fun onDestroy() {
         with(sharedPref?.edit()) {
             this?.putInt("weightDistance", weightDistance)
-            for ((key, value) in canteenPreference) {
+            for ((key, value) in preferenceInfo) {
                 this?.putInt(key, value)
+                Log.d("onDestroy", "$key, $value")
             }
             this?.apply()
             this?.clear()
@@ -91,33 +101,18 @@ class SettingsFragment : Fragment() {
             R.id.canteen_8,
             R.id.canteen_9
         )
-        val canteenRadioList = listOf(
-            view.findViewById<RadioButton>(R.id.canteen_1),
-            view.findViewById<RadioButton>(R.id.canteen_2),
-            view.findViewById<RadioButton>(R.id.canteen_3),
-            view.findViewById<RadioButton>(R.id.canteen_4),
-            view.findViewById<RadioButton>(R.id.canteen_5),
-            view.findViewById<RadioButton>(R.id.canteen_6),
-            view.findViewById<RadioButton>(R.id.canteen_7),
-            view.findViewById<RadioButton>(R.id.canteen_8),
-            view.findViewById<RadioButton>(R.id.canteen_9)
+        val studyroomRadioIdList = listOf(
+            R.id.studyroom_1,
+            R.id.studyroom_2,
+            R.id.studyroom_3,
+            R.id.studyroom_4,
+            R.id.studyroom_5,
+            R.id.studyroom_6,
         )
-
-        val subcanteenGroup = view.findViewById<RadioGroup>(R.id.canteen_sublist)
-        val subcanteenRadioIdMap = mapOf(
-            R.id.subcanteen_1 to 0,
-            R.id.subcanteen_2 to 1,
-            R.id.subcanteen_3 to 2,
-            R.id.subcanteen_4 to 3,
-            R.id.subcanteen_5 to 4
-        )
-        val subcanteenRadioList = listOf(
-            view.findViewById<RadioButton>(R.id.subcanteen_1),
-            view.findViewById<RadioButton>(R.id.subcanteen_2),
-            view.findViewById<RadioButton>(R.id.subcanteen_3),
-            view.findViewById<RadioButton>(R.id.subcanteen_4),
-            view.findViewById<RadioButton>(R.id.subcanteen_5)
-        )
+        
+        val subitemGroup = view.findViewById<RadioGroup>(R.id.canteen_sublist)
+        val subitemRadioIdMap = mutableMapOf<Int, String>()    // R.id.xxx -> idx
+//        val subitemRadioList = mutableListOf<RadioButton>() // RadioButton object
 
         historyFab.setOnClickListener {
             childFragmentManager.beginTransaction().remove(historyFragment).commit()
@@ -147,16 +142,23 @@ class SettingsFragment : Fragment() {
         fun getChosenCanteen(): String{
             return if (canteenRadioGroup.checkedRadioButtonId in canteenRadioIdList) {
                 val mainCanteen = view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
-                subcanteenRadioIdMap[subcanteenGroup.checkedRadioButtonId]?.let {
-                    if (it < canteenNameMap[mainCanteen]!!.size)
-                        return "$mainCanteen ${canteenNameMap[mainCanteen]!![it]}"
-                }
-                return mainCanteen
+                val subCanteen = subitemRadioIdMap[subitemGroup.checkedRadioButtonId]
+                if (subCanteen == null)
+                    return mainCanteen
+                else
+                    return "$mainCanteen $subCanteen"
+            } else if (canteenRadioGroup.checkedRadioButtonId in studyroomRadioIdList) {
+                val mainStudyroom = view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
+                val subStudyroom = subitemRadioIdMap[subitemGroup.checkedRadioButtonId]
+                if (subStudyroom == null)
+                    return mainStudyroom
+                else
+                    return "$mainStudyroom $subStudyroom"
             } else ""
         }
 //        return if (canteenRadioGroup.checkedRadioButtonId in canteenRadioIdList) {
 //            val mainCanteen = view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
-//            subcanteenRadioIdMap[subcanteenGroup.checkedRadioButtonId]?.let {
+//            subitemRadioIdMap[subitemGroup.checkedRadioButtonId]?.let {
 //                if (it < canteenNameMap[mainCanteen]!!.size)
 //                    return "$mainCanteen ${canteenNameMap[mainCanteen]!![it]}"
 //            }
@@ -171,9 +173,8 @@ class SettingsFragment : Fragment() {
                 return@setOnClickListener
             var secondaryKey = ""
             if (primaryKey != "") {
-                subcanteenRadioIdMap[subcanteenGroup.checkedRadioButtonId]?.let {
-                    if (it < canteenNameMap[primaryKey]!!.size)
-                        secondaryKey = canteenNameMap[primaryKey]!![it]
+                subitemRadioIdMap[subitemGroup.checkedRadioButtonId]?.let {
+                    secondaryKey = it
                 }
             }
             val history = History(date = System.currentTimeMillis(), primaryKey = primaryKey, secondaryKey = secondaryKey, rating = ratingSeekBar.progress, remark = remarkEditText.text.toString())
@@ -203,27 +204,53 @@ class SettingsFragment : Fragment() {
             preferenceSeekBar.visibility = VISIBLE
             preferenceSeekBar.focusable = FOCUSABLE
             preferenceText.visibility = VISIBLE
-            subcanteenGroup.clearCheck()
+
+            preferenceSeekBar.progress = 50
+            preferenceText.text = "Preference for this canteen: 50/${100}"
+
             val main = view.findViewById<RadioButton>(checkedId).text.toString()
-            for (radio in subcanteenRadioList) {
-                radio.visibility = GONE
-                radio.focusable = NOT_FOCUSABLE
+            subitemGroup.removeAllViews()
+            subitemRadioIdMap.clear()
+
+            if (main in canteenNameMap.keys) {
+                canteenNameMap[main]!!.forEachIndexed { i, item ->
+                    val radioButton = RadioButton(context)
+                    radioButton.text = item
+                    subitemGroup.addView(radioButton)
+                    subitemRadioIdMap[radioButton.id] = item
+                    Log.d("radioButton.id", "${radioButton.id}, ${item}")
+                }
+                subitemGroup.clearCheck()
+                preferenceInfo[getChosenCanteen()]?.let {
+                    preferenceSeekBar.progress = it
+                    preferenceText.text =
+                        "Preference for this canteen: ${it}/${100}"
+                    preferenceText.setBackgroundColor(interpolateColor(it))
+                }
+            } else if (main in studyroomNameMap.keys) {
+                studyroomNameMap[main]!!.forEachIndexed { i, item ->
+                    val radioButton = RadioButton(context)
+                    radioButton.text = item
+                    subitemGroup.addView(radioButton)
+                    subitemRadioIdMap[radioButton.id] = item
+                    Log.d("radioButton.id", "${radioButton.id}, ${item}")
+                }
+                subitemGroup.clearCheck()
+                preferenceInfo[getChosenCanteen()]?.let {
+                    preferenceSeekBar.progress = it
+                    preferenceText.text =
+                        "Preference for this canteen: ${it}/${100}"
+                    preferenceText.setBackgroundColor(interpolateColor(it))
+                }
+            } else {
+                throw InvalidParameterException("Invalid primary key: ${main}")
             }
-            canteenNameMap[main]!!.forEachIndexed { i, item ->
-                subcanteenRadioList[i].text = item
-                subcanteenRadioList[i].visibility = VISIBLE
-                subcanteenRadioList[i].focusable = FOCUSABLE
-            }
-            canteenPreference[getChosenCanteen()]?.let {
-                preferenceSeekBar.progress = it
-                preferenceText.text =
-                    "Preference for this canteen: ${it}/${100}"
-                preferenceText.setBackgroundColor(interpolateColor(it))
-            }
+
         }
 
-        subcanteenGroup.setOnCheckedChangeListener { _, _ ->
-            preferenceSeekBar.progress = canteenPreference[getChosenCanteen()]!!
+        subitemGroup.setOnCheckedChangeListener { _, _ ->
+            Log.d("getChosenCanteen() ", "${getChosenCanteen()}, ${subitemGroup.checkedRadioButtonId}")
+            preferenceSeekBar.progress = preferenceInfo[getChosenCanteen()]?:50
             preferenceText.text =
                 "Preference for this canteen: ${preferenceSeekBar.progress}/${100}"
             preferenceText.setBackgroundColor(interpolateColor(preferenceSeekBar.progress))
@@ -252,7 +279,7 @@ class SettingsFragment : Fragment() {
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                canteenPreference[getChosenCanteen()] = seekBar!!.progress
+                preferenceInfo[getChosenCanteen()] = seekBar!!.progress
             }
         })
 

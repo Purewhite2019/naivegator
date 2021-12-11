@@ -180,17 +180,18 @@ object Network {
 //                                    println("${studyroom.name}: $haveCourse")
                                 }
 
-                                studyroomMap.put(
-                                    Pair(buildingName, studyroomName),
-                                    Triple(
-                                        studyroom.zws,
-                                        stuNumb,
-                                        Pair(
-                                            studyroom.sensorTemp,
-                                            haveCourse
-                                        )
+                                studyroomMap[Pair(buildingName, studyroomName)] = Triple(
+                                    studyroom.zws,
+                                    stuNumb,
+                                    Pair(
+                                        studyroom.sensorTemp,
+                                        haveCourse
                                     )
                                 )
+                                if (studyroomNameMap[buildingName] == null) {
+                                    studyroomNameMap[buildingName] = mutableSetOf()
+                                }
+                                studyroomNameMap[buildingName]!!.add(studyroomName)
                             }
                         }
                     }
