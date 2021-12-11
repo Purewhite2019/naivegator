@@ -86,21 +86,24 @@ class FilterFragment : Fragment() {
 
 
 
-       update_canteen_wights(rootView)
+        update_canteen_wights(rootView)
+       //=============test part ==================================
+       //---------this part can be deleted at anytime-------------
+       test_time()
 
+       //===========================================================
         return rootView
     }
-
-
-    fun update_canteen_wights(v : View){
-        //use distances and personal infos to filter
-        val sharedPref = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
-        var weightDistance = 50
-        val canteenPreference : MutableMap<String, Int> = mutableMapOf()
+    private var weightDistance = 50
+    private val canteenPreference : MutableMap<String, Int> = mutableMapOf()
+    private var sharedPref  :SharedPreferences?=null
+    fun load_distance_weight(){
         sharedPref?.let {
             weightDistance = it.getInt("weightDistance", 50)
             Log.d("sharedPref Load", "weightDistance : $weightDistance")
         }
+    }
+    fun load_canteen_preference(){
         sharedPref?.let {
             for ((main, sublist) in com.sjtu.naivegator.canteenNameMap) {
                 canteenPreference[main] = it.getInt(main, 50)
@@ -110,7 +113,27 @@ class FilterFragment : Fragment() {
                 }
             }
         }
+    }
+    fun load_studyroom_preference(){
+        //[TODO] add other elements to filter studyroom
+//        sharedPref?.let {
+//            for ((main, sublist) in com.sjtu.naivegator.canteenNameMap) {
+//                canteenPreference[main] = it.getInt(main, 50)
+//                for (sub in sublist) {
+//                    canteenPreference["$main $sub"] = it.getInt("$main $sub", 50)
+//                    Log.d("sharedPref Load", "$main $sub: ${canteenPreference["$main $sub"]}")
+//                }
+//            }
+//        }
+    }
 
+
+    fun update_canteen_wights(v : View){
+        //Load data from database
+        sharedPref = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
+        load_distance_weight()
+        load_canteen_preference()
+        //use distances and personal infos to filter
         val comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
         val weight_map= sortedMapOf<Float, String>(comparator)
         val info_map = mutableMapOf<String,Pair<Float,Int>>()
@@ -121,7 +144,7 @@ class FilterFragment : Fragment() {
             }
 
             //value: Triple(Pair("闵行第一餐厅", "1F 餐厅") ,0, 0),
-            var name = Pair2name(value.first)
+            var name = canteen_Pair2name(value.first)
 //            filter_log(name)
             var current = value.third
             var total = value.second
@@ -155,12 +178,63 @@ class FilterFragment : Fragment() {
 
     }
 
+    fun update_studyroom_wights(v : View){
+        //Load data from database
+        sharedPref = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
+        load_distance_weight()
+        //use distances and personal infos to filter
+
+//        val comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
+//        val weight_map= sortedMapOf<Float, String>(comparator)
+//        val info_map = mutableMapOf<String,Pair<Float,Int>>()
+//        var i = 0
+//        for ((key, value) in canteenMap) {
+//            if(key >= 100){
+//                continue
+//            }
+//
+//            //value: Triple(Pair("闵行第一餐厅", "1F 餐厅") ,0, 0),
+//            var name = canteen_Pair2name(value.first)
+////            filter_log(name)
+//            var current = value.third
+//            var total = value.second
+//
+//            if(total==0){
+//                total=1
+//            }
+//
+////            filter_log("$current $total")
+//            var crowded_weight = (100-weightDistance)*(current.toFloat()/total)
+////            filter_log("$name,人数加权: $crowded_weight")
+//            var distance = get_distance_from_canteen(currLocation!!, name2canteen(name))
+//            var pos_weight = weightDistance*(1000F/distance)
+////            filter_log("$name,位置加权: $pos_weight")
+//            var weight = (canteenPreference["${value.first} ${value.second}"]?:50) * (pos_weight+crowded_weight)
+////            filter_log("$name,总权重: $weight")
+//            weight_map.put(weight,name)
+//            info_map.put(name, Pair(distance,current))
+//            i+=1
+//        }
+//
+//        i=0
+//        for((key,value) in weight_map!!){
+//            if (i==5){
+//                break
+//            }
+//            var item = info_map.getValue(value)
+//            set_item(v,i+1,value, item.first.toInt(), item.second )
+//            i+=1
+//        }
+
+    }
+
+
 
     fun set_item(v:View, idx:Int, name:String, distance:Int, people: Int?){
         val item_str = "choice$idx"+"_"
         val _dis = distance.toString()+"m"
 
-        var _title_size : Float = 6F*24/name.length
+        var _title_size : Float = 6F*20/name.length
         if(_title_size>30F){
             _title_size=30F
         }
