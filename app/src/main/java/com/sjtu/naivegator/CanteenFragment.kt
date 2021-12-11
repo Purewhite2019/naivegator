@@ -43,6 +43,7 @@ class CanteenFragment : Fragment() {
         "玉兰苑"
     )
 
+
     private var canteenIntros: MutableList<Pair<Int, Int>> = ArrayList()
     var recyclerView: RecyclerView? = null
     var contacts: ArrayList<Contact>? = null
