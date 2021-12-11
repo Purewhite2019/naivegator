@@ -5,8 +5,11 @@ import com.google.gson.GsonBuilder
 import com.sjtu.naivegator.api.canteen.CanteenBean
 import com.sjtu.naivegator.api.studyroom.StudyroomBean
 import com.sjtu.naivegator.interceptor.TimeConsumeInterceptor
+import com.sjtu.naivegator.filter.filter_by_time
 import okhttp3.*
+import okhttp3.EventListener
 import java.io.IOException
+import java.util.*
 
 object Network {
 
@@ -18,6 +21,23 @@ object Network {
         "122" to "东上院",
         "564" to "东中院",
         "124" to "东下院"
+    )
+
+    val sectionMap = mapOf(
+        1 to Pair(Pair(8, 0), Pair(8, 45)),
+        2 to Pair(Pair(8, 55), Pair(9, 40)),
+        3 to Pair(Pair(10, 0), Pair(10, 45)),
+        4 to Pair(Pair(10, 55), Pair(11, 40)),
+        5 to Pair(Pair(12, 0), Pair(12, 45)),
+        6 to Pair(Pair(12, 55), Pair(13, 40)),
+        7 to Pair(Pair(14, 0), Pair(14, 45)),
+        8 to Pair(Pair(14, 55), Pair(15, 40)),
+        9 to Pair(Pair(16, 0), Pair(16, 45)),
+        10 to Pair(Pair(16, 55), Pair(17, 40)),
+        11 to Pair(Pair(18, 0), Pair(18, 45)),
+        12 to Pair(Pair(18, 55), Pair(19, 40)),
+        13 to Pair(Pair(20, 0), Pair(20, 20)),
+        14 to Pair(Pair(21, 15), Pair(22, 0)),
     )
 
     val okhttpListener = object : EventListener() {
@@ -124,13 +144,29 @@ object Network {
                                     break
                                 }
                             }
-                            if (studyroom.zws != null) {
+                            if (studyroom.zws != null && studyroom.roomCourseList != null) {
+                                var haveCourse: Boolean = false
+
+                                for (course in studyroom.roomCourseList) {
+                                    val startSection = course.startSection
+                                    val endSection = course.endSection
+                                    val current_time = filter_by_time()
+//                                    println(current_time.time_str)
+//                                    println("${studyroom.name}:${startSection},${endSection}")
+                                    haveCourse = current_time.is_between(Pair(sectionMap[startSection]!!.first,
+                                        sectionMap[endSection]!!.second))
+//                                    println("${studyroom.name}: $haveCourse")
+                                }
+
                                 studyroomMap.put(
                                     Pair(buildingName, studyroomName),
                                     Triple(
                                         studyroom.zws,
                                         stuNumb,
-                                        studyroom.sensorTemp
+                                        Pair(
+                                            studyroom.sensorTemp,
+                                            haveCourse
+                                        )
                                     )
                                 )
                             }
