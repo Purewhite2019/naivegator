@@ -171,6 +171,8 @@ class CanteenFragment : Fragment() {
         }
 
         fun update() {
+            sleep(100)
+            // Wait for network
             while (true) {
                 updateIntros(canteenIntros)
                 val contacts = Contact.createContactsList(9, imgFiles, canteenNames, canteenIntros)
