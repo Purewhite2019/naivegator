@@ -133,10 +133,10 @@ class MainActivity : AppCompatActivity() {
                 for (id in studyroomBuildId){
                     Network.getStudyroomData(id)
                 }
-//                for(studyroom in studyroomMap){
-//                    println(studyroom)
-//                }
-                sleep(60000)
+                for(studyroom in studyroomMap){
+                    println(studyroom)
+                }
+                sleep(1000)
             }
         }
     }

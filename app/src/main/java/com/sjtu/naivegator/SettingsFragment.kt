@@ -14,7 +14,6 @@ import android.view.View.*
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sjtu.naivegator.db.History
 import kotlin.concurrent.thread
 
@@ -85,7 +84,8 @@ class SettingsFragment : Fragment() {
             R.id.canteen_6,
             R.id.canteen_7,
             R.id.canteen_8,
-            R.id.canteen_9)
+            R.id.canteen_9
+        )
         val canteenRadioList = listOf(
             view.findViewById<RadioButton>(R.id.canteen_1),
             view.findViewById<RadioButton>(R.id.canteen_2),

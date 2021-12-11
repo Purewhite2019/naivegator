@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CanteenFragment">
+    tools:context="CanteenFragment">
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/canteen_fab"
         android:layout_width="wrap_content"
