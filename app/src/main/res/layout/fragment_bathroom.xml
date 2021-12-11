@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BathroomFragment"
-    android:background="@color/purple_200"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -19,7 +19,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:background="@color/white"
+            android:background="@color/purple_200"
             android:hint="Area" />
 
         <EditText
@@ -27,7 +27,7 @@
             android:layout_width="100dp"
             android:layout_marginStart="200dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/purple_200"
             android:hint="Number" />
 
     </RelativeLayout>
@@ -58,27 +58,18 @@
         android:layout_marginTop="100dp"
         app:layout_constraintLeft_toLeftOf="parent"
         />
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:text="Set clock"
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="100dp"
-        android:id="@+id/set_time"
-    />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="300dp">
+        android:layout_marginTop="200dp">
 
         <EditText
             android:id="@+id/text_input_start_time"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:background="@color/white"
+            android:background="@color/purple_200"
             android:hint="Start Time" />
 
         <EditText
@@ -86,10 +77,19 @@
             android:layout_width="100dp"
             android:layout_marginStart="200dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/purple_200"
             android:hint="End time" />
 
     </RelativeLayout>
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Set clock"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="100dp"
+        android:id="@+id/set_time"
+    />
+
     <TextView
         android:id="@+id/clock_name"
         android:layout_width="200dp"
@@ -97,7 +97,7 @@
         android:layout_marginLeft="80dp"
         android:textSize="24dp"
         android:textColor="@color/black"
-        android:background="@color/white"
+        android:background="@color/purple_200"
         android:text="此处为闹钟信息"
         android:layout_marginTop="400dp"
         />

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
+
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,9 @@ class BathroomFragment : Fragment() {
         val ratingSeekBar = view.findViewById<SeekBar>(R.id.bathroom_seekbar)
         val crowd_text = view.findViewById<TextView>(R.id.crowd_text)
         val clk_info = view.findViewById<TextView>(R.id.clock_name)
+        val cur_people = view.findViewById<TextView>(R.id.bathroom_cur_people)
+        cur_people.text = "Current people/Total compartments: ${bathroomInfo.second}/${bathroomInfo.first}"
+
         ratingSeekBar.progress = ratingSeekBarDistance
         ratingSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
