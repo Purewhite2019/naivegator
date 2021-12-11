@@ -54,5 +54,10 @@
             app:layout_constraintStart_toStartOf="parent"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:id="@+id/btn_exit"
+        />
 </FrameLayout>
