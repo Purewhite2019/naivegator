@@ -14,7 +14,14 @@ var EastUpperHall : Array<Double> = arrayOf(31.023431061064738,121.4337900968684
 var EastMiddleHall : Array<Double> = arrayOf(31.025377646358574,121.4328859518389)
 var EastLowerHall : Array<Double> = arrayOf(31.026337269553142,121.43245227762415)
 
-
+val Late_night_study_room :List<Pair<String,String>> = listOf(
+    Pair("中院","114"),
+    Pair("中院","115"),
+    Pair("东中院","3-105"),
+    Pair("东中院","3-106"),
+    Pair("东下院","105"),
+    Pair("东下院","115"),
+)
 
 class filter_by_time(){
     var formatter   =   SimpleDateFormat   ("yyyy年MM月dd日 HH时mm分ss秒 EEEE");
@@ -97,19 +104,21 @@ fun is_accessible_now(curr_date:filter_by_time,room:Pair<String,String>):Boolean
     //In weekend or night(21:00--24:00)
     //西区 中院 1-2层 开放时间 7:30-22:30
     //东中院 东中院3号楼3-4层 7:30-22:30
+    //东中院2号楼  7:30-22:30
+    //东下院1层和205、215教室 7:30-22:30
     //东中院3号楼1-2层  7:30-24:00
     //In Midnight
     //中院114、115和东中院3-105、3-106四间教室为24小时通宵自习教室
+    if(Late_night_study_room.contains(room)){
+        return true
+    }
+
+
     if (curr_date.is_midnight()){
         //0:00-7:30
         //可用: 中院114、115和东中院3-105、3-106
         //since I have filtered this already in filter thread.
-        if(room.first=="东中院"&&room.second[0]=='3'){
-            return room.second=="3-105"||room.second=="3-106"
-        }else if(room.first=="中院"){
-            return room.second=="114"||room.second=="115"
-        }
-        return false
+        return Late_night_study_room.contains(room)
     }else if (curr_date.is_between_2230_2400()){
         //22:30--24:00
         //可用: 东中院3号楼1-2层  中院114、115
@@ -121,11 +130,15 @@ fun is_accessible_now(curr_date:filter_by_time,room:Pair<String,String>):Boolean
         return false
     }else if(curr_date.is_weekend()||curr_date.is_between_1900_2230()){
         //19:00~22:30
-        //可用: 中院1-2层, 东中院3号楼3-4层, 东中院3号楼1-2层
+        //可用: 中院1-2层, 东中院3号楼3-4层, 东中院3号楼1-2层, 东下院1层和205、215教室 , 东中院2号楼
         if(room.first=="东中院"&&room.second[0]=='3'){
             return true
         }else if(room.first=="中院"){
             return room.second[0]=='1'||room.second[0]=='2'
+        }else if(room.first=="东中院"&&room.second[0]=='2'){
+            return true
+        }else if(room.first=="东下院"){
+            return room.second[0]=='1'||room.second=="205"||room.second=="215"
         }
         return false
     }

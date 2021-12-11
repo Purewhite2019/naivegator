@@ -198,12 +198,7 @@ class FilterFragment : Fragment() {
             //可用: 中院114、115和东中院3-105、3-106
 //            hide_last_item(v,1)
             //only calculate the above 4 studyrooms
-            val Late_night_study_room :List<Pair<String,String>> = listOf(
-                Pair("中院","114"),
-                Pair("中院","115"),
-                Pair("东中院","3-105"),
-                Pair("东中院","3-106")
-            )
+
             current_map.clear()
             for(item  in Late_night_study_room){
                 current_map.put(item, studyroomMap.get(item)!!)
@@ -231,11 +226,13 @@ class FilterFragment : Fragment() {
             }else{
                 (1-(current_people.toFloat()/total_people))
             }
-
+            var name = studuroom_Pair2name(key)
             val distance = get_distance_from_studyroom(currLocation!!, key.first)
             var weight = weightDistance*(1000F/distance)+ (100-weightDistance)*attendance_ratio
-            weight = weight * (preferenceMap["${value.first} ${value.second}"]?:50)
-            var name = studuroom_Pair2name(key)
+            filter_log("$name preference ${(preferenceMap["${value.first} ${value.second}"] ?: 50)}")
+            weight *= (preferenceMap["${value.first} ${value.second}"] ?: 50)
+            filter_log("after $weight")
+
             weight_map[weight] = name
             info_map[name] = Triple(distance,Pair(current_people,total_people),value.third.first)
         }
