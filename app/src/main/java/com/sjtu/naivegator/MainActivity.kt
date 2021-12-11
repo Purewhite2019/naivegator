@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
     // Databases
 
     private var sharedPref: SharedPreferences? = null
-    private var historyDB : HistoryDatabase? = null
-    public var historyDao : HistoryDao? = null
+    private var historyDB: HistoryDatabase? = null
+    public var historyDao: HistoryDao? = null
 
     private lateinit var binding: ActivityNavigationBinding
 
@@ -36,15 +36,17 @@ class MainActivity : AppCompatActivity() {
     private val StudyroomFragment = StudyroomFragment()
     private val BathroomFragment = BathroomFragment()
 
-    private var is_canteen_now : Boolean = true
+    private var is_canteen_now: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val canteenThread = CanteenThread()
         val studyroomThread = StudyroomThread()
-        canteenThread.start()
-        studyroomThread.start()
+        val bathroomThread = BathroomThread()
+//        canteenThread.start()
+//        studyroomThread.start()
+        bathroomThread.start()
 
         historyDB = Room
             .databaseBuilder(applicationContext, HistoryDatabase::class.java, "database-history")
@@ -67,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_studyroom -> {
                     transaction.replace(R.id.content, StudyroomFragment)
-                    Log.e("aa","hello,this is studyroom")
+                    Log.e("aa", "hello,this is studyroom")
                 }
                 R.id.navigation_bathroom -> {
                     transaction.replace(R.id.content, BathroomFragment)
@@ -106,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         private fun updateMap() {
-            while(true){
+            while (true) {
                 Network.getCanteenData(0)
                 for (i in 100..900 step 100) {
                     Network.getCanteenData(i)
@@ -129,27 +131,43 @@ class MainActivity : AppCompatActivity() {
             val studyroomBuildId = listOf<String>(
                 "126", "128", "127", "122", "564", "124"
             )
-            while(true){
-                for (id in studyroomBuildId){
+            while (true) {
+                for (id in studyroomBuildId) {
                     Network.getStudyroomData(id)
                 }
-                for(studyroom in studyroomMap){
-                    println(studyroom)
-                }
-                sleep(1000)
+//                for (studyroom in studyroomMap) {
+//                    println(studyroom)
+//                }
+                sleep(60000)
             }
         }
     }
 
-    public fun is_canteen_now():Boolean{
-//        Log.e("is_canteen",CanteenFragment.isVisible.toString())
-       return is_canteen_now
+    inner class BathroomThread : Thread() {
+        override fun run() {
+            super.run()
+            updateInfo()
+        }
+
+        private fun updateInfo() {
+            while (true) {
+                Network.getBathroomData('d', 8) // 待完善的接口
+//                println(bathroomInfo)
+                sleep(100000)
+            }
+        }
     }
 
-    public fun hide_canteen(){
+    public fun is_canteen_now(): Boolean {
+//        Log.e("is_canteen",CanteenFragment.isVisible.toString())
+        return is_canteen_now
+    }
+
+    public fun hide_canteen() {
         is_canteen_now = false
     }
-    public fun set_canteen(){
+
+    public fun set_canteen() {
         is_canteen_now = true
     }
 

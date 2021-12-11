@@ -92,7 +92,8 @@ class filter_by_time(){
 
 fun is_accessible_now(curr_date:filter_by_time,room:Pair<String,String>):Boolean{
     //return true if is not accessible now
-
+//    filter_log("room:"+room.first+room.second)
+//    filter_log("time"+curr_date.hour.toString())
     //In weekend or night(21:00--24:00)
     //西区 中院 1-2层 开放时间 7:30-22:30
     //东中院 东中院3号楼3-4层 7:30-22:30
@@ -121,6 +122,7 @@ fun is_accessible_now(curr_date:filter_by_time,room:Pair<String,String>):Boolean
         }else if(room.first=="中院"){
             return room.second[0]=='1'||room.second[0]=='2'
         }
+        return false
     }
     else{
         //weekdays 7:30---19:00
@@ -167,3 +169,12 @@ fun get_distance_from_studyroom(start: Location, building_str:String): Float{
     }
 }
 
+fun studuroom_Pair2name(namepair:Pair<String,String>):String{
+    var res : String = ""
+    when{
+        namepair.first[0]=='东' -> res+= namepair.first.subSequence(0,2)
+        else -> res+= namepair.first
+    }
+    res+=namepair.second
+    return res
+}

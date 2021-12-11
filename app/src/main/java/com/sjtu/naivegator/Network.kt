@@ -2,6 +2,7 @@ package com.sjtu.naivegator
 
 import android.util.Log
 import com.google.gson.GsonBuilder
+import com.sjtu.naivegator.api.bathroom.BathroomBean
 import com.sjtu.naivegator.api.canteen.CanteenBean
 import com.sjtu.naivegator.api.studyroom.StudyroomBean
 import com.sjtu.naivegator.interceptor.TimeConsumeInterceptor
@@ -9,6 +10,8 @@ import com.sjtu.naivegator.filter.filter_by_time
 import okhttp3.*
 import okhttp3.EventListener
 import java.io.IOException
+import java.lang.Exception
+import java.lang.IllegalStateException
 import java.util.*
 
 object Network {
@@ -80,6 +83,14 @@ object Network {
         client.newCall(request).enqueue(callback)
     }
 
+    fun requestBathroom(url: String, callback: Callback) {
+        val request: Request = Request.Builder()
+            .url(url)
+            .header("User-Agent", "NaiveGator")
+            .build()
+        client.newCall(request).enqueue(callback)
+    }
+
 
     fun getCanteenData(id: Int) {
         // Input：id, the id of the selected canteen (0 for overall situation)
@@ -128,7 +139,14 @@ object Network {
 
             override fun onResponse(call: Call, response: Response) {
                 val bodyString = response.body?.string()
-                val studyroomBean = gson.fromJson(bodyString, StudyroomBean::class.java)
+                var studyroomBean : StudyroomBean? = null
+                try {
+                    studyroomBean = gson.fromJson(bodyString, StudyroomBean::class.java)
+                } catch (e : Exception) {
+                    Log.e("JSON Parse", bodyString?:"(Empty)")
+                    return
+                }
+
                 val floorList = studyroomBean.data.floorList
                 for (floor in floorList) {
                     val stuNumbList = floor.roomStuNumbs
@@ -153,8 +171,12 @@ object Network {
                                     val current_time = filter_by_time()
 //                                    println(current_time.time_str)
 //                                    println("${studyroom.name}:${startSection},${endSection}")
-                                    haveCourse = current_time.is_between(Pair(sectionMap[startSection]!!.first,
-                                        sectionMap[endSection]!!.second))
+                                    haveCourse = current_time.is_between(
+                                        Pair(
+                                            sectionMap[startSection]!!.first,
+                                            sectionMap[endSection]!!.second
+                                        )
+                                    )
 //                                    println("${studyroom.name}: $haveCourse")
                                 }
 
@@ -175,7 +197,43 @@ object Network {
                 }
             }
         }, id)
-
-
     }
+
+    fun getBathroomData(area: Char, id: Int) {
+        // Input：id, the id of the selected canteen (0 for overall situation)
+        val url = "https://plus.sjtu.edu.cn/api/sjtu/bathroom"
+
+        requestCanteen(url, object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("request", e.message.toString())
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val bodyString = response.body?.string()
+//                println(bodyString)
+                val bathroomBean = gson.fromJson(bodyString, BathroomBean::class.java)
+                var dormName = ""
+                for (dormitory in bathroomBean.data) {
+                    when (area) {
+                        'd', 'D', '东' -> if (("东" in dormitory.name) and (id.toString() in dormitory.name)) {
+                            dormName = dormitory.name
+                        }
+                        'x', 'X', '西' -> if (("西" in dormitory.name) and (id.toString() in dormitory.name)) {
+                            dormName = dormitory.name
+                        }
+                    }
+                    print(dormName)
+                    if (dormName == dormitory.name) {
+                        bathroomInfo = bathroomInfo.copy(
+                            first = dormitory.status_count.free + dormitory.status_count.used,
+                            second = dormitory.status_count.used,
+                            third = listOf(true) // 暂时未用到的接口
+                        )
+                        break
+                    }
+                }
+            }
+        })
+    }
+
 }

@@ -11,7 +11,7 @@
 
         app:layout_constraintHorizontal_weight="1"
         android:layout_marginStart="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:textColor="#1e1e1e"
         android:text="This is a very very long content to test multiple lines display"
 
@@ -26,7 +26,7 @@
         app:layout_constraintHorizontal_weight="1"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:textSize="14sp"
+        android:textSize="10sp"
         android:textColor="#808080"
         android:text="2021-11-28"
 
