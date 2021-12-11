@@ -31,7 +31,7 @@ class StudyroomFragment : Fragment() {
         "ic_eastmid",
         "ic_eastdown",
 
-    )
+        )
     private val canteenNames: Array<String> = arrayOf(
         "上院",
         "中院",
@@ -48,14 +48,56 @@ class StudyroomFragment : Fragment() {
 
     fun updateIntros(canteenIntros: MutableList<Pair<Int, Int>>) {
         canteenIntros.clear()
+
+        var seatNum: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+        for (studyroom in studyroomMap) {
+            var totalSeat = 0
+            try {
+                totalSeat = studyroom.value.first.toInt()
+            } catch (nfe: NumberFormatException) {
+                // not a valid int
+                println("${studyroom.key} ?????? ${studyroom.value.first}")
+            }
+
+            val usedSeat = studyroom.value.second
+
+            when (studyroom.key.first) {
+                "上院" -> {
+                    seatNum[0] += usedSeat
+                    seatNum[1] += totalSeat
+                }
+                "中院" -> {
+                    seatNum[2] += usedSeat
+                    seatNum[3] += totalSeat
+                }
+                "下院" -> {
+                    seatNum[4] += usedSeat
+                    seatNum[5] += totalSeat
+                }
+                "东上院" -> {
+                    seatNum[6] += usedSeat
+                    seatNum[7] += totalSeat
+                }
+                "东中院" -> {
+                    seatNum[8] += usedSeat
+                    seatNum[9] += totalSeat
+                }
+                "东下院" -> {
+                    seatNum[10] += usedSeat
+                    seatNum[11] += totalSeat
+                }
+            }
+        }
+
         canteenIntros.addAll(
             arrayOf(
-                Pair(canteenMap[100]!!.third, canteenMap[100]!!.second),
-                Pair(canteenMap[200]!!.third, canteenMap[200]!!.second),
-                Pair(canteenMap[300]!!.third, canteenMap[300]!!.second),
-                Pair(canteenMap[400]!!.third, canteenMap[400]!!.second),
-                Pair(canteenMap[500]!!.third, canteenMap[500]!!.second),
-                Pair(canteenMap[600]!!.third, canteenMap[600]!!.second)
+                Pair(seatNum[0], seatNum[1]),
+                Pair(seatNum[2], seatNum[3]),
+                Pair(seatNum[4], seatNum[5]),
+                Pair(seatNum[6], seatNum[7]),
+                Pair(seatNum[8], seatNum[9]),
+                Pair(seatNum[10], seatNum[11])
             )
         )
     }

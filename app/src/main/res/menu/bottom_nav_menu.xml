@@ -3,21 +3,23 @@
 
     <item
         android:id="@+id/navigation_canteen"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/canteen"
         android:title="@string/title_canteen" />
 
     <item
         android:id="@+id/navigation_studyroom"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/library"
         android:title="@string/title_studyroom" />
 
     <item
-        android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_settings" />
-    <item
         android:id="@+id/navigation_bathroom"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/bathroom"
         android:title="Bathroom" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/setting"
+        android:title="@string/title_settings" />
+
 
 </menu>

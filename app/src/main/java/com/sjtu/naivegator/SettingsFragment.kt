@@ -1,6 +1,7 @@
 package com.sjtu.naivegator
 
 import android.animation.ArgbEvaluator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -13,6 +14,9 @@ import android.view.View.*
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.sjtu.naivegator.db.History
+import kotlin.concurrent.thread
 
 class SettingsFragment : Fragment() {
     private var weightDistance: Int = 50
@@ -40,14 +44,6 @@ class SettingsFragment : Fragment() {
     override fun onDestroy() {
         with(sharedPref?.edit()) {
             this?.putInt("weightDistance", weightDistance)
-//            for ((main, sublist) in canteenMap) {
-//                this?.putInt(main, 50)
-//                for (sub in sublist) {
-//                    canteenPreference["$main $sub"]?.let {
-//                        this?.putInt("$main $sub", it)
-//                    }
-//                }
-//            }
             for ((key, value) in canteenPreference) {
                 this?.putInt(key, value)
             }
@@ -57,6 +53,7 @@ class SettingsFragment : Fragment() {
         super.onDestroy()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +61,13 @@ class SettingsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
+
+//        val addHistoryFab = view.findViewById<FloatingActionButton>(R.id.fab_history)
+        val remarkEditText = view.findViewById<EditText>(R.id.remark_text)
+
+        val ratingSeekBar = view.findViewById<SeekBar>(R.id.rating_seekbar)
+        val ratingProgBar = view.findViewById<ProgressBar>(R.id.rating_progbar)
+        val rateButton = view.findViewById<ImageButton>(R.id.btn_history_add)
 
         val weightSeekBar = view.findViewById<SeekBar>(R.id.weight_seekbar_pos)
         val weightText = view.findViewById<TextView>(R.id.weight_text_pos)
@@ -120,6 +124,48 @@ class SettingsFragment : Fragment() {
                 return mainCanteen
             } else ""
         }
+//        return if (canteenRadioGroup.checkedRadioButtonId in canteenRadioIdList) {
+//            val mainCanteen = view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
+//            subcanteenRadioIdMap[subcanteenGroup.checkedRadioButtonId]?.let {
+//                if (it < canteenNameMap[mainCanteen]!!.size)
+//                    return "$mainCanteen ${canteenNameMap[mainCanteen]!![it]}"
+//            }
+//            return mainCanteen
+//        } else ""
+        rateButton.setOnClickListener{
+            val primaryKey = if (canteenRadioGroup.checkedRadioButtonId in canteenRadioIdList)
+                view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
+            else
+                ""
+            var secondaryKey = ""
+            if (primaryKey != "") {
+                subcanteenRadioIdMap[subcanteenGroup.checkedRadioButtonId]?.let {
+                    if (it < canteenNameMap[primaryKey]!!.size)
+                        secondaryKey = canteenNameMap[primaryKey]!![it]
+                }
+            }
+            val history = History(date = System.currentTimeMillis(), primaryKey = primaryKey, secondaryKey = secondaryKey, rating = ratingSeekBar.progress, remark = remarkEditText.text.toString())
+            remarkEditText.text = null
+            ratingSeekBar.progress = 0
+            ratingProgBar.progress = 0
+            val historyDao = (requireActivity() as MainActivity).historyDao
+            thread {
+                historyDao?.insert(history = history)
+                requireActivity().runOnUiThread{
+                    Toast.makeText(context, "History added Successfully!", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+        ratingSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                ratingProgBar.progress = progress
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
 
         canteenRadioGroup.setOnCheckedChangeListener { group, checkedId ->
             preferenceSeekBar.visibility = VISIBLE
@@ -177,6 +223,10 @@ class SettingsFragment : Fragment() {
                 canteenPreference[getChosenCanteen()] = seekBar!!.progress
             }
         })
+
+//        addHistoryFab.setOnClickListener {
+//            ;
+//        }
 
         return view
     }

@@ -16,18 +16,19 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sjtu.naivegator.databinding.ActivityNavigationBinding
-import com.sjtu.naivegator.db.UserPreferenceDao
-import com.sjtu.naivegator.db.UserPreferenceDatabase
 import com.sjtu.naivegator.filter.FilterFragment
 import com.sjtu.naivegator.StudyroomFragment
+import com.sjtu.naivegator.db.HistoryDao
+import com.sjtu.naivegator.db.HistoryDatabase
 import com.sjtu.naivegator.api.bathroom.BathroomBean
 import java.security.InvalidParameterException
 
 class MainActivity : AppCompatActivity() {
     // Databases
+
     private var sharedPref: SharedPreferences? = null
-    private var prefDB: UserPreferenceDatabase? = null
-    public var prefDao: UserPreferenceDao? = null
+    private var historyDB : HistoryDatabase? = null
+    public var historyDao : HistoryDao? = null
 
     private lateinit var binding: ActivityNavigationBinding
 
@@ -37,16 +38,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val networkThread = NetworkThread()
-        networkThread.start()
+        val canteenThread = CanteenThread()
+        val studyroomThread = StudyroomThread()
+        canteenThread.start()
+        studyroomThread.start()
 
+        historyDB = Room
+            .databaseBuilder(applicationContext, HistoryDatabase::class.java, "database-history")
+            .build()
+        historyDao = historyDB!!.historyDao()
         sharedPref = applicationContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
-        prefDB = Room.databaseBuilder(
-            applicationContext,
-            UserPreferenceDatabase::class.java, "database-preference"
-        ).build()
-        prefDao = prefDB!!.userPreferenceDao()
-
 
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -65,11 +66,11 @@ class MainActivity : AppCompatActivity() {
                     transaction.replace(R.id.content, StudyroomFragment)
                     Log.e("aa","hello,this is studyroom")
                 }
-                R.id.navigation_settings -> {
-                    transaction.replace(R.id.content, SettingsFragment())
-                }
                 R.id.navigation_bathroom -> {
                     transaction.replace(R.id.content, BathroomFragment)
+                }
+                R.id.navigation_settings -> {
+                    transaction.replace(R.id.content, SettingsFragment())
                 }
                 else -> {
                     throw InvalidParameterException("navView::Invalid item id: ${it.itemId}")
@@ -90,27 +91,49 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        prefDB?.close()
+        historyDB?.close()
 
         super.onDestroy()
     }
 
-    inner class NetworkThread : Thread() {
+    inner class CanteenThread : Thread() {
         override fun run() {
             super.run()
-            transition()
+            updateMap()
         }
 
-        private fun transition() {
+        private fun updateMap() {
             while(true){
                 Network.getCanteenData(0)
                 for (i in 100..900 step 100) {
                     Network.getCanteenData(i)
                 }
                 sleep(10000)
-                for(canteen in canteenMap){
-                    println(canteen)
+//                for(canteen in canteenMap){
+//                    println(canteen)
+//                }
+            }
+        }
+    }
+
+    inner class StudyroomThread : Thread() {
+        override fun run() {
+            super.run()
+            updateMap()
+        }
+
+        private fun updateMap() {
+            val studyroomBuildId = listOf<String>(
+                "126", "128", "127", "122", "564", "124"
+            )
+            while(true){
+                for (id in studyroomBuildId){
+                    Network.getStudyroomData(id)
                 }
+//                for(studyroom in studyroomMap){
+//                    println(studyroom)
+//                }
+                sleep(60000)
             }
         }
     }
