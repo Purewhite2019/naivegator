@@ -1,5 +1,6 @@
 package com.sjtu.naivegator
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 
 private const val ARG_tmpId = "tmpId"
 private const val ARG_canteenName = "canteenName"
@@ -25,6 +27,7 @@ class DetailFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,8 +39,14 @@ class DetailFragment : Fragment() {
                     "canteen_name: $canteenName\n\n"+
                     "Here are some details about the canteen.\n\n"
         view.findViewById<Button>(R.id.btn_exit).setOnClickListener {
-            val cur = requireActivity().supportFragmentManager.fragments.last()
-            requireActivity().supportFragmentManager.beginTransaction().remove(cur).commit()
+//            val cur = requireActivity().supportFragmentManager.fragments.last()
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .remove(cur)
+//                .commit()
+
+            requireActivity().supportFragmentManager.popBackStack()
+            val frags = requireActivity().supportFragmentManager.fragments
+
         }
         return view
     }

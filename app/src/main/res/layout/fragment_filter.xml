@@ -8,9 +8,12 @@
     android:layout_centerHorizontal="true"
     android:background="@drawable/filter_background"
     android:padding="@dimen/filter_title_size"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="30dp">
-
+    android:layout_marginTop="50dp"
+    android:layout_marginBottom="40dp"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp">
+    <!--    android:layout_marginTop="10dp"-->
+    <!--    android:layout_marginBottom="30dp"-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
