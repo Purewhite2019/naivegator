@@ -1,7 +1,6 @@
 package com.sjtu.naivegator.filter
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -24,8 +23,6 @@ import com.sjtu.naivegator.MainActivity
 import com.sjtu.naivegator.R
 import com.sjtu.naivegator.canteenMap
 import com.sjtu.naivegator.studyroomMap
-import kotlinx.android.synthetic.main.dynamic_lists.*
-import kotlinx.android.synthetic.main.fragment_filter.*
 
 
 class FilterFragment : Fragment() {
@@ -96,8 +93,8 @@ class FilterFragment : Fragment() {
         return rootView
     }
     private var weightDistance = 50
-    private val canteenPreference : MutableMap<String, Int> = mutableMapOf()
-    private var sharedPref  :SharedPreferences?=null
+    private val preferenceMap : MutableMap<String, Int> = mutableMapOf()
+    private var sharedPref : SharedPreferences?=null
     fun load_distance_weight(){
         sharedPref?.let {
             weightDistance = it.getInt("weightDistance", 50)
@@ -107,25 +104,24 @@ class FilterFragment : Fragment() {
     fun load_canteen_preference(){
         sharedPref?.let {
             for ((main, sublist) in com.sjtu.naivegator.canteenNameMap) {
-                canteenPreference[main] = it.getInt(main, 50)
+                preferenceMap[main] = it.getInt(main, 50)
                 for (sub in sublist) {
-                    canteenPreference["$main $sub"] = it.getInt("$main $sub", 50)
-                    Log.d("sharedPref Load", "$main $sub: ${canteenPreference["$main $sub"]}")
+                    preferenceMap["$main $sub"] = it.getInt("$main $sub", preferenceMap[main]!!)
+                    Log.d("sharedPref Load", "$main $sub: ${preferenceMap["$main $sub"]}")
                 }
             }
         }
     }
     fun load_studyroom_preference(){
-        //[TODO] add other elements to filter studyroom
-//        sharedPref?.let {
-//            for ((main, sublist) in com.sjtu.naivegator.canteenNameMap) {
-//                canteenPreference[main] = it.getInt(main, 50)
-//                for (sub in sublist) {
-//                    canteenPreference["$main $sub"] = it.getInt("$main $sub", 50)
-//                    Log.d("sharedPref Load", "$main $sub: ${canteenPreference["$main $sub"]}")
-//                }
-//            }
-//        }
+        sharedPref?.let {
+            for ((main, sublist) in com.sjtu.naivegator.studyroomNameMap) {
+                preferenceMap[main] = it.getInt(main, 50)
+                for (sub in sublist) {
+                    preferenceMap["$main $sub"] = it.getInt("$main $sub", 50)
+                    Log.d("sharedPref Load", "$main $sub: ${preferenceMap["$main $sub"]}")
+                }
+            }
+        }
     }
 
 
@@ -161,7 +157,7 @@ class FilterFragment : Fragment() {
             val distance = get_distance_from_canteen(currLocation!!, name2canteen(name))
             val pos_weight = weightDistance*(1000F/distance)
 //            filter_log("$name,位置加权: $pos_weight")
-            val weight = (canteenPreference["${value.first} ${value.second}"]?:50) * (pos_weight+crowded_weight)
+            val weight = (preferenceMap["${value.first} ${value.second}"]?:50) * (pos_weight+crowded_weight)
 //            filter_log("$name,总权重: $weight")
             weight_map.put(weight,name)
             info_map.put(name, Pair(distance,current))
@@ -235,7 +231,7 @@ class FilterFragment : Fragment() {
             var attendance_ratio = current_people.toFloat()/total_people
             val distance = get_distance_from_studyroom(currLocation!!, key.first)
             var weight = weightDistance*(1000F/distance)+ (100-weightDistance)*attendance_ratio
-            //weight = weight * Preference
+            weight = weight * (preferenceMap["${value.first} ${value.second}"]?:50)
             var name = studuroom_Pair2name(key)
             weight_map[weight] = name
             info_map[name] = Triple(distance,current_people,value.third.first)
