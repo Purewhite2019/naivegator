@@ -9,5 +9,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="filter_text_margin_left">140dp</dimen>
-    <dimen name="filter_text_dynamic_margin_left">180dp</dimen>
+    <dimen name="filter_text_dynamic_margin_left">135dp</dimen>
+    <dimen name="filter_text_line1_margin_top">1dp</dimen>
+    <dimen name="filter_text_line2_margin_top">26dp</dimen>
+    <dimen name="filter_text_line3_margin_top">50dp</dimen>
 </resources>

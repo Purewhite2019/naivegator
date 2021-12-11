@@ -43,47 +43,42 @@
                     android:textStyle="bold" />
                 <!--distance,score-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/filter_text_margin_left"
-                    android:padding="2dp"
-                    android:text="距离:"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/choice1_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
-                    android:padding="2dp"
+                    android:layout_marginTop="@dimen/filter_text_line1_margin_top"
+                    android:padding="1dp"
                     android:text="100m"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/filter_text_margin_left"
-                    android:layout_marginTop="35dp"
-                    android:padding="2dp"
-                    android:text="人数:"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
                     android:id="@+id/choice1_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
-                    android:layout_marginTop="35dp"
-                    android:padding="2dp"
+
+                    android:layout_marginTop="@dimen/filter_text_line2_margin_top"
+                    android:padding="1dp"
                     android:text="10"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
+                <TextView
+                    android:id="@+id/choice1_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
+
+                    android:layout_marginTop="@dimen/filter_text_line3_margin_top"
+                    android:padding="1dp"
+                    android:text="温度"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
 
             </FrameLayout>
 
@@ -109,44 +104,38 @@
                     android:textStyle="bold" />
                 <!--distance,score-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/filter_text_margin_left"
-                    android:padding="2dp"
-                    android:text="距离:"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/choice2_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
-                    android:padding="2dp"
+                    android:layout_marginTop="@dimen/filter_text_line1_margin_top"
+                    android:padding="1dp"
                     android:text="100m"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/filter_text_margin_left"
-                    android:layout_marginTop="35dp"
-                    android:padding="2dp"
-                    android:text="人数:"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
                     android:id="@+id/choice2_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
-                    android:layout_marginTop="35dp"
-                    android:padding="2dp"
+                    android:layout_marginTop="@dimen/filter_text_line2_margin_top"
+                    android:padding="1dp"
                     android:text="10"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/choice2_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
+
+                    android:layout_marginTop="@dimen/filter_text_line3_margin_top"
+                    android:padding="1dp"
+                    android:text="温度"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
@@ -176,44 +165,40 @@
                     android:textStyle="bold" />
                 <!--distance,score-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/filter_text_margin_left"
-                    android:padding="2dp"
-                    android:text="距离:"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/choice3_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
-                    android:padding="2dp"
+                    android:layout_marginTop="@dimen/filter_text_line1_margin_top"
+                    android:padding="1dp"
                     android:text="100m"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/filter_text_margin_left"
-                    android:layout_marginTop="35dp"
-                    android:padding="2dp"
-                    android:text="人数:"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+
 
                 <TextView
                     android:id="@+id/choice3_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
-                    android:layout_marginTop="35dp"
-                    android:padding="2dp"
+                    android:layout_marginTop="@dimen/filter_text_line2_margin_top"
+                    android:padding="1dp"
                     android:text="10"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/choice3_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
+
+                    android:layout_marginTop="@dimen/filter_text_line3_margin_top"
+                    android:padding="1dp"
+                    android:text="温度"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
             </FrameLayout>
@@ -240,44 +225,41 @@
                     android:textStyle="bold" />
                 <!--distance,score-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/filter_text_margin_left"
-                    android:padding="2dp"
-                    android:text="距离:"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+
 
                 <TextView
                     android:id="@+id/choice4_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
-                    android:padding="2dp"
+                    android:padding="1dp"
+                    android:layout_marginTop="@dimen/filter_text_line1_margin_top"
                     android:text="100m"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/filter_text_margin_left"
-                    android:layout_marginTop="35dp"
-                    android:padding="2dp"
-                    android:text="人数:"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+
 
                 <TextView
                     android:id="@+id/choice4_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
-                    android:layout_marginTop="35dp"
-                    android:padding="2dp"
+                    android:layout_marginTop="@dimen/filter_text_line2_margin_top"
+                    android:padding="1dp"
                     android:text="10"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/choice4_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
+
+                    android:layout_marginTop="@dimen/filter_text_line3_margin_top"
+                    android:padding="1dp"
+                    android:text="温度"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
             </FrameLayout>
@@ -305,44 +287,41 @@
                     android:textStyle="bold" />
                 <!--distance,score-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/filter_text_margin_left"
-                    android:padding="2dp"
-                    android:text="距离:"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+
 
                 <TextView
                     android:id="@+id/choice5_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
-                    android:padding="2dp"
+                    android:padding="1dp"
                     android:text="100m"
+                    android:layout_marginTop="@dimen/filter_text_line1_margin_top"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/filter_text_margin_left"
-                    android:layout_marginTop="35dp"
-                    android:padding="2dp"
-                    android:text="人数:"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+
 
                 <TextView
                     android:id="@+id/choice5_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
-                    android:layout_marginTop="35dp"
-                    android:padding="2dp"
+                    android:layout_marginTop="@dimen/filter_text_line2_margin_top"
+                    android:padding="1dp"
                     android:text="10"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/choice5_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/filter_text_dynamic_margin_left"
+
+                    android:layout_marginTop="@dimen/filter_text_line3_margin_top"
+                    android:padding="1dp"
+                    android:text="温度"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
             </FrameLayout>

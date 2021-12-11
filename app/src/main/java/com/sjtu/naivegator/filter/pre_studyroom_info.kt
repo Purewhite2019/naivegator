@@ -164,3 +164,12 @@ fun get_distance_from_studyroom(start: Location, building_str:String): Float{
     }
 }
 
+fun studuroom_Pair2name(namepair:Pair<String,String>):String{
+    var res : String = ""
+    when{
+        namepair.first[0]=='东' -> res+= namepair.first.subSequence(0,2)
+        else -> res+= namepair.first
+    }
+    res+=namepair.second
+    return res
+}

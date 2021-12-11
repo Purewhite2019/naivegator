@@ -155,32 +155,31 @@ class FilterFragment : Fragment() {
             }
 
 
-            var crowded_weight = (100-weightDistance)*(current.toFloat()/total)
+            val crowded_weight = (100-weightDistance)*(current.toFloat()/total)
 //            filter_log("$name,人数加权: $crowded_weight")
-            var distance = get_distance_from_canteen(currLocation!!, name2canteen(name))
-            var pos_weight = weightDistance*(1000F/distance)
+            val distance = get_distance_from_canteen(currLocation!!, name2canteen(name))
+            val pos_weight = weightDistance*(1000F/distance)
 //            filter_log("$name,位置加权: $pos_weight")
-            var weight = (canteenPreference["${value.first} ${value.second}"]?:50) * (pos_weight+crowded_weight)
+            val weight = (canteenPreference["${value.first} ${value.second}"]?:50) * (pos_weight+crowded_weight)
 //            filter_log("$name,总权重: $weight")
             weight_map.put(weight,name)
             info_map.put(name, Pair(distance,current))
             i+=1
         }
-
         i=0
        for((key,value) in weight_map!!){
            if (i==5){
                break
            }
            var item = info_map.getValue(value)
-           set_item(v,i+1,value, item.first.toInt(), item.second )
+           set_item(v,i+1,value, item.first.toInt(), item.second,false,"")
            i+=1
        }
 
     }
 
     fun update_studyroom_wights(v : View){
-        var studyroomMap = mutableMapOf<Pair<String,String>, Triple<String, Int, String>>()
+        var studyroomMap = mutableMapOf<Pair<String,String>, Triple<String, Int, Pair<String,Boolean>>>()
         //Load data from database
         reset_item(v)
         sharedPref = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
@@ -190,7 +189,7 @@ class FilterFragment : Fragment() {
 //        Toast.makeText(v.context,"In studyroom now ",Toast.LENGTH_SHORT).show()
         val comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
         val weight_map= sortedMapOf<Float, String>(comparator)
-        val info_map = mutableMapOf<String,Pair<Float,Int>>()
+        val info_map = mutableMapOf<String,Triple<Float,Int,String>>() //名称, Triple(距离,人数,温度)
         var i = 0
 
         //get current time
@@ -200,9 +199,9 @@ class FilterFragment : Fragment() {
         if (current_time.is_midnight()){
             //24:00 --- 7:30
             //可用: 中院114、115和东中院3-105、3-106
-            hide_last_item(v,1)
+//            hide_last_item(v,1)
             //only calculate the above 4 studyrooms
-            var Late_night_study_room :List<Pair<String,String>> = listOf(
+            val Late_night_study_room :List<Pair<String,String>> = listOf(
                 Pair("中院","114"),
                 Pair("中院","115"),
                 Pair("东中院","3-105"),
@@ -217,13 +216,42 @@ class FilterFragment : Fragment() {
         for ((key, value) in current_map) {
 
             //key : Pair<String, String>  (教学楼名，教室名)
-            //value : Triple<String, int, String> （总座位，实际人数，温度）、
-            if(!is_accessible_now(current_time,key)){
+            //value : Triple<String, int, Pair<String,Boolean>> （总座位，实际人数，(温度,是否有课))）、
+            if(!is_accessible_now(current_time,key)){//exclude inaccessible study room
                 continue
             }
-
+            if(is_audio_studyroom(key)){//exclude audio room
+                continue
+            }
+            if(value.third.second){ //exclude study room having class now
+                continue
+            }
+            var current_people = value.second
+            var total_people = value.first.toInt()
+            if (total_people==0){//Prevent division by zero errors
+                total_people=1
+            }
+            var attendance_ratio = current_people.toFloat()/total_people
+            val distance = get_distance_from_studyroom(currLocation!!, key.first)
+            var weight = weightDistance*(1000F/distance)+ (100-weightDistance)*attendance_ratio
+            //weight = weight * Preference
+            var name = studuroom_Pair2name(key)
+            weight_map[weight] = name
+            info_map[name] = Triple(distance,current_people,value.third.first)
+        }
+        if (weight_map.size<5){
+            hide_last_item(v,5-weight_map.size)
         }
 
+        i=0
+        for((key,value) in weight_map!!){
+            if (i==5){
+                break
+            }
+            var item = info_map.getValue(value)
+            set_item(v,i+1,value, item.first.toInt(), item.second,true, item.third)
+            i+=1
+        }
     }
 
 
@@ -251,15 +279,15 @@ class FilterFragment : Fragment() {
         v.findViewById<FrameLayout>(R.id.filter_item5).visibility=FrameLayout.VISIBLE
     }
 
-    fun set_item(v:View, idx:Int, name:String, distance:Int, people: Int?){
+    fun set_item(v:View, idx:Int, name:String, distance:Int, people: Int,has_temp:Boolean,temp:String){
         val item_str = "choice$idx"+"_"
-        val _dis = distance.toString()+"m"
+        val _dis ="距离:"+distance.toString()+"m"
 
         var _title_size : Float = 6F*20/name.length
         if(_title_size>30F){
             _title_size=30F
         }
-
+        var _people = "当前:${people}人"
         val res: Resources = resources
 //        filter_log(item_str+"title")
         v.findViewById<com.hanks.htextview.rainbow.RainbowTextView>(
@@ -272,7 +300,15 @@ class FilterFragment : Fragment() {
         v.findViewById<TextView>(
             res.getIdentifier(item_str+"distance", "id", context?.packageName)).text=_dis
         v.findViewById<TextView>(
-            res.getIdentifier(item_str+"score", "id", context?.packageName)).text=people.toString()
+            res.getIdentifier(item_str+"score", "id", context?.packageName)).text=_people
+        if(has_temp){
+            var _temp = "温度:${temp}℃"
+            v.findViewById<TextView>(
+                res.getIdentifier(item_str+"temp", "id", context?.packageName)).text=_temp
+        }else{
+            v.findViewById<TextView>(
+                res.getIdentifier(item_str+"temp", "id", context?.packageName)).text=""
+        }
     }
 
 
