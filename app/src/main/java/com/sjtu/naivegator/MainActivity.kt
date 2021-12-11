@@ -16,18 +16,19 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sjtu.naivegator.databinding.ActivityNavigationBinding
-import com.sjtu.naivegator.db.UserPreferenceDao
-import com.sjtu.naivegator.db.UserPreferenceDatabase
 import com.sjtu.naivegator.filter.FilterFragment
 import com.sjtu.naivegator.StudyroomFragment
+import com.sjtu.naivegator.db.HistoryDao
+import com.sjtu.naivegator.db.HistoryDatabase
 import com.sjtu.naivegator.api.bathroom.BathroomBean
 import java.security.InvalidParameterException
 
 class MainActivity : AppCompatActivity() {
     // Databases
+
     private var sharedPref: SharedPreferences? = null
-    private var prefDB: UserPreferenceDatabase? = null
-    public var prefDao: UserPreferenceDao? = null
+    private var historyDB : HistoryDatabase? = null
+    public var historyDao : HistoryDao? = null
 
     private lateinit var binding: ActivityNavigationBinding
 
@@ -39,14 +40,11 @@ class MainActivity : AppCompatActivity() {
 
         val networkThread = NetworkThread()
         networkThread.start()
-
+        historyDB = Room
+            .databaseBuilder(applicationContext, HistoryDatabase::class.java, "database-history")
+            .build()
+        historyDao = historyDB!!.historyDao()
         sharedPref = applicationContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
-        prefDB = Room.databaseBuilder(
-            applicationContext,
-            UserPreferenceDatabase::class.java, "database-preference"
-        ).build()
-        prefDao = prefDB!!.userPreferenceDao()
-
 
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -65,11 +63,11 @@ class MainActivity : AppCompatActivity() {
                     transaction.replace(R.id.content, StudyroomFragment)
                     Log.e("aa","hello,this is studyroom")
                 }
-                R.id.navigation_settings -> {
-                    transaction.replace(R.id.content, SettingsFragment())
-                }
                 R.id.navigation_bathroom -> {
                     transaction.replace(R.id.content, BathroomFragment)
+                }
+                R.id.navigation_settings -> {
+                    transaction.replace(R.id.content, SettingsFragment())
                 }
                 else -> {
                     throw InvalidParameterException("navView::Invalid item id: ${it.itemId}")
@@ -90,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        prefDB?.close()
+        historyDB?.close()
 
         super.onDestroy()
     }

@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/weight_text_pos"
+            android:layout_marginLeft="20dp"
             android:text="Weight between Distance and Traffic: 50/50"
             app:layout_constraintTop_toBottomOf="@id/weight_seekbar_pos"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -34,123 +35,258 @@
 <!--            android:layout_height="wrap_content"-->
 <!--            android:id="@+id/dislikes_list"-->
 <!--            />-->
-        <RadioGroup
+        <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:id="@+id/canteen_group"
+            android:id="@+id/scroll_group"
             android:layout_margin="40dp"
             app:layout_constraintTop_toBottomOf="@id/weight_text_pos"
+            app:layout_constraintBottom_toTopOf="@id/remark_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:orientation="vertical">
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/canteen_group"
+                android:layout_marginRight="20dp"
+                >
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/canteen_1"
+                    android:text="闵行第一餐厅"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/canteen_2"
+                    android:text="闵行第二餐厅"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/canteen_3"
+                    android:text="闵行第三餐厅"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/canteen_4"
+                    android:text="闵行第四餐厅"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/canteen_5"
+                    android:text="闵行第五餐厅"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/canteen_6"
+                    android:text="闵行第六餐厅"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/canteen_7"
+                    android:text="闵行第七餐厅"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/canteen_8"
+                    android:text="闵行哈乐餐厅"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/canteen_9"
+                    android:text="闵行玉兰苑"
+                    />
+            </RadioGroup>
+        </ScrollView>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/scroll_sublist"
+            android:layout_margin="40dp"
+            app:layout_constraintTop_toBottomOf="@id/weight_text_pos"
+            app:layout_constraintBottom_toTopOf="@id/remark_text"
+            app:layout_constraintRight_toRightOf="parent"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/canteen_sublist"
+                android:layout_marginLeft="20dp"
+                app:layout_constraintTop_toBottomOf="@id/weight_text_pos"
+                app:layout_constraintBottom_toTopOf="@id/remark_text"
+                app:layout_constraintLeft_toRightOf="@id/canteen_group"
+                android:orientation="vertical"
+                >
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/subcanteen_1"
+                    android:text="子餐厅 1"
+                    android:visibility="gone"
+                    android:focusable="false"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/subcanteen_2"
+                    android:text="子餐厅 2"
+                    android:visibility="gone"
+                    android:focusable="false"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/subcanteen_3"
+                    android:text="子餐厅 3"
+                    android:visibility="gone"
+                    android:focusable="false"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/subcanteen_4"
+                    android:text="子餐厅 4"
+                    android:visibility="gone"
+                    android:focusable="false"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/subcanteen_5"
+                    android:text="子餐厅 5"
+                    android:visibility="gone"
+                    android:focusable="false"
+                    />
+            </RadioGroup>
+        </ScrollView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#303F9F"
+            app:layout_constraintTop_toBottomOf="@id/scroll_group"
+            android:layout_marginTop="20dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/remark_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rating_seekbar"
+            android:layout_margin="20dp"
+            />
+
+        <SeekBar
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:id="@+id/rating_seekbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/weight_seekbar_canteen"
+            android:layout_marginStart="25dp"
+            android:max="100"
+            android:progress="0"
+            android:layout_marginBottom="25dp"
+            />
+        <ProgressBar
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:id="@+id/rating_progbar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/weight_seekbar_canteen"
+            android:layout_marginStart="25dp"
+            android:max="100"
+            android:progress="0"
+            android:layout_marginBottom="25dp"
+            />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/star"
+            android:id="@+id/star1"
+            android:layout_marginBottom="25dp"
             app:layout_constraintBottom_toTopOf="@id/weight_seekbar_canteen"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:orientation="vertical"
-            >
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/canteen_1"
-                android:text="闵行第一餐厅"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/canteen_2"
-                android:text="闵行第二餐厅"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/canteen_3"
-                android:text="闵行第三餐厅"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/canteen_4"
-                android:text="闵行第四餐厅"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/canteen_5"
-                android:text="闵行第五餐厅"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/canteen_6"
-                android:text="闵行第六餐厅"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/canteen_7"
-                android:text="闵行第七餐厅"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/canteen_8"
-                android:text="闵行哈乐餐厅"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/canteen_9"
-                android:text="闵行玉兰苑"
-                />
-        </RadioGroup>
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:id="@+id/canteen_sublist"
-            android:layout_margin="40dp"
-            app:layout_constraintTop_toBottomOf="@id/weight_text_pos"
+            android:layout_marginLeft="25dp"
+            />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/star"
+            android:id="@+id/star2"
+            android:layout_marginBottom="25dp"
             app:layout_constraintBottom_toTopOf="@id/weight_seekbar_canteen"
-            app:layout_constraintLeft_toRightOf="@id/canteen_group"
-            android:orientation="vertical"
-            >
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/subcanteen_1"
-                android:text="子餐厅 1"
-                android:visibility="gone"
-                android:focusable="false"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/subcanteen_2"
-                android:text="子餐厅 2"
-                android:visibility="gone"
-                android:focusable="false"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/subcanteen_3"
-                android:text="子餐厅 3"
-                android:visibility="gone"
-                android:focusable="false"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/subcanteen_4"
-                android:text="子餐厅 4"
-                android:visibility="gone"
-                android:focusable="false"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/subcanteen_5"
-                android:text="子餐厅 5"
-                android:visibility="gone"
-                android:focusable="false"
-                />
-        </RadioGroup>
+            app:layout_constraintLeft_toRightOf="@+id/star1"
+            />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/star"
+            android:id="@+id/star3"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toTopOf="@id/weight_seekbar_canteen"
+            app:layout_constraintLeft_toRightOf="@+id/star2"
+            />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/star"
+            android:id="@+id/star4"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toTopOf="@id/weight_seekbar_canteen"
+            app:layout_constraintLeft_toRightOf="@+id/star3"
+            />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/star"
+            android:id="@+id/star5"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toTopOf="@id/weight_seekbar_canteen"
+            app:layout_constraintLeft_toRightOf="@+id/star4"
+            />
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/btn_history_add"
+            android:src="@drawable/ic_history_add"
+            android:scaleType="centerInside"
+            android:background="@color/white"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toTopOf="@id/weight_seekbar_canteen"
+            app:layout_constraintLeft_toRightOf="@+id/star5"
+            />
 
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:id="@+id/fab_history_view"-->
+<!--            android:src="@drawable/ic_history_add"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:background="@color/white"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            />-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#303F9F"
+            app:layout_constraintBottom_toBottomOf="@id/weight_seekbar_canteen"
+            android:layout_marginBottom="20dp"/>
         <SeekBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -165,6 +301,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/weight_text_canteen"
+            android:layout_marginLeft="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="gone"
             />
