@@ -84,6 +84,9 @@ class filter_by_time(){
         }
     }
 
+    fun is_between(other : Pair<Pair<Int,Int>,Pair<Int,Int>>):Boolean{
+        return ((hour >other.first.first) or ((hour==other.first.first) and (minute >=other.first.second))) and ((hour <other.second.first) or ((hour==other.second.first) and (minute <other.second.second)))
+    }
 }
 
 
