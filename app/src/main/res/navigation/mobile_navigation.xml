@@ -22,4 +22,11 @@
         android:name="com.sjtu.naivegator.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_bathroom"
+        android:name="com.sjtu.naivegator.BathroomFragment"
+        android:label="Bathroom"
+        tools:layout="@layout/fragement_bathroom" />
+
 </navigation>
