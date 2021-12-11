@@ -64,7 +64,10 @@ class DetailFragment : Fragment() {
                 "鸡蛋灌饼、还有任何一位交大人都无法拒绝的小眷村，哪管你队伍排多" +
                 "长，俩字儿，“盘它”。\n" +
                 "地址：玉兰苑位于思源西路边，在电工力学楼对面，一餐北面，处于西区宿舍中央" +
-                "，它是校内最热门的餐厅之一，如果是在高峰时段前往用餐，就请准备好排队吧。"
+                "，它是校内最热门的餐厅之一，如果是在高峰时段前往用餐，就请准备好排队吧。",
+        "中院1-2层开放时间为7:30-22:30，中院114、115为通宵自习室",
+        "东中院3号楼3-4层开放时间为7:30-22:30，东中院3号楼1-2层开放时间为7:30-24:00，3-105、3-106四间教室为24小时通宵自习教室",
+        "本教学楼一般不开放自习"
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,8 +122,20 @@ class DetailFragment : Fragment() {
         {
             idx = 8
         }
+        else if(canteenName == "中院")
+        {
+            idx = 9
+        }
+        else if(canteenName == "东中院")
+        {
+            idx = 10
+        }
+        else
+        {
+            idx = 11
+        }
         view.findViewById<TextView>(R.id.detail_intro).text =
-                    "canteen_name: $canteenName\n\n"+
+                    "Name: $canteenName\n\n"+
                     canteenIntros[idx]
         Log.e("tmpid", tmpId.toString())
         view.findViewById<Button>(R.id.btn_exit).setOnClickListener {
