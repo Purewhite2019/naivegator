@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/detail_img"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginTop="200dp"
             android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toTopOf="@+id/detail_name"
@@ -30,9 +30,9 @@
 
         <TextView
             android:id="@+id/detail_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="550dp"
+            android:layout_marginBottom="500dp"
             android:gravity="center_horizontal"
             android:textSize="30dp"
             android:textStyle="italic"
