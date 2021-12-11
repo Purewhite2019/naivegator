@@ -152,8 +152,8 @@ class MainActivity : AppCompatActivity() {
         private fun updateInfo() {
             while (true) {
                 Network.getBathroomData('d', 8) // 待完善的接口
-                println(bathroomInfo)
-                sleep(1000)
+//                println(bathroomInfo)
+                sleep(100000)
             }
         }
     }
