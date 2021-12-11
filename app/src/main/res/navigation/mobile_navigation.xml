@@ -21,7 +21,7 @@
         android:id="@+id/navigation_bathroom"
         android:name="com.sjtu.naivegator.BathroomFragment"
         android:label="Bathroom"
-        tools:layout="@layout/fragement_bathroom" />
+        tools:layout="@layout/fragment_bathroom" />
 
     <fragment
         android:id="@+id/navigation_settings"

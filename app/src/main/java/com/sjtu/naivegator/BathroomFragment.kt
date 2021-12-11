@@ -67,18 +67,11 @@ class BathroomFragment : Fragment() {
         true
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun resume() {
-        recyclerView?.focusable = View.FOCUSABLE
-        recyclerView?.visibility = View.VISIBLE
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_canteen, container, false)
+        val view = inflater.inflate(R.layout.fragment_bathroom, container, false)
         recyclerView = view.findViewById<RecyclerView>(R.id.items)
         updateIntros(canteenIntros)
         contacts = Contact.createContactsList(9, imgFiles, canteenNames, canteenIntros)
@@ -101,8 +94,6 @@ class BathroomFragment : Fragment() {
                             "drawable",
                             activity!!.packageName
                         )
-//                        recyclerView?.focusable = View.NOT_FOCUSABLE
-//                        recyclerView?.visibility = View.INVISIBLE
                         activity!!.supportFragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .add(
@@ -119,8 +110,6 @@ class BathroomFragment : Fragment() {
                             "drawable",
                             activity!!.packageName
                         )
-//                        recyclerView?.focusable = View.NOT_FOCUSABLE
-//                        recyclerView?.visibility = View.INVISIBLE
                         activity!!.supportFragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .add(
