@@ -87,8 +87,14 @@ class DetailFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
         tmpId?.let { view.findViewById<ImageView>(R.id.detail_img).setImageResource(it) }
+//        var _totallength = 0
+//        _totallength += (canteenIntros[canteenName]?:defaultDescription).length
+//        Log.e("totol size",_totallength.toString())
+//        val _textsize = 30*90F/canteenIntros[canteenName]?.length!!
+
         view.findViewById<TextView>(R.id.detail_intro).text =
-                    "Name: $canteenName\n\n${canteenIntros[canteenName]?:defaultDescription}"
+                    "$canteenName\n\n${canteenIntros[canteenName]?:defaultDescription}"
+//        view.findViewById<TextView>(R.id.detail_intro).textSize = _textsize
         Log.e("tmpid", tmpId.toString())
         view.findViewById<Button>(R.id.btn_exit).setOnClickListener {
             val fragMgr = requireActivity().supportFragmentManager

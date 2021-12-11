@@ -52,8 +52,11 @@
             android:layout_marginRight="30dp"
             android:gravity="left"
             android:textColor="@color/black"
-            android:textSize="14dp"
+            android:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="30dp"
+            android:autoSizeMaxTextSize="22dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_name" />
