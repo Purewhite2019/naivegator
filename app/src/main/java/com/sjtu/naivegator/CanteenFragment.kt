@@ -77,12 +77,12 @@ class CanteenFragment : Fragment() {
                     }
 
                     override fun onLongItemClick(view: View?, position: Int) {
-                        // do whatever
                         val tmpId = activity!!.resources.getIdentifier(
                             imgFiles[position],
                             "drawable",
                             activity!!.packageName
                         )
+
                         activity!!.supportFragmentManager.beginTransaction()
                             .add(
                                 R.id.content,
