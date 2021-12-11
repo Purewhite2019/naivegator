@@ -16,14 +16,14 @@ public class RoomStuNumbs {
     public void setActualStuNum(int actualStuNum) {
          this.actualStuNum = actualStuNum;
      }
-     public int getActualStuNum() {
+    public int getActualStuNum() {
          return actualStuNum;
      }
 
     public void setRoomId(int roomId) {
          this.roomId = roomId;
      }
-     public int getRoomId() {
+    public int getRoomId() {
          return roomId;
      }
 

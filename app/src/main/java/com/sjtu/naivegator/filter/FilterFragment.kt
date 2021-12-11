@@ -111,7 +111,6 @@ class FilterFragment : Fragment() {
             }
         }
 
-
         val comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
         val weight_map= sortedMapOf<Float, String>(comparator)
         val info_map = mutableMapOf<String,Pair<Float,Int>>()
@@ -120,7 +119,7 @@ class FilterFragment : Fragment() {
             if(key >= 100){
                 continue
             }
-            // second: current third: total
+
             //value: Triple(Pair("闵行第一餐厅", "1F 餐厅") ,0, 0),
             var name = Pair2name(value.first)
 //            filter_log(name)

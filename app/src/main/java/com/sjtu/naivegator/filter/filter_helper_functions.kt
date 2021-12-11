@@ -9,40 +9,6 @@ import com.sjtu.naivegator.R
 
 
 
-// variables only for test
-var test_pos_weight = 0.5F
-var test_like_weights:Array<Float> = arrayOf(
-    //21 items for test 21 canteens
-    0.5F,
-    0.6F,
-    0.5F,
-    0.6F,
-    0.5F,
-    0.6F,
-    0.5F,
-    0.6F,
-    0.5F,
-    0.6F,
-    0.5F,
-    0.6F,
-    0.5F,
-    0.6F,
-    0.5F,
-    0.6F,
-    0.5F,
-    0.6F,
-    0.5F,
-    0.6F,
-    0.6F,
-    0.6F
-)
-
-
-
-
-
-
-
 fun filter_log(info: String){
     Log.e("[Filter]",info)
 }
