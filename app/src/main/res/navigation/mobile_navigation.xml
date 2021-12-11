@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_studyroom"
-        android:name="com.sjtu.naivegator.CanteenFragment"
+        android:name="com.sjtu.naivegator.StudyroomFragment"
         android:label="@string/title_studyroom"
         tools:layout="@layout/fragment_dashboard" />
 
