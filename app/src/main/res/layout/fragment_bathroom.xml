@@ -5,70 +5,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BathroomFragment"
-    android:background="#000000"
+    android:background="@color/purple_200"
     android:orientation="vertical">
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/input_dorm"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/white"
-        android:hint="Input where you live."
-        />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="100dp">
+        android:layout_marginTop="10dp">
 
-    <EditText
-        android:id="@+id/text_input_end_time"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:background="@color/white"
-        android:hint="End Time" />
+        <EditText
+            android:id="@+id/east_or_west"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:background="@color/white"
+            android:hint="Area" />
 
-    <EditText
-        android:id="@+id/text_input_start_time"
-        android:layout_width="50dp"
-        android:layout_marginStart="250dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:hint="Start time" />
+        <EditText
+            android:id="@+id/number_of_building"
+            android:layout_width="100dp"
+            android:layout_marginStart="200dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="Number" />
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bathroom_cur_people"
+        android:layout_marginLeft="20dp"
+        android:text="Current people/Total compartments: 50/100"
+        android:layout_marginTop="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
     <SeekBar
         android:id="@+id/bathroom_seekbar"
         android:layout_width="match_parent"
         android:layout_height="93dp"
+        android:layout_marginTop="50dp"
         android:max="100"
-        android:layout_marginTop="150dp"
         android:progress="50" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/crowd_text"
+        android:layout_marginLeft="20dp"
+        android:text="Choosing the ideal congestion in the bathroom: 50/50"
+        android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
 
     <Button
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="Set clock"
-        android:layout_marginTop="250dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="120dp"
         android:id="@+id/set_time"
     />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="300dp">
 
+        <EditText
+            android:id="@+id/text_input_start_time"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:background="@color/white"
+            android:hint="End Time" />
+
+        <EditText
+            android:id="@+id/text_input_end_time"
+            android:layout_width="50dp"
+            android:layout_marginStart="250dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="Start time" />
+
+    </RelativeLayout>
     <TextView
         android:id="@+id/clock_name"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:textSize="24dp"
-        android:textColor="#82c7d5"
-        android:layout_marginTop="350dp"
+        android:textColor="@color/black"
+        android:background="@color/white"
+        android:text="此处为闹钟信息"
+        android:layout_marginTop="400dp"
         />
 
 
