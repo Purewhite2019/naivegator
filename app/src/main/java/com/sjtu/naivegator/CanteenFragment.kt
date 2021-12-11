@@ -144,6 +144,7 @@ class CanteenFragment : Fragment() {
                 })
         )
 
+        (requireActivity() as MainActivity).set_canteen()
         val filterFab = view.findViewById<FloatingActionButton>(R.id.canteen_fab)
         filterFab.setOnClickListener {
             childFragmentManager.beginTransaction().remove(filterFragment).commit()

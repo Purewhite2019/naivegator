@@ -140,6 +140,7 @@ class StudyroomFragment : Fragment() {
         )
 
         val filterFab = view.findViewById<FloatingActionButton>(R.id.canteen_fab)
+        (requireActivity() as MainActivity).hide_canteen()
         filterFab.setOnClickListener {
             childFragmentManager.beginTransaction().remove(filterFragment).commit()
             if (filterFragment.isVisible) {
@@ -147,9 +148,7 @@ class StudyroomFragment : Fragment() {
                 filterFab.setImageResource(R.drawable.ic_baseline_filter_alt_24)
                 recyclerView!!.visibility = RecyclerView.VISIBLE
             } else {
-
                 childFragmentManager.beginTransaction().add(R.id.content, filterFragment).commit()
-
                 filterFab.setImageResource(R.drawable.ic_baseline_close_24)
                 recyclerView!!.visibility = RecyclerView.GONE
             }

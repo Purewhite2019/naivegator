@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity() {
     private val CanteenFragment = CanteenFragment()
     private val StudyroomFragment = StudyroomFragment()
     private val BathroomFragment = BathroomFragment()
+
+    private var is_canteen_now : Boolean = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -62,11 +65,12 @@ class MainActivity : AppCompatActivity() {
                     transaction.replace(R.id.content, CanteenFragment)
                 }
                 R.id.navigation_studyroom -> {
-                    transaction.replace(R.id.content, StudyroomFragment)
                     Log.e("aa","hello,this is studyroom")
+                    transaction.replace(R.id.content, StudyroomFragment)
                 }
                 R.id.navigation_settings -> {
                     transaction.replace(R.id.content, SettingsFragment())
+
                 }
                 R.id.navigation_bathroom -> {
                     transaction.replace(R.id.content, BathroomFragment)
@@ -114,4 +118,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    public fun is_canteen_now():Boolean{
+//        Log.e("is_canteen",CanteenFragment.isVisible.toString())
+       return is_canteen_now
+    }
+
+    public fun hide_canteen(){
+        is_canteen_now = false
+    }
+    public fun set_canteen(){
+        is_canteen_now = true
+    }
+
+
 }

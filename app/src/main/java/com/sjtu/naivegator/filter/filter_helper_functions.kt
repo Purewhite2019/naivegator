@@ -15,7 +15,6 @@ fun filter_log(info: String){
 
 
 
-
 fun _get_distance(start: Location,dest:Array<Double>): Float {
 //    filter_log("calculate distance...")
     val results=FloatArray(1)
