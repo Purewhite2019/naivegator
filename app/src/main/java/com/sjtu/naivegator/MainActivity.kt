@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNavigationBinding
     private val filterFragment = FilterFragment()
-
+    private var fab : FloatingActionButton?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -78,8 +78,10 @@ class MainActivity : AppCompatActivity() {
         filterFab.setOnClickListener {
             if (filterFragment.isVisible) {
                 supportFragmentManager.beginTransaction().remove(filterFragment).commit();
+                filterFab.setImageResource(R.drawable.ic_baseline_filter_alt_24)
             } else {
                 supportFragmentManager.beginTransaction().add(R.id.content, filterFragment).commit()
+                filterFab.setImageResource(R.drawable.ic_baseline_close_24)
             }
         }
 
