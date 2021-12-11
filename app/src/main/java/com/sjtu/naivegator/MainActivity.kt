@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
         val canteenThread = CanteenThread()
         val studyroomThread = StudyroomThread()
         val bathroomThread = BathroomThread()
-//        canteenThread.start()
-//        studyroomThread.start()
+        canteenThread.start()
+        studyroomThread.start()
         bathroomThread.start()
 
         historyDB = Room
