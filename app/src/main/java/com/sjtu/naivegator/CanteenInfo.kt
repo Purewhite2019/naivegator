@@ -1,5 +1,46 @@
 package com.sjtu.naivegator
 
+val canteenMap : Map<String, List<String>> = mapOf(
+    "闵行第一餐厅" to listOf(
+        "1F 餐厅",
+        "2F 餐厅",
+        "2F 清真餐厅"
+    ),
+    "闵行第二餐厅" to listOf(
+        "1F 餐厅",
+        "2F 教工餐厅",
+        "2F 新疆餐厅",
+        "3F 绿园餐厅",
+    ),
+    "闵行第三餐厅" to listOf(
+        "1F 餐厅",
+        "2F 外婆桥",
+        "2F 清真餐厅"
+    ),
+    "闵行第四餐厅" to listOf(
+        "1F 餐厅",
+        "2F 餐厅"
+    ),
+    "闵行第五餐厅" to listOf(
+        "1F 餐厅",
+        "1F 东湖面馆",
+        "2F 教工餐厅"
+    ),
+    "闵行第六餐厅" to listOf(
+        "1F 餐厅",
+        "2F 餐厅"
+    ),
+    "闵行第七餐厅" to listOf(
+        "1F 学生餐厅"
+    ),
+    "闵行哈乐餐厅" to listOf(
+        "1F 餐厅"
+    ),
+    "闵行玉兰苑" to listOf(
+        "1F 统禾"
+    ),
+)
+
 class CanteenInfo {
 
     companion object {
@@ -18,7 +59,7 @@ class CanteenInfo {
             3 to Triple(Pair("闵行第一餐厅", "2F 清真餐厅") ,0, 0),
             5 to Triple(Pair("闵行第二餐厅", "1F 餐厅") ,0, 0),
             7 to Triple(Pair("闵行第二餐厅", "2F 教工餐厅") ,0, 0),
-            8 to Triple(Pair("闵行第二餐厅", "2F 大众餐厅") ,0, 0),
+            8 to Triple(Pair("闵行第二餐厅", "2F 教工餐厅") ,0, 0),
             9 to Triple(Pair("闵行第二餐厅", "2F 新疆餐厅") ,0, 0),
             10 to Triple(Pair("闵行第二餐厅", "3F 绿园餐厅") ,0, 0),
             11 to Triple(Pair("闵行第三餐厅", "1F 餐厅") ,0, 0),

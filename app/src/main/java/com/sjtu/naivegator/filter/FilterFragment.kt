@@ -2,6 +2,7 @@ package com.sjtu.naivegator.filter
 
 import android.Manifest
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.location.Location
@@ -9,6 +10,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +39,7 @@ class FilterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var rootView = inflater.inflate(R.layout.fragment_filter, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_filter, container, false)
         rootView.alpha=0.65f //set alpha for fragment view
 
 
@@ -84,31 +86,46 @@ class FilterFragment : Fragment() {
 
 
 
-       update_canteen_wights(rootView,test_pos_weight, test_like_weights)
+       update_canteen_wights(rootView)
 
         return rootView
     }
 
 
-    fun update_items(v:View,names: Array<Pair<String,Int>>,people_nums:Array<Int>,
-                     ){
+    fun update_items(v:View,names: Array<Pair<String,Int>>,people_nums:Array<Int>){
         for (i in names.indices){
         }
     }
 
 
-    fun update_canteen_wights(v:View ,pos_weight:Float,like_weights:Array<Float>){
+    fun update_canteen_wights(v : View){
         //use distances and personal infos to filter
-        var comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
-        var weight_map= sortedMapOf<Float, String>(comparator)
-        var info_map = mutableMapOf<String,Pair<Float,Int>>()
-        var i=0
-        for ((key, value) in canteenMap) {
+        val sharedPref = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
+        var weightDistance = 50
+        val canteenPreference : MutableMap<String, Int> = mutableMapOf()
+        sharedPref?.let {
+            weightDistance = it.getInt("weightDistance", 50)
+            Log.d("sharedPref Load", "weightDistance : $weightDistance")
+        }
+        sharedPref?.let {
+            for ((main, sublist) in com.sjtu.naivegator.canteenMap) {
+                canteenPreference[main] = it.getInt(main, 50)
+                for (sub in sublist) {
+                    canteenPreference["$main $sub"] = it.getInt("$main $sub", 50)
+                    Log.d("sharedPref Load", "$main $sub: ${canteenPreference["$main $sub"]}")
+                }
+            }
+        }
 
-            if(key>=100){
+
+        val comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
+        val weight_map= sortedMapOf<Float, String>(comparator)
+        val info_map = mutableMapOf<String,Pair<Float,Int>>()
+        var i = 0
+        for ((key, value) in canteenMap) {
+            if(key >= 100){
                 continue
             }
-
             // second: current third: total
             //value: Triple(Pair("闵行第一餐厅", "1F 餐厅") ,0, 0),
             var name = Pair2name(value.first)
@@ -121,12 +138,12 @@ class FilterFragment : Fragment() {
             }
 
 //            filter_log("$current $total")
-            var crowded_weight = (1-pos_weight)*(current.toFloat()/total)
+            var crowded_weight = (100-weightDistance)*(current.toFloat()/total)
 //            filter_log("$name,人数加权: $crowded_weight")
             var distance = get_distance_from_canteen(currLocation!!, name2canteen(name))
-            var pos_weight = pos_weight*(1000F/distance)
+            var pos_weight = weightDistance*(1000F/distance)
 //            filter_log("$name,位置加权: $pos_weight")
-            var weight=like_weights[i]*(pos_weight+crowded_weight)
+            var weight = (canteenPreference["${value.first} ${value.second}"]?:50) * (pos_weight+crowded_weight)
 //            filter_log("$name,总权重: $weight")
             weight_map.put(weight,name)
             info_map.put(name, Pair(distance,current))
