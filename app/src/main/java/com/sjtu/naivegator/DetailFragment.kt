@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -34,6 +35,10 @@ class DetailFragment : Fragment() {
         view.findViewById<TextView>(R.id.detail_intro).text =
                     "canteen_name: $canteenName\n\n"+
                     "Here are some details about the canteen.\n\n"
+        view.findViewById<Button>(R.id.btn_exit).setOnClickListener {
+            val cur = requireActivity().supportFragmentManager.fragments.last()
+            requireActivity().supportFragmentManager.beginTransaction().remove(cur).commit()
+        }
         return view
     }
 

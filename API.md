@@ -10,6 +10,10 @@
 
 发送POST请求with BuildId，到：https://ids.sjtu.edu.cn/build/findBuildRoomType
 
+```bash
+curl -X POST -d "buildId=128" https://ids.sjtu.edu.cn/build/findBuildRoomType
+```
+
 * 上院：126
 * 中院：128
 * 下院：127

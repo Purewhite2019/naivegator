@@ -1,18 +1,22 @@
 package com.sjtu.naivegator
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_canteen.*
-import com.sjtu.naivegator.CanteenInfo.Companion.canteenMap
 import com.sjtu.naivegator.filter.FilterFragment
 import com.sjtu.naivegator.filter.filter_log
 
@@ -26,6 +30,7 @@ class CanteenFragment : Fragment() {
         "ic_canteen5",
         "ic_canteen6",
         "ic_canteen7",
+        "ic_canteen8",
         "ic_canteen8"
     )
     private val canteenNames: Array<String> = arrayOf(
@@ -36,31 +41,61 @@ class CanteenFragment : Fragment() {
         "五餐",
         "六餐",
         "七餐",
+        "哈乐",
         "玉兰苑"
     )
 
-    private val canteenIntros: Array<String> = arrayOf(
-        "上座率:"+canteenMap[100]?.second.toString()+"/"+canteenMap[100]?.third.toString(),
-        "上座率:"+canteenMap[200]?.second.toString()+"/"+canteenMap[200]?.third.toString(),
-        "上座率:"+canteenMap[300]?.second.toString()+"/"+canteenMap[300]?.third.toString(),
-        "上座率:"+canteenMap[400]?.second.toString()+"/"+canteenMap[400]?.third.toString(),
-        "上座率:"+canteenMap[500]?.second.toString()+"/"+canteenMap[500]?.third.toString(),
-        "上座率:"+canteenMap[600]?.second.toString()+"/"+canteenMap[600]?.third.toString(),
-        "上座率:"+canteenMap[700]?.second.toString()+"/"+canteenMap[700]?.third.toString(),
-        "上座率:"+canteenMap[800]?.second.toString()+"/"+canteenMap[800]?.third.toString()
-    )
-    private var recyclerView : RecyclerView? = null
+    private var canteenIntros: MutableList<Pair<Int, Int>> = ArrayList()
+    var recyclerView: RecyclerView? = null
+    var contacts: ArrayList<Contact>? = null
+    var adapter: ContactsAdapter? = null
+
+    fun updateIntros(canteenIntros: MutableList<Pair<Int, Int>>) {
+        canteenIntros.clear()
+        canteenIntros.addAll(
+            arrayOf(
+                Pair(canteenMap[100]!!.third, canteenMap[100]!!.second),
+                Pair(canteenMap[200]!!.third, canteenMap[200]!!.second),
+                Pair(canteenMap[300]!!.third, canteenMap[300]!!.second),
+                Pair(canteenMap[400]!!.third, canteenMap[400]!!.second),
+                Pair(canteenMap[500]!!.third, canteenMap[500]!!.second),
+                Pair(canteenMap[600]!!.third, canteenMap[600]!!.second),
+                Pair(canteenMap[700]!!.third, canteenMap[700]!!.second),
+                Pair(canteenMap[800]!!.third, canteenMap[800]!!.second),
+                Pair(canteenMap[900]!!.third, canteenMap[900]!!.second)
+            )
+        )
+    }
+
+    companion object {
+        const val STATUS_FINISH_UPDATE = 0
+        var RESULT = ArrayList<Contact>()
+    }
+
+    val handler: Handler = Handler(Looper.getMainLooper()) { msg ->
+        when (msg.what) {
+            STATUS_FINISH_UPDATE -> {
+                (recyclerView?.adapter as ContactsAdapter).updateList(RESULT)
+            }
+        }
+        true
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_canteen, container, false)
-        recyclerView = view?.findViewById<RecyclerView>(R.id.items)
-        val contacts = Contact.createContactsList(8, imgFiles, canteenNames, canteenIntros)
-        val adapter = ContactsAdapter(contacts, context)
+        recyclerView = view.findViewById<RecyclerView>(R.id.items)
+        updateIntros(canteenIntros)
+        contacts = Contact.createContactsList(9, imgFiles, canteenNames, canteenIntros)
+        adapter = ContactsAdapter(contacts!!, context)
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(context)
+
+        val updateThread = UpdateThread()
+        updateThread.start()
 
         recyclerView?.addOnItemTouchListener(
             RecyclerItemClickListener(
@@ -117,33 +152,65 @@ class CanteenFragment : Fragment() {
         return view
     }
 
+    inner class UpdateThread() : Thread() {
 
+        override fun run() {
+            super.run()
+            update()
+        }
 
+        fun update() {
+            while (true) {
+                updateIntros(canteenIntros)
+                val contacts = Contact.createContactsList(9, imgFiles, canteenNames, canteenIntros)
+                val msg = Message.obtain()
+                msg.what = STATUS_FINISH_UPDATE
+                msg.data = Bundle().apply {
+                    RESULT = contacts
+                }
+                handler.sendMessage(msg)
 
-
+                sleep(10000)
+            }
+        }
+    }
 
 }
 
 class Contact(
     val img: String, val name: String,
-    val breed: String, val age: Int, val Intro: String
+    val breed: String, val age: Int, val Intro: String, val progress: Int
 ) {
     companion object {
         private var lastContactId = 0
 
         fun createContactsList(
             numContacts: Int,
-            img_files: Array<String>, names: Array<String>, intros: Array<String>
+            img_files: Array<String>, names: Array<String>, intros: MutableList<Pair<Int, Int>>
         ): ArrayList<Contact> {
             val contacts = ArrayList<Contact>()
             for (i in 1..numContacts) {
                 var name = img_files[i - 1].substring(3)
-                contacts.add(
-                    Contact(
-                        img_files[i - 1], names[i - 1], name,
-                        (1..3).random(), intros[i - 1]
+                if (intros[i - 1].second==0){
+                    contacts.add(
+                        Contact(
+                            img_files[i - 1], names[i - 1], name,
+                            (1..3).random(),
+                            "上座率:" + intros[i - 1].first.toString() + "/" + intros[i - 1].second.toString(),
+                            0
+                        )
                     )
-                )
+                }else{
+                    contacts.add(
+                        Contact(
+                            img_files[i - 1], names[i - 1], name,
+                            (1..3).random(),
+                            "上座率:" + intros[i - 1].first.toString() + "/" + intros[i - 1].second.toString(),
+                            intros[i - 1].first / intros[i - 1].second
+                        )
+                    )
+                }
+
             }
             return contacts
         }
@@ -151,7 +218,7 @@ class Contact(
 
 }
 
-class ContactsAdapter(private val mContacts: List<Contact>, val context: Context?) :
+class ContactsAdapter(private val mContacts: MutableList<Contact>, val context: Context?) :
     RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
@@ -161,6 +228,7 @@ class ContactsAdapter(private val mContacts: List<Contact>, val context: Context
         val nameTextView = itemView.findViewById<TextView>(R.id.name)
         val introTextView = itemView.findViewById<TextView>(R.id.intro)
         val PictureImageView = itemView.findViewById<ImageView>(R.id.picture)
+        val progressBar = itemView.findViewById<ProgressBar>(R.id.tabular)
     }
 
 
@@ -187,6 +255,8 @@ class ContactsAdapter(private val mContacts: List<Contact>, val context: Context
         nametextView.text = contact.name
         val introtextView = viewHolder.introTextView
         introtextView.text = contact.Intro
+        val progressBar = viewHolder.progressBar
+        progressBar.progress = contact.progress
         val image = viewHolder.PictureImageView
         val id = context!!.resources.getIdentifier(contact.img, "drawable", context.packageName)
         image.setImageResource(id)
@@ -196,6 +266,16 @@ class ContactsAdapter(private val mContacts: List<Contact>, val context: Context
     override fun getItemCount(): Int {
         return mContacts.size
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateList(items: List<Contact>?) {
+        if (items != null && items.isNotEmpty()) {
+            mContacts.clear()
+            mContacts.addAll(items)
+            notifyDataSetChanged()
+        }
+    }
+    
 }
 
 class RecyclerItemClickListener(
