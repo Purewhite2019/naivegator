@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val networkThread = NetworkThread()
+        networkThread.start()
+
         sharedPref = applicationContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
         prefDB = Room.databaseBuilder(
             applicationContext,
@@ -82,5 +85,25 @@ class MainActivity : AppCompatActivity() {
         prefDB?.close()
 
         super.onDestroy()
+    }
+
+    inner class NetworkThread : Thread() {
+        override fun run() {
+            super.run()
+            transition()
+        }
+
+        private fun transition() {
+            while(true){
+                Network.getCanteenData(0)
+                for (i in 100..900 step 100) {
+                    Network.getCanteenData(i)
+                }
+                sleep(10000)
+                for(canteen in canteenMap){
+                    println(canteen)
+                }
+            }
+        }
     }
 }
