@@ -6,7 +6,6 @@ import com.sjtu.naivegator.api.canteen.CanteenBean
 import com.sjtu.naivegator.interceptor.TimeConsumeInterceptor
 import okhttp3.*
 import java.io.IOException
-import com.sjtu.naivegator.CanteenInfo.Companion.canteenMap
 
 object Network {
 
@@ -32,12 +31,12 @@ object Network {
     fun request(url: String, callback: Callback) {
         val request: Request = Request.Builder()
             .url(url)
-            .header("User-Agent", "My-translator")
+            .header("User-Agent", "NaiveGator")
             .build()
         client.newCall(request).enqueue(callback)
     }
 
-    fun getData(id: Int) {
+    fun getCanteenData(id: Int) {
         // Input：id, the id of the selected canteen (0 for overall situation)
         var url = ""
         url = if (id == 0) {

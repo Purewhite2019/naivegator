@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_canteen.*
-import com.sjtu.naivegator.CanteenInfo.Companion.canteenMap
 import com.sjtu.naivegator.filter.FilterFragment
 import com.sjtu.naivegator.filter.filter_log
 

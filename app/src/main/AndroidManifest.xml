@@ -15,7 +15,7 @@
         android:roundIcon="@color/white"
         android:supportsRtl="true"
         android:theme="@style/Theme.NaiveGator">
-"
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

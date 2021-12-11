@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +28,7 @@ class SettingsFragment : Fragment() {
             weightDistance = it.getInt("weightDistance", 50)
         }
         sharedPref?.let {
-            for ((main, sublist) in canteenMap) {
+            for ((main, sublist) in canteenNameMap) {
                 canteenPreference[main] = it.getInt(main, 50)
                 for (sub in sublist) {
                     canteenPreference["$main $sub"] = it.getInt("$main $sub", 50)
@@ -115,8 +114,8 @@ class SettingsFragment : Fragment() {
             return if (canteenRadioGroup.checkedRadioButtonId in canteenRadioIdList) {
                 val mainCanteen = view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
                 subcanteenRadioIdMap[subcanteenGroup.checkedRadioButtonId]?.let {
-                    if (it < canteenMap[mainCanteen]!!.size)
-                        return "$mainCanteen ${canteenMap[mainCanteen]!![it]}"
+                    if (it < canteenNameMap[mainCanteen]!!.size)
+                        return "$mainCanteen ${canteenNameMap[mainCanteen]!![it]}"
                 }
                 return mainCanteen
             } else ""
@@ -132,7 +131,7 @@ class SettingsFragment : Fragment() {
                 radio.visibility = GONE
                 radio.focusable = NOT_FOCUSABLE
             }
-            canteenMap[main]!!.forEachIndexed { i, item ->
+            canteenNameMap[main]!!.forEachIndexed { i, item ->
                 subcanteenRadioList[i].text = item
                 subcanteenRadioList[i].visibility = VISIBLE
                 subcanteenRadioList[i].focusable = FOCUSABLE

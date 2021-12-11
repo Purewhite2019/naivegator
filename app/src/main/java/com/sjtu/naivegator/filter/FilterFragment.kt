@@ -18,8 +18,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.sjtu.naivegator.CanteenInfo.Companion.canteenMap
 import com.sjtu.naivegator.R
+import com.sjtu.naivegator.canteenMap
 import kotlinx.android.synthetic.main.dynamic_lists.*
 import kotlinx.android.synthetic.main.fragment_filter.*
 
@@ -102,7 +102,7 @@ class FilterFragment : Fragment() {
             Log.d("sharedPref Load", "weightDistance : $weightDistance")
         }
         sharedPref?.let {
-            for ((main, sublist) in com.sjtu.naivegator.canteenMap) {
+            for ((main, sublist) in com.sjtu.naivegator.canteenNameMap) {
                 canteenPreference[main] = it.getInt(main, 50)
                 for (sub in sublist) {
                     canteenPreference["$main $sub"] = it.getInt("$main $sub", 50)
