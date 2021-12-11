@@ -139,13 +139,13 @@ class CanteenFragment : Fragment() {
             if (filterFragment.isVisible) {
                 childFragmentManager.beginTransaction().remove(filterFragment).commit()
                 filterFab.setImageResource(R.drawable.ic_baseline_filter_alt_24)
-                recyclerView!!.visibility  =RecyclerView.VISIBLE
+                recyclerView!!.visibility = RecyclerView.VISIBLE
             } else {
 
                 childFragmentManager.beginTransaction().add(R.id.content, filterFragment).commit()
 
                 filterFab.setImageResource(R.drawable.ic_baseline_close_24)
-                recyclerView!!.visibility  =RecyclerView.GONE
+                recyclerView!!.visibility = RecyclerView.GONE
             }
         }
 
@@ -191,7 +191,8 @@ class Contact(
             val contacts = ArrayList<Contact>()
             for (i in 1..numContacts) {
                 var name = img_files[i - 1].substring(3)
-                if (intros[i - 1].second==0){
+//                println("now: ${intros[i-1].first}, total: ${intros[i-1].second}")
+                if (intros[i - 1].second == 0) {
                     contacts.add(
                         Contact(
                             img_files[i - 1], names[i - 1], name,
@@ -200,13 +201,13 @@ class Contact(
                             0
                         )
                     )
-                }else{
+                } else {
                     contacts.add(
                         Contact(
                             img_files[i - 1], names[i - 1], name,
                             (1..3).random(),
                             "上座率:" + intros[i - 1].first.toString() + "/" + intros[i - 1].second.toString(),
-                            intros[i - 1].first / intros[i - 1].second
+                            intros[i - 1].first * 100 / intros[i - 1].second
                         )
                     )
                 }
@@ -257,6 +258,7 @@ class ContactsAdapter(private val mContacts: MutableList<Contact>, val context: 
         introtextView.text = contact.Intro
         val progressBar = viewHolder.progressBar
         progressBar.progress = contact.progress
+        println(progressBar.progress)
         val image = viewHolder.PictureImageView
         val id = context!!.resources.getIdentifier(contact.img, "drawable", context.packageName)
         image.setImageResource(id)
@@ -275,7 +277,7 @@ class ContactsAdapter(private val mContacts: MutableList<Contact>, val context: 
             notifyDataSetChanged()
         }
     }
-    
+
 }
 
 class RecyclerItemClickListener(
