@@ -29,7 +29,7 @@ class CanteenFragment : Fragment() {
         "ic_canteen6",
         "ic_canteen7",
         "ic_canteen8",
-        "ic_canteen8"
+        "ic_canteen9"
     )
     private val canteenNames: Array<String> = arrayOf(
         "一餐",
