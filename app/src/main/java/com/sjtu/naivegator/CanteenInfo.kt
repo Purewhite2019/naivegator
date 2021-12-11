@@ -41,6 +41,9 @@ val canteenMap : Map<String, List<String>> = mapOf(
     ),
 )
 
+//second: total
+//third: current
+
 class CanteenInfo {
 
     companion object {

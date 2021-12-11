@@ -40,7 +40,7 @@ class FilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_filter, container, false)
-        rootView.alpha=0.65f //set alpha for fragment view
+//        rootView.alpha=0.75f //set alpha for fragment view
 
 
 //================check permission for location=====================
@@ -92,12 +92,6 @@ class FilterFragment : Fragment() {
     }
 
 
-    fun update_items(v:View,names: Array<Pair<String,Int>>,people_nums:Array<Int>){
-        for (i in names.indices){
-        }
-    }
-
-
     fun update_canteen_wights(v : View){
         //use distances and personal infos to filter
         val sharedPref = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
@@ -130,8 +124,8 @@ class FilterFragment : Fragment() {
             //value: Triple(Pair("闵行第一餐厅", "1F 餐厅") ,0, 0),
             var name = Pair2name(value.first)
 //            filter_log(name)
-            var current = value.second
-            var total = value.third
+            var current = value.third
+            var total = value.second
 
             if(total==0){
                 total=1

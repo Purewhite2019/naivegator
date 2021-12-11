@@ -7,12 +7,14 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_canteen.*
 import com.sjtu.naivegator.CanteenInfo.Companion.canteenMap
 import com.sjtu.naivegator.filter.FilterFragment
+import com.sjtu.naivegator.filter.filter_log
 
 class CanteenFragment : Fragment() {
     private val filterFragment = FilterFragment()
@@ -104,7 +106,9 @@ class CanteenFragment : Fragment() {
                 filterFab.setImageResource(R.drawable.ic_baseline_filter_alt_24)
                 recyclerView!!.visibility  =RecyclerView.VISIBLE
             } else {
+
                 childFragmentManager.beginTransaction().add(R.id.content, filterFragment).commit()
+
                 filterFab.setImageResource(R.drawable.ic_baseline_close_24)
                 recyclerView!!.visibility  =RecyclerView.GONE
             }
