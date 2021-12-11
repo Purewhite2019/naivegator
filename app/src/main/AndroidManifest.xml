@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NaiveGator">
         <activity
-            android:name=".StudyRoomFragment"
+            android:name=".StudyroomFragment"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

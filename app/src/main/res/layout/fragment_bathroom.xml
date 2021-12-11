@@ -60,11 +60,11 @@
         />
 
     <Button
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:text="Set clock"
         android:layout_marginTop="200dp"
-        android:layout_marginLeft="120dp"
+        android:layout_marginLeft="100dp"
         android:id="@+id/set_time"
     />
     <RelativeLayout
@@ -75,26 +75,26 @@
 
         <EditText
             android:id="@+id/text_input_start_time"
-            android:layout_width="50dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="60dp"
             android:background="@color/white"
-            android:hint="End Time" />
+            android:hint="Start Time" />
 
         <EditText
             android:id="@+id/text_input_end_time"
-            android:layout_width="50dp"
-            android:layout_marginStart="250dp"
+            android:layout_width="100dp"
+            android:layout_marginStart="200dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:hint="Start time" />
+            android:hint="End time" />
 
     </RelativeLayout>
     <TextView
         android:id="@+id/clock_name"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="80dp"
         android:textSize="24dp"
         android:textColor="@color/black"
         android:background="@color/white"
