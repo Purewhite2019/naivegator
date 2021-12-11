@@ -13,7 +13,7 @@ import java.util.Date;
 public class Pos_info {
 
     private int PosNo;
-    private Date PosName;
+    private String PosName;
     private int PosState;
     private int CostkindNo;
     private int ClassNo;
@@ -26,10 +26,10 @@ public class Pos_info {
          return PosNo;
      }
 
-    public void setPosName(Date PosName) {
+    public void setPosName(String PosName) {
          this.PosName = PosName;
      }
-     public Date getPosName() {
+     public String getPosName() {
          return PosName;
      }
 
