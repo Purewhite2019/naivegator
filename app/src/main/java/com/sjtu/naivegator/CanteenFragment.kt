@@ -49,7 +49,6 @@ class CanteenFragment : Fragment() {
     var recyclerView: RecyclerView? = null
     var contacts: ArrayList<Contact>? = null
     var adapter: ContactsAdapter? = null
-    var progressBar: ProgressBar? = null
 
     fun updateIntros(canteenIntros: MutableList<Pair<Int, Int>>) {
         canteenIntros.clear()
@@ -89,7 +88,6 @@ class CanteenFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_canteen, container, false)
         recyclerView = view.findViewById<RecyclerView>(R.id.items)
-        progressBar = view.findViewById<ProgressBar>(R.id.tabular)
         updateIntros(canteenIntros)
         contacts = Contact.createContactsList(9, imgFiles, canteenNames, canteenIntros)
         adapter = ContactsAdapter(contacts!!, context)
@@ -193,14 +191,26 @@ class Contact(
             val contacts = ArrayList<Contact>()
             for (i in 1..numContacts) {
                 var name = img_files[i - 1].substring(3)
-                contacts.add(
-                    Contact(
-                        img_files[i - 1], names[i - 1], name,
-                        (1..3).random(),
-                        "上座率:" + intros[i - 1].first.toString() + "/" + intros[i - 1].second.toString(),
-                        intros[i - 1].first / intros[i - 1].second
+                if (intros[i - 1].second==0){
+                    contacts.add(
+                        Contact(
+                            img_files[i - 1], names[i - 1], name,
+                            (1..3).random(),
+                            "上座率:" + intros[i - 1].first.toString() + "/" + intros[i - 1].second.toString(),
+                            0
+                        )
                     )
-                )
+                }else{
+                    contacts.add(
+                        Contact(
+                            img_files[i - 1], names[i - 1], name,
+                            (1..3).random(),
+                            "上座率:" + intros[i - 1].first.toString() + "/" + intros[i - 1].second.toString(),
+                            intros[i - 1].first / intros[i - 1].second
+                        )
+                    )
+                }
+
             }
             return contacts
         }
@@ -218,6 +228,7 @@ class ContactsAdapter(private val mContacts: MutableList<Contact>, val context: 
         val nameTextView = itemView.findViewById<TextView>(R.id.name)
         val introTextView = itemView.findViewById<TextView>(R.id.intro)
         val PictureImageView = itemView.findViewById<ImageView>(R.id.picture)
+        val progressBar = itemView.findViewById<ProgressBar>(R.id.tabular)
     }
 
 
@@ -244,6 +255,8 @@ class ContactsAdapter(private val mContacts: MutableList<Contact>, val context: 
         nametextView.text = contact.name
         val introtextView = viewHolder.introTextView
         introtextView.text = contact.Intro
+        val progressBar = viewHolder.progressBar
+        progressBar.progress = contact.progress
         val image = viewHolder.PictureImageView
         val id = context!!.resources.getIdentifier(contact.img, "drawable", context.packageName)
         image.setImageResource(id)
