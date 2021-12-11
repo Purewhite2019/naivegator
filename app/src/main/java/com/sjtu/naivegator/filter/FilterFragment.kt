@@ -156,7 +156,7 @@ class FilterFragment : Fragment() {
             }
 
 
-            val crowded_weight = (100-weightDistance)*(current.toFloat()/total)
+            val crowded_weight = (100-weightDistance)*(1-(current.toFloat()/total))
 //            filter_log("$name,人数加权: $crowded_weight")
             val distance = get_distance_from_canteen(currLocation!!, name2canteen(name))
             val pos_weight = weightDistance*(1000F/distance)
@@ -173,7 +173,7 @@ class FilterFragment : Fragment() {
                break
            }
            var item = info_map.getValue(value)
-           set_item(v,i+1,value, item.first.toInt(), item.second,false,"")
+           set_item(v,i+1,value, item.first.toInt(), item.second.toString(),false,"")
            i+=1
        }
 
@@ -190,7 +190,7 @@ class FilterFragment : Fragment() {
 //        Toast.makeText(v.context,"In studyroom now ",Toast.LENGTH_SHORT).show()
         val comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
         val weight_map= sortedMapOf<Float, String>(comparator)
-        val info_map = mutableMapOf<String,Triple<Float,Int,String>>() //名称, Triple(距离,人数,温度)
+        val info_map = mutableMapOf<String,Triple<Float,Pair<Int,Int>,String>>() //名称, Triple(距离,(当前人数,总人数),温度)
         var i = 0
 
         //get current time
@@ -229,16 +229,19 @@ class FilterFragment : Fragment() {
             }
             var current_people = value.second
             var total_people = value.first.toInt()
-            if (total_people==0){//Prevent division by zero errors
-                total_people=1
+            var attendance_ratio = 0F
+            attendance_ratio = if (total_people==0){//Prevent division by zero errors
+                (1-(current_people.toFloat()/1))
+            }else{
+                (1-(current_people.toFloat()/total_people))
             }
-            var attendance_ratio = current_people.toFloat()/total_people
+
             val distance = get_distance_from_studyroom(currLocation!!, key.first)
             var weight = weightDistance*(1000F/distance)+ (100-weightDistance)*attendance_ratio
             //weight = weight * Preference
             var name = studuroom_Pair2name(key)
             weight_map[weight] = name
-            info_map[name] = Triple(distance,current_people,value.third.first)
+            info_map[name] = Triple(distance,Pair(current_people,total_people),value.third.first)
         }
         filter_log(weight_map.size.toString())
         if (weight_map.size<5){
@@ -251,7 +254,7 @@ class FilterFragment : Fragment() {
                 break
             }
             var item = info_map.getValue(value)
-            set_item(v,i+1,value, item.first.toInt(), item.second,true, item.third)
+            set_item(v,i+1,value, item.first.toInt(), "${item.second.first}/${item.second.second}",true, item.third)
             i+=1
         }
     }
@@ -281,7 +284,7 @@ class FilterFragment : Fragment() {
         v.findViewById<FrameLayout>(R.id.filter_item5).visibility=FrameLayout.VISIBLE
     }
 
-    fun set_item(v:View, idx:Int, name:String, distance:Int, people: Int,has_temp:Boolean,temp:String){
+    fun set_item(v:View, idx:Int, name:String, distance:Int, people: String,has_temp:Boolean,temp:String){
         val item_str = "choice$idx"+"_"
         val _dis ="距离:"+distance.toString()+"m"
 

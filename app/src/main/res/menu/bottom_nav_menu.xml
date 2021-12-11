@@ -14,7 +14,7 @@
     <item
         android:id="@+id/navigation_bathroom"
         android:icon="@drawable/bathroom"
-        android:title="Bathroom" />
+        android:title="@string/title_bathroom" />
 
     <item
         android:id="@+id/navigation_settings"

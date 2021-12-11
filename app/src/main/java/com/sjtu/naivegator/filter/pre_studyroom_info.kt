@@ -104,7 +104,12 @@ fun is_accessible_now(curr_date:filter_by_time,room:Pair<String,String>):Boolean
         //0:00-7:30
         //可用: 中院114、115和东中院3-105、3-106
         //since I have filtered this already in filter thread.
-        return true
+        if(room.first=="东中院"&&room.second[0]=='3'){
+            return room.second=="3-105"||room.second=="3-106"
+        }else if(room.first=="中院"){
+            return room.second=="114"||room.second=="115"
+        }
+        return false
     }else if (curr_date.is_between_2230_2400()){
         //22:30--24:00
         //可用: 东中院3号楼1-2层  中院114、115

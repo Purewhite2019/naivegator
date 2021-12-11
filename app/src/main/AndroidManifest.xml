@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.sjtu.naivegator">
     <!-- Always include this permission -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Include only if your app benefits from precise location access. -->
@@ -16,8 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NaiveGator">
         <activity
-            android:name=".StudyRoomFragment"
-            android:exported="true" />
+            android:name=".StudyroomFragment"
+            android:exported="true"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

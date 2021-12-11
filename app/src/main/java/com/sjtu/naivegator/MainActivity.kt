@@ -69,7 +69,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_studyroom -> {
                     transaction.replace(R.id.content, StudyroomFragment)
-                    Log.e("aa", "hello,this is studyroom")
                 }
                 R.id.navigation_bathroom -> {
                     transaction.replace(R.id.content, BathroomFragment)

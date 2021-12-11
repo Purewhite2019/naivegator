@@ -214,7 +214,7 @@ class Contact(
                         Contact(
                             img_files[i - 1], names[i - 1], name,
                             (1..3).random(),
-                            "上座率:" + intros[i - 1].first.toString() + "/" + intros[i - 1].second.toString(),
+                            "当前楼栋不开放自习",
                             0
                         )
                     )

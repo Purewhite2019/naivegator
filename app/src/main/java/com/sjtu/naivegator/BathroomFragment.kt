@@ -8,8 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sjtu.naivegator.R
 
 class BathroomFragment : Fragment() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +44,9 @@ class BathroomFragment : Fragment() {
         return view
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+
 }
-
-

@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/navigation_bathroom"
         android:name="com.sjtu.naivegator.BathroomFragment"
-        android:label="Bathroom"
+        android:label="@string/title_bathroom"
         tools:layout="@layout/fragment_bathroom" />
 
     <fragment
