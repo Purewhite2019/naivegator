@@ -27,8 +27,9 @@ class MainActivity : AppCompatActivity() {
     public var prefDao: UserPreferenceDao? = null
 
     private lateinit var binding: ActivityNavigationBinding
-    private val filterFragment = FilterFragment()
-    private var fab : FloatingActionButton?=null
+
+    private val CanteenFragment = CanteenFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,10 +52,10 @@ class MainActivity : AppCompatActivity() {
             val transaction = supportFragmentManager.beginTransaction()
             when (it.itemId) {
                 R.id.navigation_canteen -> {
-                    transaction.replace(R.id.content, CanteenFragment())
+                    transaction.replace(R.id.content, CanteenFragment)
                 }
                 R.id.navigation_studyroom -> {
-                    transaction.replace(R.id.content, CanteenFragment())
+                    transaction.replace(R.id.content, CanteenFragment)
                 }
                 R.id.navigation_settings -> {
                     transaction.replace(R.id.content, SettingsFragment())
@@ -74,16 +75,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val filterFab = findViewById<FloatingActionButton>(R.id.fab)
-        filterFab.setOnClickListener {
-            if (filterFragment.isVisible) {
-                supportFragmentManager.beginTransaction().remove(filterFragment).commit();
-                filterFab.setImageResource(R.drawable.ic_baseline_filter_alt_24)
-            } else {
-                supportFragmentManager.beginTransaction().add(R.id.content, filterFragment).commit()
-                filterFab.setImageResource(R.drawable.ic_baseline_close_24)
-            }
-        }
 
     }
 

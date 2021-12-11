@@ -9,9 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_canteen.*
 import com.sjtu.naivegator.CanteenInfo.Companion.canteenMap
+import com.sjtu.naivegator.filter.FilterFragment
+
 class CanteenFragment : Fragment() {
+    private val filterFragment = FilterFragment()
     private val imgFiles: Array<String> = arrayOf(
         "ic_canteen",
         "ic_canteen2",
@@ -43,24 +47,23 @@ class CanteenFragment : Fragment() {
         "上座率:"+canteenMap[700]?.second.toString()+"/"+canteenMap[700]?.third.toString(),
         "上座率:"+canteenMap[800]?.second.toString()+"/"+canteenMap[800]?.third.toString()
     )
-
+    private var recyclerView : RecyclerView? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_canteen, container, false)
-
-        val recyclerView = view.findViewById<RecyclerView>(R.id.items)
+        recyclerView = view?.findViewById<RecyclerView>(R.id.items)
         val contacts = Contact.createContactsList(8, imgFiles, canteenNames, canteenIntros)
         val adapter = ContactsAdapter(contacts, context)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView?.adapter = adapter
+        recyclerView?.layoutManager = LinearLayoutManager(context)
 
-        recyclerView.addOnItemTouchListener(
+        recyclerView?.addOnItemTouchListener(
             RecyclerItemClickListener(
                 context,
-                recyclerView,
+                recyclerView!!,
                 object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View?, position: Int) {
                         val tmpId = activity!!.resources.getIdentifier(
@@ -92,8 +95,29 @@ class CanteenFragment : Fragment() {
                     }
                 })
         )
+
+        val filterFab = view.findViewById<FloatingActionButton>(R.id.canteen_fab)
+        filterFab.setOnClickListener {
+            childFragmentManager.beginTransaction().remove(filterFragment).commit()
+            if (filterFragment.isVisible) {
+                childFragmentManager.beginTransaction().remove(filterFragment).commit()
+                filterFab.setImageResource(R.drawable.ic_baseline_filter_alt_24)
+                recyclerView!!.visibility  =RecyclerView.VISIBLE
+            } else {
+                childFragmentManager.beginTransaction().add(R.id.content, filterFragment).commit()
+                filterFab.setImageResource(R.drawable.ic_baseline_close_24)
+                recyclerView!!.visibility  =RecyclerView.GONE
+            }
+        }
+
         return view
     }
+
+
+
+
+
+
 }
 
 class Contact(
@@ -102,6 +126,7 @@ class Contact(
 ) {
     companion object {
         private var lastContactId = 0
+
         fun createContactsList(
             numContacts: Int,
             img_files: Array<String>, names: Array<String>, intros: Array<String>
@@ -119,6 +144,7 @@ class Contact(
             return contacts
         }
     }
+
 }
 
 class ContactsAdapter(private val mContacts: List<Contact>, val context: Context?) :
