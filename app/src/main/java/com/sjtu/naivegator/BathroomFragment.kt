@@ -12,6 +12,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sjtu.naivegator.R
 
 class BathroomFragment : Fragment() {
+    companion object {
+        const val STATUS_FINISH_UPDATE = 0
+        const val TOTAL = "total"
+        const val USED = "used"
+    }
+
+    val handler: Handler = Handler(Looper.getMainLooper()) { msg ->
+        when (msg.what) {
+            STATUS_FINISH_UPDATE -> {
+                cur_people?.text = "Current people/Total compartments: ${bathroomInfo.second}/${bathroomInfo.first}"
+//                println(cur_people?.text)
+            }
+        }
+        true
+    }
+
+    var cur_people : TextView ?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -20,6 +38,9 @@ class BathroomFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val updateThread = UpdateThread()
+        updateThread.start()
+
         var ratingSeekBarDistance: Int = 50
         val view = inflater.inflate(R.layout.fragment_bathroom, container, false)
         val start_time = view.findViewById<EditText>(R.id.text_input_start_time)
@@ -28,8 +49,7 @@ class BathroomFragment : Fragment() {
         val ratingSeekBar = view.findViewById<SeekBar>(R.id.bathroom_seekbar)
         val crowd_text = view.findViewById<TextView>(R.id.crowd_text)
         val clk_info = view.findViewById<TextView>(R.id.clock_name)
-        val cur_people = view.findViewById<TextView>(R.id.bathroom_cur_people)
-        cur_people.text = "Current people/Total compartments: ${bathroomInfo.second}/${bathroomInfo.first}"
+        cur_people = view.findViewById<TextView>(R.id.bathroom_cur_people)
 
         ratingSeekBar.progress = ratingSeekBarDistance
         ratingSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -52,5 +72,24 @@ class BathroomFragment : Fragment() {
         super.onDestroy()
     }
 
+    inner class UpdateThread : Thread() {
+        override fun run() {
+            super.run()
+            update()
+        }
+
+        private fun update() {
+            while (true){
+                val msg = Message.obtain()
+                msg.what = STATUS_FINISH_UPDATE
+                msg.data = Bundle().apply {
+                    putInt(TOTAL, bathroomInfo.first)
+                    putInt(USED, bathroomInfo.second)
+                }
+                handler.sendMessage(msg)
+                sleep(100000)
+            }
+        }
+    }
 
 }
