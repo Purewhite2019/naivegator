@@ -14,6 +14,8 @@ import android.view.View.*
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sjtu.naivegator.db.History
 import kotlin.concurrent.thread
 
@@ -22,6 +24,8 @@ class SettingsFragment : Fragment() {
     private val canteenPreference : MutableMap<String, Int> = mutableMapOf()
 
     private var sharedPref: SharedPreferences? = null
+
+    private val historyFragment = HistoryFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +65,7 @@ class SettingsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
+        val historyFab = view.findViewById<FloatingActionButton>(R.id.fab_history_view)
 //        val addHistoryFab = view.findViewById<FloatingActionButton>(R.id.fab_history)
         val remarkEditText = view.findViewById<EditText>(R.id.remark_text)
 
@@ -114,6 +119,31 @@ class SettingsFragment : Fragment() {
             view.findViewById<RadioButton>(R.id.subcanteen_5)
         )
 
+        historyFab.setOnClickListener {
+            childFragmentManager.beginTransaction().remove(historyFragment).commit()
+            if (historyFragment.isVisible) {
+                childFragmentManager.beginTransaction().remove(historyFragment).commit()
+                historyFab.setImageResource(R.drawable.history)
+                weightSeekBar.isEnabled = true
+                rateButton.isEnabled = true
+            } else {
+                childFragmentManager.beginTransaction().add(R.id.content, historyFragment).commit()
+                historyFab.setImageResource(R.drawable.ic_baseline_close_24)
+                weightSeekBar.isEnabled = false
+                rateButton.isEnabled = false
+            }
+        }
+
+//        historyFab.setOnClickListener {
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .addToBackStack(null)
+//                .add(
+//                    R.id.content,
+//                    HistoryFragment()
+//                )
+//                .commit()
+//        }
+
         fun getChosenCanteen(): String{
             return if (canteenRadioGroup.checkedRadioButtonId in canteenRadioIdList) {
                 val mainCanteen = view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
@@ -137,6 +167,8 @@ class SettingsFragment : Fragment() {
                 view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
             else
                 ""
+            if (primaryKey == "")
+                return@setOnClickListener
             var secondaryKey = ""
             if (primaryKey != "") {
                 subcanteenRadioIdMap[subcanteenGroup.checkedRadioButtonId]?.let {

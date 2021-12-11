@@ -10,6 +10,8 @@ import com.sjtu.naivegator.filter.filter_by_time
 import okhttp3.*
 import okhttp3.EventListener
 import java.io.IOException
+import java.lang.Exception
+import java.lang.IllegalStateException
 import java.util.*
 
 object Network {
@@ -137,7 +139,14 @@ object Network {
 
             override fun onResponse(call: Call, response: Response) {
                 val bodyString = response.body?.string()
-                val studyroomBean = gson.fromJson(bodyString, StudyroomBean::class.java)
+                var studyroomBean : StudyroomBean? = null
+                try {
+                    studyroomBean = gson.fromJson(bodyString, StudyroomBean::class.java)
+                } catch (e : Exception) {
+                    Log.e("JSON Parse", bodyString?:"(Empty)")
+                    return
+                }
+
                 val floorList = studyroomBean.data.floorList
                 for (floor in floorList) {
                     val stuNumbList = floor.roomStuNumbs
