@@ -214,6 +214,7 @@ object Network {
 //                println(bodyString)
                 val bathroomBean = gson.fromJson(bodyString, BathroomBean::class.java)
                 var dormName = ""
+                var dormNameSimple = ""
                 for (dormitory in bathroomBean.data) {
                     when (area) {
                         'd', 'D', '东' -> if (("东" in dormitory.name) and (id.toString() in dormitory.name)) {
@@ -225,7 +226,7 @@ object Network {
                     }
                     print(dormName)
                     if (dormName == dormitory.name) {
-                        bathroomInfo = bathroomInfo.copy(
+                        bathroomInfo["${area}${id}"] = Triple(
                             first = dormitory.status_count.free + dormitory.status_count.used,
                             second = dormitory.status_count.used,
                             third = listOf(true) // 暂时未用到的接口

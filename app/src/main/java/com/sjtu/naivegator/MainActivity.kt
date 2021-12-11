@@ -1,12 +1,20 @@
 package com.sjtu.naivegator
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Icon
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.annotation.RequiresApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -38,15 +46,14 @@ class MainActivity : AppCompatActivity() {
 
     private var is_canteen_now: Boolean = true
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val canteenThread = CanteenThread()
         val studyroomThread = StudyroomThread()
-        val bathroomThread = BathroomThread()
         canteenThread.start()
         studyroomThread.start()
-        bathroomThread.start()
 
         historyDB = Room
             .databaseBuilder(applicationContext, HistoryDatabase::class.java, "database-history")
@@ -90,8 +97,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-
     }
 
     override fun onDestroy() {
@@ -138,21 +143,6 @@ class MainActivity : AppCompatActivity() {
 //                    println(studyroom)
 //                }
                 sleep(60000)
-            }
-        }
-    }
-
-    inner class BathroomThread : Thread() {
-        override fun run() {
-            super.run()
-            updateInfo()
-        }
-
-        private fun updateInfo() {
-            while (true) {
-                Network.getBathroomData('d', 8) // 待完善的接口
-//                println(bathroomInfo)
-                sleep(100000)
             }
         }
     }

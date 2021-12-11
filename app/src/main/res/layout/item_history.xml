@@ -12,11 +12,11 @@
         app:layout_constraintHorizontal_weight="1"
         android:layout_marginStart="8dp"
         android:textSize="12sp"
-        android:textColor="#1e1e1e"
+        android:textColor="#A0A0A0"
         android:text="This is a very very long content to test multiple lines display"
 
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/button_delete"/>
     <TextView
         android:layout_width="0dp"
@@ -27,7 +27,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:textSize="10sp"
-        android:textColor="#808080"
+        android:textColor="#C0C0C0"
         android:text="2021-11-28"
 
         app:layout_constraintTop_toBottomOf="@id/text_content"
