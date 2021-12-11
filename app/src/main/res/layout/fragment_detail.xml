@@ -19,10 +19,11 @@
             android:id="@+id/detail_img"
             android:layout_width="170dp"
             android:layout_height="170dp"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="200dp"
             android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toTopOf="@+id/detail_name"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.403"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,18 +46,16 @@
             android:id="@+id/detail_intro"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginBottom="30dp"
             android:layout_marginTop="10dp"
-            android:textSize="14dp"
-            android:textColor="@color/black"
+            android:layout_marginRight="30dp"
             android:gravity="left"
-            app:layout_constraintTop_toBottomOf="@+id/detail_name"
+            android:textColor="@color/black"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/detail_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <Button
         android:layout_width="match_parent"

@@ -43,6 +43,7 @@ class CanteenFragment : Fragment() {
         "玉兰苑"
     )
 
+
     private var canteenIntros: MutableList<Pair<Int, Int>> = ArrayList()
     var recyclerView: RecyclerView? = null
     var contacts: ArrayList<Contact>? = null
@@ -144,6 +145,7 @@ class CanteenFragment : Fragment() {
                 })
         )
 
+        (requireActivity() as MainActivity).set_canteen()
         val filterFab = view.findViewById<FloatingActionButton>(R.id.canteen_fab)
         filterFab.setOnClickListener {
             childFragmentManager.beginTransaction().remove(filterFragment).commit()

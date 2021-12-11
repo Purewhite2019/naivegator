@@ -35,11 +35,17 @@ class MainActivity : AppCompatActivity() {
     private val CanteenFragment = CanteenFragment()
     private val StudyroomFragment = StudyroomFragment()
     private val BathroomFragment = BathroomFragment()
+
+    private var is_canteen_now : Boolean = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val networkThread = NetworkThread()
-        networkThread.start()
+        val canteenThread = CanteenThread()
+        val studyroomThread = StudyroomThread()
+        canteenThread.start()
+        studyroomThread.start()
+
         historyDB = Room
             .databaseBuilder(applicationContext, HistoryDatabase::class.java, "database-history")
             .build()
@@ -93,23 +99,59 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    inner class NetworkThread : Thread() {
+    inner class CanteenThread : Thread() {
         override fun run() {
             super.run()
-            transition()
+            updateMap()
         }
 
-        private fun transition() {
+        private fun updateMap() {
             while(true){
                 Network.getCanteenData(0)
                 for (i in 100..900 step 100) {
                     Network.getCanteenData(i)
                 }
                 sleep(10000)
-                for(canteen in canteenMap){
-                    println(canteen)
-                }
+//                for(canteen in canteenMap){
+//                    println(canteen)
+//                }
             }
         }
     }
+
+    inner class StudyroomThread : Thread() {
+        override fun run() {
+            super.run()
+            updateMap()
+        }
+
+        private fun updateMap() {
+            val studyroomBuildId = listOf<String>(
+                "126", "128", "127", "122", "564", "124"
+            )
+            while(true){
+                for (id in studyroomBuildId){
+                    Network.getStudyroomData(id)
+                }
+//                for(studyroom in studyroomMap){
+//                    println(studyroom)
+//                }
+                sleep(60000)
+            }
+        }
+    }
+
+    public fun is_canteen_now():Boolean{
+//        Log.e("is_canteen",CanteenFragment.isVisible.toString())
+       return is_canteen_now
+    }
+
+    public fun hide_canteen(){
+        is_canteen_now = false
+    }
+    public fun set_canteen(){
+        is_canteen_now = true
+    }
+
+
 }
