@@ -6,25 +6,22 @@
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/drawable/bg_edit.xml" value="0.16944444444444445" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/drawable/ic_add_white_24dp.xml" value="0.16944444444444445" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/drawable/ic_close_gray_24dp.xml" value="0.16944444444444445" />
-        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.20416666666666666" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/activity_add_preference.xml" value="0.1" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/activity_main.xml" value="0.24745762711864408" />
-        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/activity_navigation.xml" value="0.33" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/activity_navigation.xml" value="0.25" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/activity_settings.xml" value="0.33" />
-        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/dynamic_lists.xml" value="0.18802083333333333" />
-        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_add_history.xml" value="0.1875" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_add_preference.xml" value="0.16717325227963525" />
-        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_bathroom.xml" value="0.33" />
-        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_bathroom_wrapper.xml" value="0.1" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_canteen.xml" value="0.1875" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_detail.xml" value="0.14673913043478262" />
-        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_filter.xml" value="0.178125" />
-        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_home.xml" value="0.18385416666666668" />
-        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_settings.xml" value="0.33" />
-        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_studyroom_wrapper.xml" value="0.34375" />
-        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/item_history.xml" value="0.33" />
+        <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/fragment_settings.xml" value="0.16717325227963525" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/layout/item_preference.xml" value="0.1" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1875" />
+        <entry key="app/src/main/res/layout/activity_navigation.xml" value="0.13333333333333333" />
+        <entry key="app/src/main/res/layout/dynamic_lists.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/fragment_add_preference.xml" value="0.13333333333333333" />
+        <entry key="app/src/main/res/layout/fragment_bathroom.xml" value="0.140625" />
+        <entry key="app/src/main/res/layout/fragment_canteen.xml" value="0.13333333333333333" />
+        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.13020833333333334" />
       </map>
     </option>
   </component>
