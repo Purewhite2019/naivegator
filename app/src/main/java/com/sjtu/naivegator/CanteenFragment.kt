@@ -3,15 +3,13 @@ package com.sjtu.naivegator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
+import android.os.*
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -81,6 +79,12 @@ class CanteenFragment : Fragment() {
         true
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun resume() {
+        recyclerView?.focusable = View.FOCUSABLE
+        recyclerView?.visibility = View.VISIBLE
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -102,13 +106,17 @@ class CanteenFragment : Fragment() {
                 context,
                 recyclerView!!,
                 object : RecyclerItemClickListener.OnItemClickListener {
+                    @RequiresApi(Build.VERSION_CODES.O)
                     override fun onItemClick(view: View?, position: Int) {
                         val tmpId = activity!!.resources.getIdentifier(
                             imgFiles[position],
                             "drawable",
                             activity!!.packageName
                         )
+//                        recyclerView?.focusable = View.NOT_FOCUSABLE
+//                        recyclerView?.visibility = View.INVISIBLE
                         activity!!.supportFragmentManager.beginTransaction()
+                            .addToBackStack(null)
                             .add(
                                 R.id.content,
                                 DetailFragment.newInstance(tmpId, canteenNames[position])
@@ -116,14 +124,17 @@ class CanteenFragment : Fragment() {
                             .commit()
                     }
 
+                    @RequiresApi(Build.VERSION_CODES.O)
                     override fun onLongItemClick(view: View?, position: Int) {
                         val tmpId = activity!!.resources.getIdentifier(
                             imgFiles[position],
                             "drawable",
                             activity!!.packageName
                         )
-
+//                        recyclerView?.focusable = View.NOT_FOCUSABLE
+//                        recyclerView?.visibility = View.INVISIBLE
                         activity!!.supportFragmentManager.beginTransaction()
+                            .addToBackStack(null)
                             .add(
                                 R.id.content,
                                 DetailFragment.newInstance(tmpId, canteenNames[position])
@@ -162,6 +173,8 @@ class CanteenFragment : Fragment() {
         }
 
         fun update() {
+            sleep(100)
+            // Wait for network
             while (true) {
                 updateIntros(canteenIntros)
                 val contacts = Contact.createContactsList(9, imgFiles, canteenNames, canteenIntros)

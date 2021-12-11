@@ -3,6 +3,7 @@ package com.sjtu.naivegator
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,8 @@ import com.sjtu.naivegator.databinding.ActivityNavigationBinding
 import com.sjtu.naivegator.db.UserPreferenceDao
 import com.sjtu.naivegator.db.UserPreferenceDatabase
 import com.sjtu.naivegator.filter.FilterFragment
+import com.sjtu.naivegator.StudyroomFragment
+import com.sjtu.naivegator.api.bathroom.BathroomBean
 import java.security.InvalidParameterException
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +32,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNavigationBinding
 
     private val CanteenFragment = CanteenFragment()
-
+    private val StudyroomFragment = StudyroomFragment()
+    private val BathroomFragment = BathroomFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,10 +62,14 @@ class MainActivity : AppCompatActivity() {
                     transaction.replace(R.id.content, CanteenFragment)
                 }
                 R.id.navigation_studyroom -> {
-                    transaction.replace(R.id.content, CanteenFragment)
+                    transaction.replace(R.id.content, StudyroomFragment)
+                    Log.e("aa","hello,this is studyroom")
                 }
                 R.id.navigation_settings -> {
                     transaction.replace(R.id.content, SettingsFragment())
+                }
+                R.id.navigation_bathroom -> {
+                    transaction.replace(R.id.content, BathroomFragment)
                 }
                 else -> {
                     throw InvalidParameterException("navView::Invalid item id: ${it.itemId}")
