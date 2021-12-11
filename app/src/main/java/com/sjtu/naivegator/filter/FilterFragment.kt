@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat
 import com.sjtu.naivegator.MainActivity
 import com.sjtu.naivegator.R
 import com.sjtu.naivegator.canteenMap
+import com.sjtu.naivegator.studyroomMap
 import kotlinx.android.synthetic.main.dynamic_lists.*
 import kotlinx.android.synthetic.main.fragment_filter.*
 
@@ -179,7 +180,7 @@ class FilterFragment : Fragment() {
     }
 
     fun update_studyroom_wights(v : View){
-        var studyroomMap = mutableMapOf<Pair<String,String>, Triple<String, Int, Pair<String,Boolean>>>()
+//        var studyroomMap = mutableMapOf<Pair<String,String>, Triple<String, Int, Pair<String,Boolean>>>()
         //Load data from database
         reset_item(v)
         sharedPref = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
@@ -239,6 +240,7 @@ class FilterFragment : Fragment() {
             weight_map[weight] = name
             info_map[name] = Triple(distance,current_people,value.third.first)
         }
+        filter_log(weight_map.size.toString())
         if (weight_map.size<5){
             hide_last_item(v,5-weight_map.size)
         }
@@ -258,8 +260,8 @@ class FilterFragment : Fragment() {
 
     fun hide_last_item(v:View, num:Int){
         var localnum = num
-        if(num>4){ // hide at most 4 items
-            localnum=4
+        if(num>5){ // hide at most 4 items
+            localnum=5
         }
         var idx = 5
         val res: Resources = resources
@@ -283,7 +285,7 @@ class FilterFragment : Fragment() {
         val item_str = "choice$idx"+"_"
         val _dis ="距离:"+distance.toString()+"m"
 
-        var _title_size : Float = 6F*20/name.length
+        var _title_size : Float = 6F*22/name.length
         if(_title_size>30F){
             _title_size=30F
         }
