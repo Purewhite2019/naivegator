@@ -169,7 +169,7 @@ class FilterFragment : Fragment() {
                break
            }
            var item = info_map.getValue(value)
-           set_item(v,i+1,value, item.first.toInt(), item.second.toString()+"人",false,"")
+           set_item(v,i+1,value, item.first.toInt(), item.second.toString(),false,"")
            i+=1
        }
 
@@ -242,7 +242,7 @@ class FilterFragment : Fragment() {
                 break
             }
             var item = info_map.getValue(value)
-            var _people = "${item.second.first}/${item.second.second}人"
+            var _people = "${item.second.first}/${item.second.second}"
             if(current_time.is_midnight()&&item.second.first==0){
                 _people = "无数据"
             }
