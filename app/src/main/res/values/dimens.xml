@@ -13,4 +13,5 @@
     <dimen name="filter_text_line1_margin_top">1dp</dimen>
     <dimen name="filter_text_line2_margin_top">26dp</dimen>
     <dimen name="filter_text_line3_margin_top">50dp</dimen>
+    <dimen name="text_padding">2dp</dimen>
 </resources>

@@ -18,6 +18,7 @@
         android:layout_marginTop="10dp"
         android:background="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:paddingLeft="@dimen/text_padding"
         />
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:background="@color/purple_200"
+            android:paddingLeft="@dimen/text_padding"
             android:hint="东/西区" />
 
         <EditText
@@ -39,6 +41,7 @@
             android:layout_marginStart="200dp"
             android:layout_height="wrap_content"
             android:background="@color/purple_200"
+            android:paddingLeft="@dimen/text_padding"
             android:hint="楼栋号" />
 
     </RelativeLayout>
@@ -49,6 +52,7 @@
         android:id="@+id/bathroom_cur_people"
         android:layout_marginLeft="20dp"
         android:text="当前楼栋浴室人数/总可用隔间: 50/100"
+        android:paddingLeft="@dimen/text_padding"
         android:layout_marginTop="90dp"
         app:layout_constraintLeft_toLeftOf="parent"
         />
@@ -65,6 +69,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/crowd_text"
         android:layout_marginLeft="20dp"
+        android:paddingLeft="@dimen/text_padding"
         android:text="选择你期望的浴室拥挤程度: 50/50"
         android:layout_marginTop="150dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -86,6 +91,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
+            android:paddingLeft="@dimen/text_padding"
             android:background="@color/purple_200"
             android:layout_marginTop="10dp"
             android:hint="Start Time" />
@@ -93,6 +99,7 @@
         <EditText
             android:id="@+id/text_input_end_time"
             android:layout_width="100dp"
+            android:paddingLeft="@dimen/text_padding"
             android:layout_marginStart="160dp"
             android:layout_height="wrap_content"
             android:background="@color/purple_200"
@@ -113,10 +120,13 @@
         android:id="@+id/clock_name"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:textSize="24dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:layout_marginLeft="50dp"
+        android:textSize="20dp"
         android:textColor="@color/black"
-        android:background="@color/purple_200"
+        android:background="@drawable/round_rec_purple"
+
         android:text="此处为闹钟信息"
         android:layout_marginTop="200dp"
         android:layout_marginBottom="10dp"
