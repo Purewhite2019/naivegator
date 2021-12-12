@@ -94,7 +94,7 @@
             android:paddingLeft="@dimen/text_padding"
             android:background="@color/purple_200"
             android:layout_marginTop="10dp"
-            android:hint="Start Time" />
+            android:hint="开始时间" />
 
         <EditText
             android:id="@+id/text_input_end_time"
@@ -104,13 +104,13 @@
             android:layout_height="wrap_content"
             android:background="@color/purple_200"
             android:layout_marginTop="10dp"
-            android:hint="End time" />
+            android:hint="结束时间" />
 
 
     <Button
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:text="Set clock"
+        android:text="设定闹钟"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="80dp"
         android:id="@+id/set_time"
