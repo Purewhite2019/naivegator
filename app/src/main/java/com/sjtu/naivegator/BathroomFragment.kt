@@ -75,7 +75,13 @@ class BathroomFragment : Fragment() {
             var startTimeStamp = 0L
             var endTimeStamp = 0L
             var area = ""
+            if(numEditText.text.toString()==""){
+                Toast.makeText(requireContext(),"请输入相关信息",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val num = numEditText.text.toString().toInt()
+
             try {
                 startTimeStamp = SimpleDateFormat(format).parse(curTime + start_time.text + ":00").time
                 endTimeStamp = SimpleDateFormat(format).parse(curTime + end_time.text + ":00").time
