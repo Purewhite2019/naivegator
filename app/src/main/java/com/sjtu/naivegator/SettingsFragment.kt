@@ -206,7 +206,7 @@ class SettingsFragment : Fragment() {
             preferenceText.visibility = VISIBLE
 
             preferenceSeekBar.progress = 50
-            preferenceText.text = "对该餐厅的喜好程度: 50/${100}"
+            preferenceText.text = "对当前选中项的喜好程度: 50/${100}"
 
             val main = view.findViewById<RadioButton>(checkedId).text.toString()
             subitemGroup.removeAllViews()
@@ -224,7 +224,7 @@ class SettingsFragment : Fragment() {
                 preferenceInfo[getChosenCanteen()]?.let {
                     preferenceSeekBar.progress = it
                     preferenceText.text =
-                        "对该餐厅的喜好程度: ${it}/${100}"
+                        "对当前选中项的喜好程度: ${it}/${100}"
                     preferenceText.setBackgroundColor(interpolateColor(it))
                 }
             } else if (main in studyroomNameMap.keys) {
@@ -239,7 +239,7 @@ class SettingsFragment : Fragment() {
                 preferenceInfo[getChosenCanteen()]?.let {
                     preferenceSeekBar.progress = it
                     preferenceText.text =
-                        "对该餐厅的喜好程度: ${it}/${100}"
+                        "对当前选中项的喜好程度: ${it}/${100}"
                     preferenceText.setBackgroundColor(interpolateColor(it))
                 }
             } else {
@@ -252,7 +252,7 @@ class SettingsFragment : Fragment() {
             Log.d("getChosenCanteen() ", "${getChosenCanteen()}, ${subitemGroup.checkedRadioButtonId}")
             preferenceSeekBar.progress = preferenceInfo[getChosenCanteen()]?:50
             preferenceText.text =
-                "对该餐厅的喜好程度: ${preferenceSeekBar.progress}/${100}"
+                "对当前选中项的喜好程度: ${preferenceSeekBar.progress}/${100}"
             preferenceText.setBackgroundColor(interpolateColor(preferenceSeekBar.progress))
         }
 
@@ -273,7 +273,7 @@ class SettingsFragment : Fragment() {
         preferenceSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 preferenceText.text =
-                    "对该餐厅的喜好程度: ${progress}/${100}"
+                    "对当前选中项的喜好程度: ${progress}/${100}"
                 preferenceText.setBackgroundColor(interpolateColor(progress))
             }
 
