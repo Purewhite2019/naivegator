@@ -22,7 +22,7 @@ import kotlin.concurrent.thread
 
 class SettingsFragment : Fragment() {
     private var weightDistance: Int = 50
-    private val preferenceInfo : MutableMap<String, Int> = mutableMapOf()
+    private val preferenceInfo: MutableMap<String, Int> = mutableMapOf()
 
     private var sharedPref: SharedPreferences? = null
 
@@ -109,7 +109,7 @@ class SettingsFragment : Fragment() {
             R.id.studyroom_5,
             R.id.studyroom_6,
         )
-        
+
         val subitemGroup = view.findViewById<RadioGroup>(R.id.canteen_sublist)
         val subitemRadioIdMap = mutableMapOf<Int, String>()    // R.id.xxx -> idx
 //        val subitemRadioList = mutableListOf<RadioButton>() // RadioButton object
@@ -139,16 +139,18 @@ class SettingsFragment : Fragment() {
 //                .commit()
 //        }
 
-        fun getChosenCanteen(): String{
+        fun getChosenCanteen(): String {
             return if (canteenRadioGroup.checkedRadioButtonId in canteenRadioIdList) {
-                val mainCanteen = view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
+                val mainCanteen =
+                    view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
                 val subCanteen = subitemRadioIdMap[subitemGroup.checkedRadioButtonId]
                 if (subCanteen == null)
                     return mainCanteen
                 else
                     return "$mainCanteen $subCanteen"
             } else if (canteenRadioGroup.checkedRadioButtonId in studyroomRadioIdList) {
-                val mainStudyroom = view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
+                val mainStudyroom =
+                    view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
                 val subStudyroom = subitemRadioIdMap[subitemGroup.checkedRadioButtonId]
                 if (subStudyroom == null)
                     return mainStudyroom
@@ -164,7 +166,7 @@ class SettingsFragment : Fragment() {
 //            }
 //            return mainCanteen
 //        } else ""
-        rateButton.setOnClickListener{
+        rateButton.setOnClickListener {
             val primaryKey =
                 if (canteenRadioGroup.checkedRadioButtonId in canteenRadioIdList || canteenRadioGroup.checkedRadioButtonId in studyroomRadioIdList)
                     view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
@@ -180,15 +182,22 @@ class SettingsFragment : Fragment() {
                     secondaryKey = it
                 }
             }
-            val history = History(date = System.currentTimeMillis(), primaryKey = primaryKey, secondaryKey = secondaryKey, rating = ratingSeekBar.progress, remark = remarkEditText.text.toString())
+            val history = History(
+                date = System.currentTimeMillis(),
+                primaryKey = primaryKey,
+                secondaryKey = secondaryKey,
+                rating = ratingSeekBar.progress,
+                remark = remarkEditText.text.toString()
+            )
             remarkEditText.text = null
             ratingSeekBar.progress = 0
             ratingProgBar.progress = 0
             val historyDao = (requireActivity() as MainActivity).historyDao
             thread {
                 historyDao?.insert(history = history)
-                requireActivity().runOnUiThread{
-                    Toast.makeText(context, "History added Successfully!", Toast.LENGTH_LONG).show();
+                requireActivity().runOnUiThread {
+                    Toast.makeText(context, "History added Successfully!", Toast.LENGTH_LONG)
+                        .show();
                 }
             }
         }
@@ -197,6 +206,7 @@ class SettingsFragment : Fragment() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 ratingProgBar.progress = progress
             }
+
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
@@ -252,8 +262,11 @@ class SettingsFragment : Fragment() {
         }
 
         subitemGroup.setOnCheckedChangeListener { _, _ ->
-            Log.d("getChosenCanteen() ", "${getChosenCanteen()}, ${subitemGroup.checkedRadioButtonId}")
-            preferenceSeekBar.progress = preferenceInfo[getChosenCanteen()]?:50
+            Log.d(
+                "getChosenCanteen() ",
+                "${getChosenCanteen()}, ${subitemGroup.checkedRadioButtonId}"
+            )
+            preferenceSeekBar.progress = preferenceInfo[getChosenCanteen()] ?: 50
             preferenceText.text =
                 "对当前选中项的喜好程度: ${preferenceSeekBar.progress}/${100}"
             preferenceText.setBackgroundColor(interpolateColor(preferenceSeekBar.progress))
@@ -267,6 +280,7 @@ class SettingsFragment : Fragment() {
                 weightText.text =
                     "选择对路程和人流量的权重: ${progress}/${100 - progress}"
             }
+
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 weightDistance = seekBar!!.progress

@@ -55,7 +55,7 @@ class StudyroomFragment : Fragment() {
         val current_time = filter_by_time()
         for (studyroom in studyroomMap) {
 
-            if(!is_accessible_now(current_time,studyroom.key)){//exclude inaccessible study room
+            if (!is_accessible_now(current_time, studyroom.key)) {//exclude inaccessible study room
                 continue
             }
             var totalSeat = 0

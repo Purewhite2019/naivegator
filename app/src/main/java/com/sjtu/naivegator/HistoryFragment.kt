@@ -19,8 +19,8 @@ import java.text.SimpleDateFormat
 import kotlin.concurrent.thread
 
 class HistoryFragment : Fragment() {
-    private var historyDao : HistoryDao? = null
-    private var historyAdapter : HistoryAdapter? = null
+    private var historyDao: HistoryDao? = null
+    private var historyAdapter: HistoryAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,8 @@ class HistoryFragment : Fragment() {
 //                .commit()
 //        }
 
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.addItemDecoration(
             DividerItemDecoration(
                 context,

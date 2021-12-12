@@ -27,6 +27,7 @@ private const val PARAM_POSITION = "com.sjtu.naivegator.extra.POSITION"
 private const val PARAM_CROWDNESS = "com.sjtu.naivegator.extra.CROWDNESS"
 
 private var currentId = 0
+
 class BathroomAlarmService : IntentService("BathroomAlarmService") {
     override fun onHandleIntent(intent: Intent?) {
         when (intent?.action) {
@@ -40,7 +41,12 @@ class BathroomAlarmService : IntentService("BathroomAlarmService") {
         }
     }
 
-    private fun handleActionSetAlarm(startTime: String, endTime: String, position: String, crowdness: String) {
+    private fun handleActionSetAlarm(
+        startTime: String,
+        endTime: String,
+        position: String,
+        crowdness: String
+    ) {
         val id = currentId + 1
         currentId = id
 
@@ -53,7 +59,10 @@ class BathroomAlarmService : IntentService("BathroomAlarmService") {
 
         while (currentId == id) {
 //            Log.d("curTimeStamp", "${System.currentTimeMillis()}")
-            Network.getBathroomData(position[0], position.subSequence(1, position.length).toString().toInt())
+            Network.getBathroomData(
+                position[0],
+                position.subSequence(1, position.length).toString().toInt()
+            )
             Thread.sleep(5000)
             val info = bathroomInfo[position]
 
@@ -125,7 +134,13 @@ class BathroomAlarmService : IntentService("BathroomAlarmService") {
 
     companion object {
         @JvmStatic
-        fun startActionSetAlarm(context: Context, startTime: String, endTime: String, position: String, crowdness: String) {
+        fun startActionSetAlarm(
+            context: Context,
+            startTime: String,
+            endTime: String,
+            position: String,
+            crowdness: String
+        ) {
             val intent = Intent(context, BathroomAlarmService::class.java).apply {
                 action = ACTION_SET_ALARM
                 putExtra(PARAM_START_TIME, startTime)

@@ -139,11 +139,11 @@ object Network {
 
             override fun onResponse(call: Call, response: Response) {
                 val bodyString = response.body?.string()
-                var studyroomBean : StudyroomBean? = null
+                var studyroomBean: StudyroomBean? = null
                 try {
                     studyroomBean = gson.fromJson(bodyString, StudyroomBean::class.java)
-                } catch (e : Exception) {
-                    Log.e("JSON Parse", bodyString?:"(Empty)")
+                } catch (e: Exception) {
+                    Log.e("JSON Parse", bodyString ?: "(Empty)")
                     return
                 }
 

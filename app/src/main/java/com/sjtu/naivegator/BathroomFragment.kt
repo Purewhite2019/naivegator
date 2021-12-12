@@ -38,7 +38,7 @@ class BathroomFragment : Fragment() {
         true
     }
 
-    var cur_people : TextView ?= null
+    var cur_people: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,12 +65,16 @@ class BathroomFragment : Fragment() {
         areaEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) { cur_people?.text = "浴室信息获取中..." }
+            override fun afterTextChanged(s: Editable?) {
+                cur_people?.text = "浴室信息获取中..."
+            }
         })
         numEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) { cur_people?.text = "浴室信息获取中..." }
+            override fun afterTextChanged(s: Editable?) {
+                cur_people?.text = "浴室信息获取中..."
+            }
         })
 
         ratingSeekBar.progress = ratingSeekBarDistance
@@ -79,6 +83,7 @@ class BathroomFragment : Fragment() {
                 crowd_text.text =
                     "选择你期望的浴室拥挤程度: ${progress}/100"
             }
+
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 ratingSeekBarDistance = seekBar!!.progress
@@ -86,19 +91,21 @@ class BathroomFragment : Fragment() {
         })
         set_btn.setOnClickListener {
             val format = "yyyy-MM-dd HH:mm:ss"
-            val curTime = SimpleDateFormat(format).format(System.currentTimeMillis()).substring(0, 11)
+            val curTime =
+                SimpleDateFormat(format).format(System.currentTimeMillis()).substring(0, 11)
             var startTimeStamp = 0L
             var endTimeStamp = 0L
             var area = ""
-            if(numEditText.text.toString()==""){
-                Toast.makeText(requireContext(),"请输入相关信息",Toast.LENGTH_SHORT).show()
+            if (numEditText.text.toString() == "") {
+                Toast.makeText(requireContext(), "请输入相关信息", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val num = numEditText.text.toString().toInt()
 
             try {
-                startTimeStamp = SimpleDateFormat(format).parse(curTime + start_time.text + ":00").time
+                startTimeStamp =
+                    SimpleDateFormat(format).parse(curTime + start_time.text + ":00").time
                 endTimeStamp = SimpleDateFormat(format).parse(curTime + end_time.text + ":00").time
                 area = when (areaEditText.text.toString()) {
                     "x", "X", "西" -> "西"
@@ -109,16 +116,23 @@ class BathroomFragment : Fragment() {
                 }
                 if (num < 0 || (area == "西" && num > 34) || (area == "东" && num > 34))
                     throw ParseException("num parse error", 0)
-            } catch (e : ParseException) {
+            } catch (e: ParseException) {
                 Toast.makeText(context, "数据解析失败，请按正确的格式输入数据", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            startActionSetAlarm(requireContext(), startTimeStamp.toString(), endTimeStamp.toString(), area + num, ratingSeekBar.progress.toString())
-            clk_info.text = "闹钟时间为："+start_time.text?.toString() +"至"+ end_time.text?.toString() + ",理想拥挤程度为"+ratingSeekBar.progress?.toString() + "/" + (100 - ratingSeekBar.progress)
+            startActionSetAlarm(
+                requireContext(),
+                startTimeStamp.toString(),
+                endTimeStamp.toString(),
+                area + num,
+                ratingSeekBar.progress.toString()
+            )
+            clk_info.text =
+                "闹钟时间为：" + start_time.text?.toString() + "至" + end_time.text?.toString() + ",理想拥挤程度为" + ratingSeekBar.progress?.toString() + "/" + (100 - ratingSeekBar.progress)
         }
         thread {
-            while (true){
+            while (true) {
                 val area = areaEditText.text
                 val num =
                     if (numEditText.text.toString() == "") 0

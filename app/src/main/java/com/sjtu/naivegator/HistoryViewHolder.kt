@@ -10,11 +10,11 @@ import com.sjtu.naivegator.db.HistoryDao
 import java.text.SimpleDateFormat
 import kotlin.concurrent.thread
 
-class HistoryViewHolder(itemView : View, private val historyDao : HistoryDao)
-    : RecyclerView.ViewHolder(itemView){
-    private var contentText : TextView = itemView.findViewById(R.id.text_content)
-    private var dateText : TextView = itemView.findViewById(R.id.text_date)
-    private var deleteButton : View = itemView.findViewById(R.id.button_delete)
+class HistoryViewHolder(itemView: View, private val historyDao: HistoryDao) :
+    RecyclerView.ViewHolder(itemView) {
+    private var contentText: TextView = itemView.findViewById(R.id.text_content)
+    private var dateText: TextView = itemView.findViewById(R.id.text_date)
+    private var deleteButton: View = itemView.findViewById(R.id.button_delete)
 
 //    private val colorMap = mapOf(0 to Color.WHITE, 1 to Color.GREEN, 2 to Color.RED)
 
@@ -22,7 +22,8 @@ class HistoryViewHolder(itemView : View, private val historyDao : HistoryDao)
         if (history.secondaryKey == "")
             contentText.text = "${history.primaryKey}: ${history.rating / 20.0F} Stars"
         else
-            contentText.text = "${history.primaryKey}-${history.secondaryKey}: ${history.rating / 20.0F} Stars"
+            contentText.text =
+                "${history.primaryKey}-${history.secondaryKey}: ${history.rating / 20.0F} Stars"
         dateText.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(history.date)
 
         deleteButton.setOnClickListener {
@@ -34,12 +35,17 @@ class HistoryViewHolder(itemView : View, private val historyDao : HistoryDao)
         itemView.setBackgroundColor(interpolateColor(history.rating))
         deleteButton.bringToFront()
     }
-    private fun interpolateColor(rating : Int) : Int {
+
+    private fun interpolateColor(rating: Int): Int {
         val argbEvaluator = ArgbEvaluator()
         return if (rating < 50) {
-            argbEvaluator.evaluate((50-rating).toFloat() / 50.0F, Color.WHITE, Color.BLACK) as Int
+            argbEvaluator.evaluate((50 - rating).toFloat() / 50.0F, Color.WHITE, Color.BLACK) as Int
         } else {
-            argbEvaluator.evaluate((rating-50).toFloat() / 50.0F, Color.WHITE, Color.YELLOW) as Int
+            argbEvaluator.evaluate(
+                (rating - 50).toFloat() / 50.0F,
+                Color.WHITE,
+                Color.YELLOW
+            ) as Int
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.sjtu.naivegator
 
-val studyroomNameMap : MutableMap<String, MutableSet<String>> = mutableMapOf(
+val studyroomNameMap: MutableMap<String, MutableSet<String>> = mutableMapOf(
     "上院" to mutableSetOf<String>(),
     "中院" to mutableSetOf<String>(),
     "下院" to mutableSetOf<String>(),

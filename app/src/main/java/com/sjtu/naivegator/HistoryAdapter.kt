@@ -8,9 +8,9 @@ import com.sjtu.naivegator.db.History
 import com.sjtu.naivegator.db.HistoryDao
 import kotlin.concurrent.thread
 
-class HistoryAdapter(private val preferenceDao : HistoryDao, private val activity : Activity)
-    : RecyclerView.Adapter<HistoryViewHolder>() {
-    private var historyList : MutableList<History> = mutableListOf()
+class HistoryAdapter(private val preferenceDao: HistoryDao, private val activity: Activity) :
+    RecyclerView.Adapter<HistoryViewHolder>() {
+    private var historyList: MutableList<History> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val preferenceView = LayoutInflater.from(parent.context)
@@ -35,7 +35,7 @@ class HistoryAdapter(private val preferenceDao : HistoryDao, private val activit
                 if (v1.date < v2.date) 1
                 else -1
             }
-            activity.runOnUiThread{
+            activity.runOnUiThread {
                 notifyDataSetChanged()
             }
         }

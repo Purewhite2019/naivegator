@@ -19,7 +19,7 @@ private const val ARG_canteenName = "canteenName"
 class DetailFragment : Fragment() {
     private var tmpId: Int? = null
     private var canteenName: String? = null
-    private val canteenIntros : Map<String, String> = mapOf(
+    private val canteenIntros: Map<String, String> = mapOf(
         "一餐" to "一餐临近上、中、下院教学楼、包玉刚图书馆和西区学生宿舍，地理位置优越，对于西区上课和住宿的同学来说是便利的就餐选择，" +
                 "所以平时人流量大，经常在饭点会出现“爆座”现象。\n" +
                 "一餐有二层，一楼主要有特色快餐（一般口味的同学都能满足）、川味窗口(喜欢辣的同学可以冲！)、" +
@@ -30,7 +30,7 @@ class DetailFragment : Fragment() {
                 "鱼等各种口味的餐品，同时还有一个西餐厅。二楼有一个大众餐厅和一个可供自选的教工餐厅，" +
                 "排队自助取餐，统一结账，提供更多选择，物美价廉，平时人较少，可以错开一楼的高峰；此外新疆" +
                 "餐厅是风味餐厅也位于二楼，欢迎各民族同学前往。三楼是物美价廉的绿园餐厅，也很不错哦。",
-        "三餐" to  "三餐分为上下两楼。一楼有特色木桶饭窗口、快餐窗口、F+牛肉饭窗口、水饺窗口、" +
+        "三餐" to "三餐分为上下两楼。一楼有特色木桶饭窗口、快餐窗口、F+牛肉饭窗口、水饺窗口、" +
                 "面食窗口；二楼有干锅火锅黄焖鸡、石锅拌饭、特色风味快餐、泰国铁板烧等。\n" +
                 "地址：涵泽湖旁边，东三区同学出门即是食堂说的就是三餐。夏天可以吃完午饭买杯咖" +
                 "啡驻足湖边赏荷，秋天可以绕着西区步道跑完四公里再吃晚饭。",
@@ -93,7 +93,7 @@ class DetailFragment : Fragment() {
 //        val _textsize = 30*90F/canteenIntros[canteenName]?.length!!
 
         view.findViewById<TextView>(R.id.detail_intro).text =
-                    "$canteenName\n\n${canteenIntros[canteenName]?:defaultDescription}"
+            "$canteenName\n\n${canteenIntros[canteenName] ?: defaultDescription}"
 //        view.findViewById<TextView>(R.id.detail_intro).textSize = _textsize
         Log.e("tmpid", tmpId.toString())
         view.findViewById<Button>(R.id.btn_exit).setOnClickListener {
