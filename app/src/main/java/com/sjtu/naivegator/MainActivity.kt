@@ -1,20 +1,25 @@
 package com.sjtu.naivegator
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -32,6 +37,13 @@ import com.sjtu.naivegator.api.bathroom.BathroomBean
 import java.security.InvalidParameterException
 
 class MainActivity : AppCompatActivity() {
+    private val filterPermissionsArrays = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    )
+    private val REQUEST_PERMISSION = 123
+    private val lockPermissionRequest = Object()
+
     // Databases
     private var sharedPref: SharedPreferences? = null
     private var historyDB: HistoryDatabase? = null
@@ -96,6 +108,8 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        checkPermission()
     }
 
     override fun onDestroy() {
@@ -159,5 +173,59 @@ class MainActivity : AppCompatActivity() {
         is_canteen_now = true
     }
 
+    private fun checkPermission() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED ||
+            ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(
+                this,
+                filterPermissionsArrays,
+                REQUEST_PERMISSION
+            )
+            lockPermissionRequest.wait()
+        }
+    }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        var permissionResult = 0
+        if (requestCode == REQUEST_PERMISSION) {
+            permissionResult = 1
+            for (i in permissions.indices) {
+                if (grantResults.size > i &&
+                    grantResults[i] == PackageManager.PERMISSION_GRANTED
+                ) {
+                    Toast.makeText(this, "已经授权" + permissions[i], Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "拒绝授权" + permissions[i], Toast.LENGTH_LONG).show()
+                    permissionResult = 2
+                }
+            }
+        }
+        when (permissionResult) {
+            1 -> {
+                synchronized(lockPermissionRequest) {
+                    try {
+                        lockPermissionRequest.notifyAll()
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
+                    }
+                }
+                Toast.makeText(this, "权限获取成功", Toast.LENGTH_LONG).show()
+            }
+            2 -> {
+                synchronized(lockPermissionRequest) {
+                    try {
+                        lockPermissionRequest.notifyAll()
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
+                    }
+                }
+                Toast.makeText(this, "权限获取失败，筛选器无法使用", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 }

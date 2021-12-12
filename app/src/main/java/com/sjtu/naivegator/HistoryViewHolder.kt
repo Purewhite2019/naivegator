@@ -19,7 +19,10 @@ class HistoryViewHolder(itemView : View, private val historyDao : HistoryDao)
 //    private val colorMap = mapOf(0 to Color.WHITE, 1 to Color.GREEN, 2 to Color.RED)
 
     fun bind(history: History, historyAdapter: HistoryAdapter) {
-        contentText.text = "${history.primaryKey}-${history.secondaryKey}: ${history.rating / 20.0F} Stars"
+        if (history.secondaryKey == "")
+            contentText.text = "${history.primaryKey}: ${history.rating / 20.0F} Stars"
+        else
+            contentText.text = "${history.primaryKey}-${history.secondaryKey}: ${history.rating / 20.0F} Stars"
         dateText.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(history.date)
 
         deleteButton.setOnClickListener {
