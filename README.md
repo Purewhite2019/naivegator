@@ -8,7 +8,7 @@ Course project of CS175, Practice on Android Application Development, Autumn 202
 
 ## Introduction
 
-This is an life gadget for SJTU students. As it is a **Naïve** navigator, we call it **NaïveGator**! 🤓
+This is a life gadget for SJTU students. As it is a **Naïve** navigator, we call it **NaïveGator**! 🤓
 
 * The app can get the traffic flow of the canteens in real time and make recommendations based on traffic flow, distance, and user preferences.
 * The app can get the traffic flow of study rooms in real time and make recommendations based on traffic flow, distance, user preferences, and current study room openings.
