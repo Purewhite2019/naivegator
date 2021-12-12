@@ -7,12 +7,23 @@
     tools:context=".BathroomFragment"
     android:background="@color/white"
     android:orientation="vertical">
-
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_bathroom_hint"
+        android:layout_marginLeft="20dp"
+        android:text="请输入你所在的楼栋:"
+        android:textSize="14dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="40dp">
 
         <EditText
             android:id="@+id/east_or_west"
@@ -20,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:background="@color/purple_200"
-            android:hint="Area" />
+            android:hint="东/西区" />
 
         <EditText
             android:id="@+id/number_of_building"
@@ -28,7 +39,7 @@
             android:layout_marginStart="200dp"
             android:layout_height="wrap_content"
             android:background="@color/purple_200"
-            android:hint="Number" />
+            android:hint="楼栋号" />
 
     </RelativeLayout>
 
@@ -37,15 +48,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/bathroom_cur_people"
         android:layout_marginLeft="20dp"
-        android:text="Current people/Total compartments: 50/100"
-        android:layout_marginTop="40dp"
+        android:text="当前楼栋浴室人数/总可用隔间: 50/100"
+        android:layout_marginTop="90dp"
         app:layout_constraintLeft_toLeftOf="parent"
         />
     <SeekBar
         android:id="@+id/bathroom_seekbar"
         android:layout_width="match_parent"
         android:layout_height="93dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:max="100"
         android:progress="50" />
 
@@ -54,15 +65,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/crowd_text"
         android:layout_marginLeft="20dp"
-        android:text="Choosing the ideal congestion in the bathroom: 50/50"
-        android:layout_marginTop="100dp"
+        android:text="选择你期望的浴室拥挤程度: 50/50"
+        android:layout_marginTop="150dp"
         app:layout_constraintLeft_toLeftOf="parent"
         />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="200dp">
+        android:layout_marginTop="250dp">
 
         <EditText
             android:id="@+id/text_input_start_time"
@@ -85,7 +96,7 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:text="Set clock"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="350dp"
         android:layout_marginLeft="100dp"
         android:id="@+id/set_time"
     />
@@ -99,7 +110,7 @@
         android:textColor="@color/black"
         android:background="@color/purple_200"
         android:text="此处为闹钟信息"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="450dp"
         />
 
 

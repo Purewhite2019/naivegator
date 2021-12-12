@@ -62,7 +62,7 @@ class BathroomFragment : Fragment() {
         ratingSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 crowd_text.text =
-                    "Choosing the ideal congestion in the bathroom: ${progress}/${100 - progress}"
+                    "选择你期望的浴室拥挤程度: ${progress}/${100 - progress}"
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
