@@ -137,6 +137,7 @@ class FilterFragment : Fragment() {
         val weight_map = sortedMapOf<Float, String>(comparator)
         val info_map = mutableMapOf<String, Triple<Float, Int, Int>>()//距离，当前人数，座位数
         var i = 0
+//        filter_log("${canteenMap.size.toString()}:?????")
         for ((key, value) in canteenMap) {
             if (key >= 100) {
                 continue
@@ -158,13 +159,17 @@ class FilterFragment : Fragment() {
             val distance = get_distance_from_canteen(currLocation!!, name2canteen(name))
             val pos_weight = weightDistance * (1000F / distance)
 //            filter_log("$name,位置加权: $pos_weight")
-            val weight = (preferenceMap["${value.first} ${value.second}"]
+            var weight = (preferenceMap["${value.first} ${value.second}"]
                 ?: 50) * (pos_weight + crowded_weight)
 //            filter_log("$name,总权重: $weight")
+            while (weight_map.containsKey(weight)) {
+                weight = (weight - 0.01F)
+            }
             weight_map.put(weight, name)
             info_map.put(name, Triple(distance, current, total))
             i += 1
         }
+//        filter_log(weight_map.size.toString())
         i = 0
         for ((key, value) in weight_map!!) {
             if (i == 5) {
@@ -237,7 +242,7 @@ class FilterFragment : Fragment() {
             weight *= (preferenceMap["${key.first} ${key.second}"] ?: 50)
             filter_log("after $weight")
 
-            if (weight_map.containsKey(weight)) {
+            while (weight_map.containsKey(weight)) {
                 weight = (weight - 0.01F)
             }
             weight_map[weight] = name
