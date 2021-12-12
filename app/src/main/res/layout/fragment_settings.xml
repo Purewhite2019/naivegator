@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/weight_text_pos"
                 android:layout_marginLeft="20dp"
-                android:text="Weight between Distance and Traffic: 50/50"
+                android:text="选择对路程和人流量的权重 50/50"
                 app:layout_constraintTop_toBottomOf="@id/weight_seekbar_pos"
                 app:layout_constraintLeft_toLeftOf="parent"
                 />
@@ -233,7 +233,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/rating_seekbar"
                 android:layout_margin="20dp"
-                android:hint="Please input some remarks."
+                android:hint="请输入对本次用餐或自习的评价"
                 />
 
             <SeekBar
