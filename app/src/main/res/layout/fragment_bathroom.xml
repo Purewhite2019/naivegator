@@ -32,8 +32,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:background="@color/purple_200"
+            android:hint="东,d,D/西,x,X"
             android:paddingLeft="@dimen/text_padding"
-            android:hint="东/西区" />
+            android:textSize="16dp" />
 
         <EditText
             android:id="@+id/number_of_building"
@@ -42,20 +43,21 @@
             android:layout_height="wrap_content"
             android:background="@color/purple_200"
             android:paddingLeft="@dimen/text_padding"
+            android:textSize="16dp"
             android:hint="楼栋号" />
 
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/bathroom_cur_people"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bathroom_cur_people"
         android:layout_marginLeft="20dp"
-        android:text="当前楼栋浴室人数/总可用隔间: 50/100"
-        android:paddingLeft="@dimen/text_padding"
         android:layout_marginTop="90dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
+        android:paddingLeft="@dimen/text_padding"
+        android:text="浴室信息获取中..."
+        app:layout_constraintLeft_toLeftOf="parent" />
+
     <SeekBar
         android:id="@+id/bathroom_seekbar"
         android:layout_width="match_parent"
@@ -70,7 +72,7 @@
         android:id="@+id/crowd_text"
         android:layout_marginLeft="20dp"
         android:paddingLeft="@dimen/text_padding"
-        android:text="选择你期望的浴室拥挤程度: 50/50"
+        android:text="选择你期望的浴室拥挤程度: 50/100"
         android:layout_marginTop="150dp"
         app:layout_constraintLeft_toLeftOf="parent"
         />
@@ -91,10 +93,10 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:paddingLeft="@dimen/text_padding"
-            android:background="@color/purple_200"
             android:layout_marginTop="10dp"
-            android:hint="开始时间" />
+            android:background="@color/purple_200"
+            android:hint="开始时间"
+            android:paddingLeft="@dimen/text_padding" />
 
         <EditText
             android:id="@+id/text_input_end_time"
@@ -107,30 +109,27 @@
             android:hint="结束时间" />
 
 
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:text="设定闹钟"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="80dp"
-        android:id="@+id/set_time"
-    />
+        <Button
+            android:id="@+id/set_time"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="100dp"
+            android:text="设定闹钟" />
 
-    <TextView
-        android:id="@+id/clock_name"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:layout_marginLeft="50dp"
-        android:textSize="18dp"
-        android:textColor="@color/black"
-        android:background="@drawable/round_rec_purple"
-
-        android:text="闹钟详细信息"
-        android:layout_marginTop="200dp"
-        android:layout_marginBottom="10dp"
-        />
+        <TextView
+            android:id="@+id/clock_name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/round_rec_purple"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:text="闹钟未设定"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
     </RelativeLayout>
 
 

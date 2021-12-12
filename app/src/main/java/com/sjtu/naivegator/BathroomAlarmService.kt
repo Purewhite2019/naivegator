@@ -73,10 +73,14 @@ class BathroomAlarmService : IntentService("BathroomAlarmService") {
                         getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                     notificationManager.createNotificationChannel(channel)
                 }
+                val bathroomContent =
+                    if (info == null) "浴室容量查询失败"
+                    else "目前浴室容量：${info.second}/${info.first}"
+
                 val builder = NotificationCompat.Builder(this, channelID)
                     .setSmallIcon(com.sjtu.naivegator.R.drawable.naivegator)
                     .setContentTitle("Naivegator")
-                    .setContentText("目前浴室容量：${info?.second?:"Unknown"}/${info?.first?:"Unknown"}，超时了！")
+                    .setContentText("${bathroomContent}，超时了！")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setAutoCancel(true)
 

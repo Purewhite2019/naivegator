@@ -1,6 +1,8 @@
 package com.sjtu.naivegator
 
 import android.os.*
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.widget.*
@@ -27,7 +29,9 @@ class BathroomFragment : Fragment() {
             STATUS_FINISH_UPDATE -> {
                 val total = msg.data.getInt(TOTAL)
                 val used = msg.data.getInt(USED)
-                cur_people?.text = "当前楼栋浴室人数/总可用隔间: ${used}/${total}"
+                cur_people?.text =
+                    if (total > 0) "当前楼栋浴室人数/总可用隔间: ${used}/${total}"
+                    else "浴室信息获取中..."
 //                println(cur_people?.text)
             }
         }
@@ -58,11 +62,22 @@ class BathroomFragment : Fragment() {
 
         cur_people = view.findViewById<TextView>(R.id.bathroom_cur_people)
 
+        areaEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) { cur_people?.text = "浴室信息获取中..." }
+        })
+        numEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) { cur_people?.text = "浴室信息获取中..." }
+        })
+
         ratingSeekBar.progress = ratingSeekBarDistance
         ratingSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 crowd_text.text =
-                    "选择你期望的浴室拥挤程度: ${progress}/${100 - progress}"
+                    "选择你期望的浴室拥挤程度: ${progress}/100"
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
@@ -95,7 +110,7 @@ class BathroomFragment : Fragment() {
                 if (num < 0 || (area == "西" && num > 34) || (area == "东" && num > 34))
                     throw ParseException("num parse error", 0)
             } catch (e : ParseException) {
-                Toast.makeText(context, "Parse error, please input in the correct format", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "数据解析失败，请按正确的格式输入数据", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -105,7 +120,6 @@ class BathroomFragment : Fragment() {
         thread {
             while (true){
                 val area = areaEditText.text
-
                 val num =
                     if (numEditText.text.toString() == "") 0
                     else numEditText.text.toString().toInt()
@@ -131,8 +145,10 @@ class BathroomFragment : Fragment() {
                 val msg = Message.obtain()
                 msg.what = STATUS_FINISH_UPDATE
                 msg.data = Bundle().apply {
-                    putInt(TOTAL, bathroomInfo[dormName]?.first ?: 0)
-                    putInt(USED, bathroomInfo[dormName]?.second ?: 0)
+                    bathroomInfo[dormName]?.let {
+                        putInt(TOTAL, it.first)
+                        putInt(USED, it.second)
+                    }
                 }
                 handler.sendMessage(msg)
             }

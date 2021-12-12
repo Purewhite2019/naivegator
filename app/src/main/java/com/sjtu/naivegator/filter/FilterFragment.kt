@@ -139,7 +139,7 @@ class FilterFragment : Fragment() {
         //use distances and personal infos to filter
         val comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
         val weight_map = sortedMapOf<Float, String>(comparator)
-        val info_map = mutableMapOf<String, Triple<Float, Int, Int>>()//距离，当前人数，总人数
+        val info_map = mutableMapOf<String, Triple<Float, Int, Int>>()//距离，当前人数，座位数
         var i = 0
         for ((key, value) in canteenMap) {
             if (key >= 100) {
@@ -182,7 +182,7 @@ class FilterFragment : Fragment() {
                 item.first.toInt(),
                 item.second.toString(),
                 false,
-                "总人数:${item.third}"
+                "座位数:${item.third}"
             )
             i += 1
         }
@@ -203,7 +203,7 @@ class FilterFragment : Fragment() {
         val comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
         val weight_map = sortedMapOf<Float, String>(comparator)
         val info_map =
-            mutableMapOf<String, Triple<Float, Pair<Int, Int>, String>>() //名称, Triple(距离,(当前人数,总人数),温度)
+            mutableMapOf<String, Triple<Float, Pair<Int, Int>, String>>() //名称, Triple(距离,(当前人数,座位数),温度)
         var i = 0
 
         //get current time
