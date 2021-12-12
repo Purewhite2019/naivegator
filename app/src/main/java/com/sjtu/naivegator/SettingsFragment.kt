@@ -165,12 +165,15 @@ class SettingsFragment : Fragment() {
 //            return mainCanteen
 //        } else ""
         rateButton.setOnClickListener{
-            val primaryKey = if (canteenRadioGroup.checkedRadioButtonId in canteenRadioIdList)
-                view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
-            else
-                ""
-            if (primaryKey == "")
+            val primaryKey =
+                if (canteenRadioGroup.checkedRadioButtonId in canteenRadioIdList || canteenRadioGroup.checkedRadioButtonId in studyroomRadioIdList)
+                    view.findViewById<RadioButton>(canteenRadioGroup.checkedRadioButtonId).text.toString()
+                else
+                    ""
+            if (primaryKey == "") {
+                Log.e("rateButton", "primaryKey error")
                 return@setOnClickListener
+            }
             var secondaryKey = ""
             if (primaryKey != "") {
                 subitemRadioIdMap[subitemGroup.checkedRadioButtonId]?.let {

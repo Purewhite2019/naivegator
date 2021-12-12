@@ -26,6 +26,9 @@ import com.sjtu.naivegator.studyroomMap
 
 
 class FilterFragment : Fragment() {
+    // Permission lock
+    private val lockPermissionRequest = Object()
+
     private var locationManager: LocationManager? = null
     private var currLocation: Location? = null
 
@@ -62,6 +65,7 @@ class FilterFragment : Fragment() {
             filter_log("request permission")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(filterPermissionsArrays, REQUEST_PERMISSION)
+                lockPermissionRequest.wait()
             } else {
                 Toast.makeText(context, "Request Location Permission!", Toast.LENGTH_SHORT)
                     .show()
@@ -73,7 +77,7 @@ class FilterFragment : Fragment() {
             0L,
             0f,
             locationListener
-        );
+        )
 //=======check permission for location finished===============
 
 
@@ -375,13 +379,27 @@ class FilterFragment : Fragment() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        var permissionResult = 0
         if (requestCode == REQUEST_PERMISSION) {
+            permissionResult = 1
             for (i in permissions.indices) {
                 if (grantResults.size > i &&
                     grantResults[i] == PackageManager.PERMISSION_GRANTED
                 ) {
                     Toast.makeText(context, "已经授权" + permissions[i], Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, "拒绝授权" + permissions[i], Toast.LENGTH_LONG).show()
+                    permissionResult = 2
                 }
+            }
+        }
+        when (permissionResult) {
+            1 ->  {
+                Toast.makeText(context, "权限获取失败，应用退出", Toast.LENGTH_LONG).show()
+            }
+            2 -> {
+                Toast.makeText(context, "权限获取成功", Toast.LENGTH_LONG).show()
+                lockPermissionRequest.notifyAll()
             }
         }
     }

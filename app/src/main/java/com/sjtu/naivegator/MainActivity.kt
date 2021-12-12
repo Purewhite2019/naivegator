@@ -33,7 +33,6 @@ import java.security.InvalidParameterException
 
 class MainActivity : AppCompatActivity() {
     // Databases
-
     private var sharedPref: SharedPreferences? = null
     private var historyDB: HistoryDatabase? = null
     public var historyDao: HistoryDao? = null
