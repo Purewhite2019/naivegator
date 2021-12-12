@@ -27,7 +27,7 @@ class BathroomFragment : Fragment() {
             STATUS_FINISH_UPDATE -> {
                 val total = msg.data.getInt(TOTAL)
                 val used = msg.data.getInt(USED)
-                cur_people?.text = "Current people/Total compartments: ${used}/${total}"
+                cur_people?.text = "当前楼栋浴室人数/总可用隔间: ${used}/${total}"
 //                println(cur_people?.text)
             }
         }

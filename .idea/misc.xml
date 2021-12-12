@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android_WS/naivegator/app/src/main/res/drawable/bg_edit.xml" value="0.14583333333333334" />
+        <entry key="..\:/Android_WS/naivegator/app/src/main/res/layout/clock_bg.xml" value="0.10914855072463768" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/drawable/bg_edit.xml" value="0.16944444444444445" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/drawable/ic_add_white_24dp.xml" value="0.16944444444444445" />
         <entry key="..\:/Studio/workspace/android-dev/naivegator/app/src/main/res/drawable/ic_close_gray_24dp.xml" value="0.16944444444444445" />
