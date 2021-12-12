@@ -175,7 +175,7 @@ class CanteenFragment : Fragment() {
         }
 
         fun update() {
-            sleep(100)
+            sleep(1000)
             // Wait for network
             while (true) {
                 updateIntros(canteenIntros)
@@ -195,34 +195,36 @@ class CanteenFragment : Fragment() {
 }
 
 class Contact(
-    val img: String, val name: String,
-    val breed: String, val age: Int, val Intro: String, val progress: Int
+    val img: String, val name: String, val Intro: String, val progress: Int
 ) {
     companion object {
-        private var lastContactId = 0
-
         fun createContactsList(
             numContacts: Int,
             img_files: Array<String>, names: Array<String>, intros: MutableList<Pair<Int, Int>>
         ): ArrayList<Contact> {
             val contacts = ArrayList<Contact>()
             for (i in 1..numContacts) {
-                var name = img_files[i - 1].substring(3)
 //                println("now: ${intros[i-1].first}, total: ${intros[i-1].second}")
                 if (intros[i - 1].second == 0) {
                     contacts.add(
                         Contact(
-                            img_files[i - 1], names[i - 1], name,
-                            (1..3).random(),
+                            img_files[i - 1], names[i - 1],
                             "当前楼栋不开放自习",
+                            0
+                        )
+                    )
+                } else if (intros[i - 1].second == 1) {
+                    contacts.add(
+                        Contact(
+                            img_files[i - 1], names[i - 1],
+                            "正在获取数据中",
                             0
                         )
                     )
                 } else {
                     contacts.add(
                         Contact(
-                            img_files[i - 1], names[i - 1], name,
-                            (1..3).random(),
+                            img_files[i - 1], names[i - 1],
                             "上座率:" + intros[i - 1].first.toString() + "/" + intros[i - 1].second.toString(),
                             intros[i - 1].first * 100 / intros[i - 1].second
                         )
@@ -233,7 +235,6 @@ class Contact(
             return contacts
         }
     }
-
 }
 
 class ContactsAdapter(private val mContacts: MutableList<Contact>, val context: Context?) :
