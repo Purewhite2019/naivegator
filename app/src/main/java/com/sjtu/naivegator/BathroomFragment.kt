@@ -29,7 +29,7 @@ class BathroomFragment : Fragment() {
             STATUS_FINISH_UPDATE -> {
                 val total = msg.data.getInt(TOTAL)
                 val used = msg.data.getInt(USED)
-                cur_people?.text =
+                curPeople?.text =
                     if (total > 0) "当前楼栋浴室人数/总可用隔间: ${used}/${total}"
                     else "浴室信息获取中..."
 //                println(cur_people?.text)
@@ -38,7 +38,7 @@ class BathroomFragment : Fragment() {
         true
     }
 
-    var cur_people: TextView? = null
+    var curPeople: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,20 +60,20 @@ class BathroomFragment : Fragment() {
         val areaEditText = view.findViewById<EditText>(R.id.east_or_west)
         val numEditText = view.findViewById<EditText>(R.id.number_of_building)
 
-        cur_people = view.findViewById<TextView>(R.id.bathroom_cur_people)
+        curPeople = view.findViewById<TextView>(R.id.bathroom_cur_people)
 
         areaEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                cur_people?.text = "浴室信息获取中..."
+                curPeople?.text = "浴室信息获取中..."
             }
         })
         numEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                cur_people?.text = "浴室信息获取中..."
+                curPeople?.text = "浴室信息获取中..."
             }
         })
 

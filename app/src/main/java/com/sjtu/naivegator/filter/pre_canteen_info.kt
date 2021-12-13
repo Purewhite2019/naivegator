@@ -47,26 +47,26 @@ var canteenYulan: Array<Double> = arrayOf(
     121.42665374456776
 )
 
-fun get_distance_from_canteen(start: Location, can: Int): Float {
+fun getDistanceFromCanteen(start: Location, can: Int): Float {
     return when (can) {
-        1 -> _get_distance(start, canteen1)
-        2 -> _get_distance(start, canteen2)
-        3 -> _get_distance(start, canteen3)
-        4 -> _get_distance(start, canteen4)
-        5 -> _get_distance(start, canteen5)
-        6 -> _get_distance(start, canteen6)
-        7 -> _get_distance(start, canteen7)
-        8 -> _get_distance(start, canteenHale) //哈乐餐厅
-        9 -> _get_distance(start, canteenYulan) //玉兰苑
+        1 -> getDistanceHelper(start, canteen1)
+        2 -> getDistanceHelper(start, canteen2)
+        3 -> getDistanceHelper(start, canteen3)
+        4 -> getDistanceHelper(start, canteen4)
+        5 -> getDistanceHelper(start, canteen5)
+        6 -> getDistanceHelper(start, canteen6)
+        7 -> getDistanceHelper(start, canteen7)
+        8 -> getDistanceHelper(start, canteenHale) //哈乐餐厅
+        9 -> getDistanceHelper(start, canteenYulan) //玉兰苑
         else -> {
             9999F  //something mistaken in this case
         }
     }
 }
 
-fun canteen_Pair2name(pair: Pair<String, String>): String {
+fun canteenPair2name(pair: Pair<String, String>): String {
     var res: String? = null
-//    filter_log(pair.first)
+//    filterLog(pair.first)
     when {
         pair.first.contains("第") -> res = pair.first.substring(3, 5)
         pair.first.contains("哈") -> res = pair.first.substring(2, 4)

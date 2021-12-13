@@ -19,9 +19,9 @@ import com.sjtu.naivegator.R
 import com.sjtu.naivegator.canteenMap
 import kotlinx.android.synthetic.main.fragment_canteen.*
 import com.sjtu.naivegator.filter.FilterFragment
-import com.sjtu.naivegator.filter.filter_by_time
-import com.sjtu.naivegator.filter.filter_log
-import com.sjtu.naivegator.filter.is_accessible_now
+import com.sjtu.naivegator.filter.filterByTime
+import com.sjtu.naivegator.filter.filterLog
+import com.sjtu.naivegator.filter.isAccessibleNow
 
 class StudyroomFragment : Fragment() {
     private val filterFragment = FilterFragment()
@@ -52,11 +52,13 @@ class StudyroomFragment : Fragment() {
         canteenIntros.clear()
 
         var seatNum: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-        val current_time = filter_by_time()
+        val currentTime = filterByTime()
         for (studyroom in studyroomMap) {
 
-            if (!is_accessible_now(current_time, studyroom.key)) {//exclude inaccessible study room
+            if (!isAccessibleNow(currentTime, studyroom.key)) {//exclude inaccessible study room
+                filterLog("${studyroom.key.first+studyroom.key.second}不可用")
                 continue
+
             }
             var totalSeat = 0
             try {

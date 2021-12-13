@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     private val StudyroomFragment = StudyroomFragment()
     private val BathroomFragment = BathroomFragment()
 
-    private var is_canteen_now: Boolean = true
+    private var isCanteenNow: Boolean = true
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -160,17 +160,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    public fun is_canteen_now(): Boolean {
+    public fun isCanteenNow(): Boolean {
 //        Log.e("is_canteen",CanteenFragment.isVisible.toString())
-        return is_canteen_now
+        return isCanteenNow
     }
 
     public fun hide_canteen() {
-        is_canteen_now = false
+        isCanteenNow = false
     }
 
     public fun set_canteen() {
-        is_canteen_now = true
+        isCanteenNow = true
     }
 
     private fun checkPermission() {

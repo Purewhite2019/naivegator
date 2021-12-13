@@ -8,24 +8,24 @@ import android.util.Log
 import com.sjtu.naivegator.R
 
 
-fun filter_log(info: String) {
+fun filterLog(info: String) {
     Log.e("[Filter]", info)
 }
 
 
-fun _get_distance(start: Location, dest: Array<Double>): Float {
-//    filter_log("calculate distance...")
+fun getDistanceHelper(start: Location, dest: Array<Double>): Float {
+//    filterLog("calculate distance...")
     val results = FloatArray(1)
     //add all distances
-//    filter_log(start.latitude.toString()+" lat")
-//    filter_log(start.longitude.toString()+" lon")
+//    filterLog(start.latitude.toString()+" lat")
+//    filterLog(start.longitude.toString()+" lon")
     distanceBetween(
         start.latitude, start.longitude,
         dest[0],
         dest[1],
         results
     )
-//    filter_log(results[0].toString())
+//    filterLog(results[0].toString())
     return results[0]
 }
 

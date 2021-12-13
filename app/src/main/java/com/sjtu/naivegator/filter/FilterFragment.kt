@@ -29,11 +29,11 @@ import okhttp3.internal.wait
 class FilterFragment : Fragment() {
     private var locationManager: LocationManager? = null
     private var currLocation: Location? = null
-
+    private var normalizationRatio : Float =15F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        this.activity?.setContentView(R.layout.fragment_filter)
+
     }
 
 
@@ -60,10 +60,10 @@ class FilterFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            filter_log("request permission failed")
+            filterLog("request permission failed")
             Toast.makeText(context, "定位权限获取失败，无法使用筛选器", Toast.LENGTH_SHORT)
         }
-        filter_log("check finished")
+        filterLog("check finished")
         locationManager?.requestLocationUpdates(
             LocationManager.NETWORK_PROVIDER,
             0L,
@@ -76,16 +76,16 @@ class FilterFragment : Fragment() {
         currLocation = locationManager!!.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
 
 
-        if ((requireActivity() as MainActivity).is_canteen_now()) {
-            update_canteen_wights(rootView)
+        if ((requireActivity() as MainActivity).isCanteenNow()) {
+            updateCanteenWights(rootView)
         } else {
-            update_studyroom_wights(rootView)
+            updateStudyroomWeights(rootView)
         }
 
 
         //=============test part ==================================
         //---------this part can be deleted at anytime-------------
-        test_time()
+
 
         //===========================================================
         return rootView
@@ -94,14 +94,14 @@ class FilterFragment : Fragment() {
     private var weightDistance = 50
     private val preferenceMap: MutableMap<String, Int> = mutableMapOf()
     private var sharedPref: SharedPreferences? = null
-    fun load_distance_weight() {
+    fun loadDistanceWeight() {
         sharedPref?.let {
             weightDistance = it.getInt("weightDistance", 50)
             Log.d("sharedPref Load", "weightDistance : $weightDistance")
         }
     }
 
-    fun load_canteen_preference() {
+    fun loadCanteenPreference() {
         sharedPref?.let {
             for ((main, sublist) in com.sjtu.naivegator.canteenNameMap) {
                 preferenceMap[main] = it.getInt(main, 50)
@@ -113,7 +113,7 @@ class FilterFragment : Fragment() {
         }
     }
 
-    fun load_studyroom_preference() {
+    fun loadStudyroomPreference() {
         sharedPref?.let {
             for ((main, sublist) in com.sjtu.naivegator.studyroomNameMap) {
                 preferenceMap[main] = it.getInt(main, 50)
@@ -126,16 +126,16 @@ class FilterFragment : Fragment() {
     }
 
 
-    fun update_canteen_wights(v: View) {
+    fun updateCanteenWights(v: View) {
         //Load data from database
-        reset_item(v)
+        resetItem(v)
         sharedPref = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
-        load_distance_weight()
-        load_canteen_preference()
+        loadDistanceWeight()
+        loadCanteenPreference()
         //use distances and personal infos to filter
         val comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
-        val weight_map = sortedMapOf<Float, String>(comparator)
-        val info_map = mutableMapOf<String, Triple<Float, Int, Int>>()//距离，当前人数，座位数
+        val weightMap = sortedMapOf<Float, String>(comparator)
+        val infoMap = mutableMapOf<String, Triple<Float, Int, Int>>()//距离，当前人数，座位数
         var i = 0
         for ((key, value) in canteenMap) {
             if (key >= 100) {
@@ -143,8 +143,8 @@ class FilterFragment : Fragment() {
             }
 
             //value: Triple(Pair("闵行第一餐厅", "1F 餐厅") ,0, 0),
-            var name = canteen_Pair2name(value.first)
-//            filter_log(name)
+            var name = canteenPair2name(value.first)
+//            filterLog(name)
             var current = value.third
             var total = value.second
 
@@ -153,25 +153,26 @@ class FilterFragment : Fragment() {
             }
 
 
-            val crowded_weight = (100 - weightDistance) * (1 - (current.toFloat() / total))
-//            filter_log("$name,人数加权: $crowded_weight")
-            val distance = get_distance_from_canteen(currLocation!!, name2canteen(name))
-            val pos_weight = weightDistance * (1000F / distance)
-//            filter_log("$name,位置加权: $pos_weight")
+            var crowdedWeight = (100 - weightDistance) * (1 - (current.toFloat() / total))
+            crowdedWeight *= normalizationRatio //Normalization
+//            filterLog("$name,人数加权: $crowdedWeight")
+            val distance = getDistanceFromCanteen(currLocation!!, name2canteen(name))
+            val posWeight = weightDistance * (1000F / distance)
+//            filterLog("$name,位置加权: $posWeight")
             val weight = (preferenceMap["${value.first} ${value.second}"]
-                ?: 50) * (pos_weight + crowded_weight)
-//            filter_log("$name,总权重: $weight")
-            weight_map.put(weight, name)
-            info_map.put(name, Triple(distance, current, total))
+                ?: 50) * (posWeight + crowdedWeight)
+//            filterLog("$name,总权重: $weight")
+            weightMap.put(weight, name)
+            infoMap.put(name, Triple(distance, current, total))
             i += 1
         }
         i = 0
-        for ((key, value) in weight_map!!) {
+        for ((key, value) in weightMap!!) {
             if (i == 5) {
                 break
             }
-            var item = info_map.getValue(value)
-            set_item(
+            var item = infoMap.getValue(value)
+            setItem(
                 v,
                 i + 1,
                 value,
@@ -185,25 +186,25 @@ class FilterFragment : Fragment() {
 
     }
 
-    fun update_studyroom_wights(v: View) {
+    fun updateStudyroomWeights(v: View) {
 //        var studyroomMap = mutableMapOf<Pair<String,String>, Triple<String, Int, Pair<String,Boolean>>>()
         //Load data from database
-        reset_item(v)
+        resetItem(v)
         sharedPref = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
-        load_distance_weight()
-        load_studyroom_preference()
-        filter_log("中院 115" + preferenceMap["中院 115"].toString())
+        loadDistanceWeight()
+        loadStudyroomPreference()
+        filterLog("中院 115" + preferenceMap["中院 115"].toString())
 
         //use distances and personal infos to filter
 //        Toast.makeText(v.context,"In studyroom now ",Toast.LENGTH_SHORT).show()
         val comparator = kotlin.Comparator { key1: Float, key2: Float -> key2.compareTo(key1) }
-        val weight_map = sortedMapOf<Float, String>(comparator)
-        val info_map =
+        val weightMap = sortedMapOf<Float, String>(comparator)
+        val infoMap =
             mutableMapOf<String, Triple<Float, Pair<Int, Int>, String>>() //名称, Triple(距离,(当前人数,座位数),温度)
         var i = 0
 
         //get current time
-        val current_time = filter_by_time()
+        val currentTime = filterByTime()
 
 
 
@@ -211,60 +212,61 @@ class FilterFragment : Fragment() {
 
             //key : Pair<String, String>  (教学楼名，教室名)
             //value : Triple<String, int, Pair<String,Boolean>> （总座位，实际人数，(温度,是否有课))）、
-            if (!is_accessible_now(current_time, key)) {//exclude inaccessible study room
+            if (!isAccessibleNow(currentTime, key)) {//exclude inaccessible study room
                 continue
             }
-            if (is_audio_studyroom(key)) {//exclude audio room
+            if (isAudioStudyroom(key)) {//exclude audio room
                 continue
             }
             if (value.third.second) { //exclude study room having class now
                 continue
             }
-            var current_people = value.second
-            var total_people = value.first.toInt()
-            var attendance_ratio = 0F
-            attendance_ratio = if (total_people == 0) {//Prevent division by zero errors
-                (1 - (current_people.toFloat() / 1))
+            var currentPeople = value.second
+            var totalPeople = value.first.toInt()
+            var attendanceRatio = 0F
+            attendanceRatio = if (totalPeople == 0) {//Prevent division by zero errors
+                (1 - (currentPeople.toFloat() / 1))
             } else {
-                (1 - (current_people.toFloat() / total_people))
+                (1 - (currentPeople.toFloat() / totalPeople))
             }
-            var name = studuroom_Pair2name(key)
-            val distance = get_distance_from_studyroom(currLocation!!, key.first)
+            attendanceRatio*=normalizationRatio//Normalization
+            var name = studuroomPair2name(key)
+            val distance = getDistanceFromStudyroom(currLocation!!, key.first)
             var weight =
-                weightDistance * (1000F / distance) + (100 - weightDistance) * attendance_ratio
+                weightDistance * (1000F / distance) + (100 - weightDistance) * attendanceRatio
 
-            filter_log("$name preference[\"${key.first} ${key.second}\"] : ${(preferenceMap["${key.first} ${key.second}"])}")
+            filterLog("$name preference[\"${key.first} ${key.second}\"] : ${(preferenceMap["${key.first} ${key.second}"])}")
             weight *= (preferenceMap["${key.first} ${key.second}"] ?: 50)
-            filter_log("after $weight")
+            filterLog("after $weight")
 
-            if (weight_map.containsKey(weight)) {
+            if (weightMap.containsKey(weight)) {
                 weight = (weight - 0.01F)
             }
-            weight_map[weight] = name
-            info_map[name] = Triple(distance, Pair(current_people, total_people), value.third.first)
+            weightMap[weight] = name
+            infoMap[name] = Triple(distance, Pair(currentPeople, totalPeople), value.third.first)
         }
-        filter_log(weight_map.size.toString())
-        if (weight_map.size < 5) {
-            hide_last_item(v, 5 - weight_map.size)
+        filterLog(weightMap.size.toString())
+        if (weightMap.size < 5) {
+            hideLastItem(v, 5 - weightMap.size)
         }
 
         i = 0
-        for ((key, value) in weight_map!!) {
+        for ((key, value) in weightMap!!) {
             if (i == 5) {
                 break
             }
-            var item = info_map.getValue(value)
-            var _people = "${item.second.first}/${item.second.second}"
-            if (current_time.is_midnight() && item.second.first == 0) {
-                _people = "无数据"
+            val item = infoMap.getValue(value)
+            var people = "${item.second.first}/${item.second.second}"
+            if (currentTime.isMidnight() && item.second.first == 0) {
+                people = "无数据"
             }
-            set_item(v, i + 1, value, item.first.toInt(), _people, true, item.third)
+            setItem(v, i + 1, value, item.first.toInt(), people, true, item.third)
             i += 1
         }
     }
 
 
-    fun hide_last_item(v: View, num: Int) {
+    fun hideLastItem(v: View, num: Int) {
         var localnum = num
         if (num > 5) { // hide at most 4 items
             localnum = 5
@@ -272,10 +274,10 @@ class FilterFragment : Fragment() {
         var idx = 5
         val res: Resources = resources
         while (localnum > 0) {
-            val item_str = "filter_item$idx"
+            val itemStr = "filter_item$idx"
             v.findViewById<FrameLayout>(
                 res.getIdentifier(
-                    item_str,
+                    itemStr,
                     "id",
                     context?.packageName
                 )
@@ -285,7 +287,7 @@ class FilterFragment : Fragment() {
         }
     }
 
-    fun reset_item(v: View) {
+    fun resetItem(v: View) {
         v.findViewById<FrameLayout>(R.id.filter_item1).visibility = FrameLayout.VISIBLE
         v.findViewById<FrameLayout>(R.id.filter_item2).visibility = FrameLayout.VISIBLE
         v.findViewById<FrameLayout>(R.id.filter_item3).visibility = FrameLayout.VISIBLE
@@ -293,48 +295,48 @@ class FilterFragment : Fragment() {
         v.findViewById<FrameLayout>(R.id.filter_item5).visibility = FrameLayout.VISIBLE
     }
 
-    fun set_item(
+    fun setItem(
         v: View,
         idx: Int,
         name: String,
         distance: Int,
         people: String,
-        has_temp: Boolean,
+        hasTemp: Boolean,
         temp: String
     ) {
-        val item_str = "choice$idx" + "_"
-        val _dis = "距离:" + distance.toString() + "m"
+        val itemStr = "choice$idx" + "_"
+        val dis = "距离:" + distance.toString() + "m"
 
-        var _title_size: Float = 6F * 22 / name.length
-        if (_title_size > 30F) {
-            _title_size = 30F
+        var titleSize: Float = 6F * 22 / name.length
+        if (titleSize > 30F) {
+            titleSize = 30F
         }
-        var _people = "当前:${people}"
+        var people = "当前:${people}"
         val res: Resources = resources
-//        filter_log(item_str+"title")
+//        filterLog(itemStr+"title")
         v.findViewById<com.hanks.htextview.rainbow.RainbowTextView>(
-            res.getIdentifier(item_str + "title", "id", context?.packageName)
+            res.getIdentifier(itemStr + "title", "id", context?.packageName)
         ).text = name
 
         v.findViewById<com.hanks.htextview.rainbow.RainbowTextView>(
-            res.getIdentifier(item_str + "title", "id", context?.packageName)
-        ).textSize = _title_size
+            res.getIdentifier(itemStr + "title", "id", context?.packageName)
+        ).textSize = titleSize
 
-//        filter_log(item_str+"distance")
+//        filterLog(itemStr+"distance")
         v.findViewById<TextView>(
-            res.getIdentifier(item_str + "distance", "id", context?.packageName)
-        ).text = _dis
+            res.getIdentifier(itemStr + "distance", "id", context?.packageName)
+        ).text = dis
         v.findViewById<TextView>(
-            res.getIdentifier(item_str + "score", "id", context?.packageName)
-        ).text = _people
-        if (has_temp) {
-            var _temp = "温度:${temp}℃"
+            res.getIdentifier(itemStr + "score", "id", context?.packageName)
+        ).text = people
+        if (hasTemp) {
+            var temp = "温度:${temp}℃"
             v.findViewById<TextView>(
-                res.getIdentifier(item_str + "temp", "id", context?.packageName)
-            ).text = _temp
+                res.getIdentifier(itemStr + "temp", "id", context?.packageName)
+            ).text = temp
         } else {
             v.findViewById<TextView>(
-                res.getIdentifier(item_str + "temp", "id", context?.packageName)
+                res.getIdentifier(itemStr + "temp", "id", context?.packageName)
             ).text = temp
         }
     }

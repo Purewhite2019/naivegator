@@ -6,7 +6,7 @@ import com.sjtu.naivegator.api.bathroom.BathroomBean
 import com.sjtu.naivegator.api.canteen.CanteenBean
 import com.sjtu.naivegator.api.studyroom.StudyroomBean
 import com.sjtu.naivegator.interceptor.TimeConsumeInterceptor
-import com.sjtu.naivegator.filter.filter_by_time
+import com.sjtu.naivegator.filter.filterByTime
 import okhttp3.*
 import okhttp3.EventListener
 import java.io.IOException
@@ -168,10 +168,10 @@ object Network {
                                 for (course in studyroom.roomCourseList) {
                                     val startSection = course.startSection
                                     val endSection = course.endSection
-                                    val current_time = filter_by_time()
-//                                    println(current_time.time_str)
+                                    val currentTime = filterByTime()
+//                                    println(currentTime.time_str)
 //                                    println("${studyroom.name}:${startSection},${endSection}")
-                                    haveCourse = current_time.is_between(
+                                    haveCourse = currentTime.isBetween(
                                         Pair(
                                             sectionMap[startSection]!!.first,
                                             sectionMap[endSection]!!.second
